@@ -11,4 +11,29 @@ pip install -r requirements.txt
 cd /datas/store162/syt/miniconda3/envs/GE2E/lib
 ln -s libcusolver.so.11 libcusolver.so.10
 # export export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/datas/store162/syt/miniconda3/envs/GE2E/lib
+git clone https://github.com/sooftware/conformer.git
+```
+
+1. Generate the training dataset
+```bash
+cd generate
+
+# change the mswc path in generate_mswc_pkl_above10.py
+python generate_mswc_pkl_above10.py
+
+# change the input_pkl path in generate_fixed_pkl.sh
+bash generate_fixed_pkl.sh
+```
+2. Train the model
+```bash
+cd ..
+
+# change the PKL_PATH in fix.sh
+bash fix.sh
+```
+
+3. Inference
+```bash
+# change the checkpoint path in evaluate.sh
+bash evaluate.sh
 ```

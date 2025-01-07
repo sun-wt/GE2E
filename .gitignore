@@ -1,0 +1,5 @@
+*.pkl
+*.pt
+*.h5
+conformer/
+DB/

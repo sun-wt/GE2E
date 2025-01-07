@@ -1,92 +1,95 @@
-import tensorflow as tf
-import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
-def cosine_similarity(a, b, axis=-1):
-    """
-    計算餘弦相似度。
-    """
-    a_norm = tf.nn.l2_normalize(a, axis=axis)
-    b_norm = tf.nn.l2_normalize(b, axis=axis)
-    return tf.reduce_sum(a_norm * b_norm, axis=axis)
 
-class GE2ELoss(tf.keras.losses.Loss):
-    def __init__(self, name="GE2ELoss"):
-        super().__init__(name=name)
-
-    def call(self, embeddings, labels):
+class GE2ELoss(nn.Module):
+    def __init__(self, device=torch.device("cpu")):
         """
-        embeddings: Tensor of shape (batch_size, embedding_dim)
-        labels: Tensor of shape (batch_size, )
+        GE2E Loss for speaker verification.
+        Args:
+            device: Torch device (e.g., cuda or cpu)
         """
-        unique_labels, _ = tf.unique(labels)  # 獲取唯一的關鍵字
+        super(GE2ELoss, self).__init__()
+        self.device = device
+
+    def forward(self, embeddings, labels):
+        """
+        Forward pass for GE2E Loss.
+        Args:
+            embeddings: Tensor of shape (batch_size, embedding_dim) or (batch_size, time_steps, embedding_dim)
+            labels: Tensor of shape (batch_size,)
+        Returns:
+            loss: Scalar loss value
+        """
+        # 如果 embeddings 是三維 (batch_size, time_steps, embedding_dim)，取平均作為代表向量
+        if embeddings.dim() == 3:
+            embeddings = embeddings.mean(dim=1)  # [batch_size, embedding_dim]
+
+        # 檢查 embeddings 是否是正確的二維形狀
+        if embeddings.dim() != 2:
+            raise ValueError(f"Expected embeddings to have 2 dimensions, but got {embeddings.dim()} dimensions.")
+
+        unique_labels = torch.unique(labels)  # 獲取唯一標籤
         total_loss = 0.0
+        batch_size, embedding_dim = embeddings.size()
 
         for label in unique_labels:
-            # 找到當前關鍵字的所有 embeddings
-            label_indices = tf.where(labels == label)[:, 0]
-            label_embeddings = tf.gather(embeddings, label_indices)
+            # 找到當前標籤的所有 embeddings
+            label_indices = (labels == label).nonzero(as_tuple=True)[0]
+            label_embeddings = embeddings[label_indices]
 
             # 分為 enrollment 和 test
-            num_enrollment = label_embeddings.shape[0] // 2
+            num_enrollment = len(label_embeddings) // 2
             enrollment_embeddings = label_embeddings[:num_enrollment]
             test_embeddings = label_embeddings[num_enrollment:]
 
-            # 計算當前關鍵字的 centroid
-            centroid = tf.reduce_mean(enrollment_embeddings, axis=0, keepdims=True)
+            # 計算 centroid
+            centroid = enrollment_embeddings.mean(dim=0, keepdim=True)  # [1, embedding_dim]
 
-            # 計算正樣本相似度
-            positive_similarities = []
+            # 正樣本相似度
+            positive_similarities = F.cosine_similarity(test_embeddings, centroid)
 
-            # 對每個 test_embedding 計算與 centroid 的相似度，取指數後累加
-            for test_embedding in test_embeddings:
-                sim = tf.exp(cosine_similarity(tf.expand_dims(test_embedding, axis=0), centroid))
-                # print(sim)
-                positive_similarities.append(sim)
-
-            # 將所有正樣本相似度相加
-            positive_similarity_sum = tf.reduce_sum(tf.concat(positive_similarities, axis=0))
-            # print('total sim:', positive_similarity_sum)
-
-            # 計算負樣本相似度
+            # 負樣本相似度
             negative_similarities = []
-
-            # 對於其他關鍵字
             for other_label in unique_labels:
                 if other_label != label:
-                    # 找到其他關鍵字的所有 embeddings
-                    other_indices = tf.where(labels == other_label)[:, 0]
-                    other_test_embeddings = tf.gather(embeddings, other_indices[num_enrollment:])
+                    other_indices = (labels == other_label).nonzero(as_tuple=True)[0]
+                    other_test_embeddings = embeddings[other_indices[len(other_indices) // 2 :]]
 
-                    # 對其他關鍵字的每個 test_embedding 計算與當前關鍵字 centroid 的相似度
-                    for other_test_embedding in other_test_embeddings:
-                        neg_sim = tf.exp(cosine_similarity(tf.expand_dims(other_test_embedding, axis=0), centroid))
-                        negative_similarities.append(neg_sim)
+                    # 計算負樣本相似度
+                    neg_sim = F.cosine_similarity(other_test_embeddings, centroid)
+                    negative_similarities.append(neg_sim)
 
-            # 合併所有負樣本相似度
-            negative_similarity_sum = tf.reduce_sum(tf.concat(negative_similarities, axis=0))
+            if len(negative_similarities) > 0:
+                negative_similarity_sum = torch.cat(negative_similarities).exp().sum()
+            else:
+                negative_similarity_sum = torch.tensor(1e-6, device=self.device)  # 避免 log(0)
 
-            # GE2E Loss 計算，基於公式 (4)
-            loss = tf.math.log(negative_similarity_sum) - tf.math.log(positive_similarity_sum)
+            # GE2E Loss 計算
+            positive_similarity_sum = positive_similarities.exp().sum()
+            loss = torch.log(negative_similarity_sum) - torch.log(positive_similarity_sum)
 
-            # 打印每個關鍵字的損失
-            print(f"Keyword: {label.numpy()}, Loss: {loss.numpy():.4f}")
             total_loss += loss
 
-        # 返回平均損失
-        return total_loss / tf.cast(tf.size(unique_labels), tf.float32)
+        return total_loss / len(unique_labels)
 
 
 # 測試代碼
 if __name__ == "__main__":
+    # 模擬隨機輸入
     batch_size = 16
+    time_steps = 10
     embedding_dim = 64
 
-    # 模擬隨機輸入
-    embeddings = tf.random.normal((batch_size, embedding_dim))
-    labels = tf.convert_to_tensor(
-        np.random.choice(["cat", "dog", "bird", "fish"], size=batch_size)
-    )
+    # 隨機生成 embeddings (三維情況)
+    embeddings = torch.randn(batch_size, time_steps, embedding_dim, requires_grad=True).to("cuda")
+    labels = torch.randint(0, 4, (batch_size,), device="cuda")  # 隨機生成 4 種標籤
 
-    loss_fn = GE2ELoss()
+    loss_fn = GE2ELoss(device="cuda")
     loss = loss_fn(embeddings, labels)
-    print(f"Total GE2E Loss: {loss.numpy()}")
+    print(f"GE2E Loss: {loss.item():.4f}")
+
+    # 反向傳播檢查
+    loss.backward()
+    print(f"Gradients computed successfully!")

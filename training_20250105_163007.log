@@ -1,0 +1,432 @@
+Using device: cuda
+Conformer(
+  (encoder): ConformerEncoder(
+    (conv_subsample): Conv2dSubampling(
+      (sequential): Sequential(
+        (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(2, 2))
+        (1): ReLU()
+        (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2))
+        (3): ReLU()
+      )
+    )
+    (input_projection): Sequential(
+      (0): Linear(
+        (linear): Linear(in_features=2432, out_features=128, bias=True)
+      )
+      (1): Dropout(p=0.1, inplace=False)
+    )
+    (layers): ModuleList(
+      (0): ConformerBlock(
+        (sequential): Sequential(
+          (0): ResidualConnectionModule(
+            (module): FeedForwardModule(
+              (sequential): Sequential(
+                (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (1): Linear(
+                  (linear): Linear(in_features=128, out_features=512, bias=True)
+                )
+                (2): Swish()
+                (3): Dropout(p=0.1, inplace=False)
+                (4): Linear(
+                  (linear): Linear(in_features=512, out_features=128, bias=True)
+                )
+                (5): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+          (1): ResidualConnectionModule(
+            (module): MultiHeadedSelfAttentionModule(
+              (positional_encoding): RelPositionalEncoding()
+              (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+              (attention): RelativeMultiHeadAttention(
+                (query_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+                (key_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+                (value_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+                (pos_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=False)
+                )
+                (dropout): Dropout(p=0.1, inplace=False)
+                (out_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (2): ResidualConnectionModule(
+            (module): ConformerConvModule(
+              (sequential): Sequential(
+                (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (1): Transpose()
+                (2): PointwiseConv1d(
+                  (conv): Conv1d(128, 256, kernel_size=(1,), stride=(1,))
+                )
+                (3): GLU()
+                (4): DepthwiseConv1d(
+                  (conv): Conv1d(128, 128, kernel_size=(31,), stride=(1,), padding=(15,), groups=128, bias=False)
+                )
+                (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (6): Swish()
+                (7): PointwiseConv1d(
+                  (conv): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (8): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+          (3): ResidualConnectionModule(
+            (module): FeedForwardModule(
+              (sequential): Sequential(
+                (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (1): Linear(
+                  (linear): Linear(in_features=128, out_features=512, bias=True)
+                )
+                (2): Swish()
+                (3): Dropout(p=0.1, inplace=False)
+                (4): Linear(
+                  (linear): Linear(in_features=512, out_features=128, bias=True)
+                )
+                (5): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+          (4): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): ConformerBlock(
+        (sequential): Sequential(
+          (0): ResidualConnectionModule(
+            (module): FeedForwardModule(
+              (sequential): Sequential(
+                (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (1): Linear(
+                  (linear): Linear(in_features=128, out_features=512, bias=True)
+                )
+                (2): Swish()
+                (3): Dropout(p=0.1, inplace=False)
+                (4): Linear(
+                  (linear): Linear(in_features=512, out_features=128, bias=True)
+                )
+                (5): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+          (1): ResidualConnectionModule(
+            (module): MultiHeadedSelfAttentionModule(
+              (positional_encoding): RelPositionalEncoding()
+              (layer_norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+              (attention): RelativeMultiHeadAttention(
+                (query_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+                (key_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+                (value_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+                (pos_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=False)
+                )
+                (dropout): Dropout(p=0.1, inplace=False)
+                (out_proj): Linear(
+                  (linear): Linear(in_features=128, out_features=128, bias=True)
+                )
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (2): ResidualConnectionModule(
+            (module): ConformerConvModule(
+              (sequential): Sequential(
+                (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (1): Transpose()
+                (2): PointwiseConv1d(
+                  (conv): Conv1d(128, 256, kernel_size=(1,), stride=(1,))
+                )
+                (3): GLU()
+                (4): DepthwiseConv1d(
+                  (conv): Conv1d(128, 128, kernel_size=(31,), stride=(1,), padding=(15,), groups=128, bias=False)
+                )
+                (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                (6): Swish()
+                (7): PointwiseConv1d(
+                  (conv): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+                )
+                (8): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+          (3): ResidualConnectionModule(
+            (module): FeedForwardModule(
+              (sequential): Sequential(
+                (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (1): Linear(
+                  (linear): Linear(in_features=128, out_features=512, bias=True)
+                )
+                (2): Swish()
+                (3): Dropout(p=0.1, inplace=False)
+                (4): Linear(
+                  (linear): Linear(in_features=512, out_features=128, bias=True)
+                )
+                (5): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+          (4): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (fc): Linear(
+    (linear): Linear(in_features=128, out_features=35, bias=False)
+  )
+)
+[Info] 初始模型權重已從 ./checkpoints/h0.pt 加載。
+[Info] 保存檢查點到 ./checkpoints/20250105_163009
+
+Epoch 1/10
+Step 0, Loss: 1.9451
+Step 10, Loss: 1.8618
+Step 20, Loss: 1.8034
+Step 30, Loss: 1.8436
+Step 40, Loss: 1.8068
+Step 50, Loss: 1.8994
+Step 60, Loss: 1.8756
+Step 70, Loss: 1.7873
+Step 80, Loss: 1.8879
+Step 90, Loss: 1.8110
+Step 100, Loss: 1.7182
+Step 110, Loss: 1.7854
+Step 120, Loss: 1.8576
+Step 130, Loss: 1.7251
+Step 140, Loss: 1.8568
+Step 150, Loss: 1.8010
+Step 160, Loss: 1.7163
+Step 170, Loss: 1.8522
+Step 180, Loss: 1.7789
+Step 190, Loss: 1.8228
+Epoch 1, Average Loss: 1.8199
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_1.pt
+
+Epoch 2/10
+Step 0, Loss: 1.8155
+Step 10, Loss: 1.7066
+Step 20, Loss: 1.7134
+Step 30, Loss: 1.7467
+Step 40, Loss: 1.6817
+Step 50, Loss: 1.8525
+Step 60, Loss: 1.7242
+Step 70, Loss: 1.6829
+Step 80, Loss: 1.7811
+Step 90, Loss: 1.7034
+Step 100, Loss: 1.6964
+Step 110, Loss: 1.7777
+Step 120, Loss: 1.7908
+Step 130, Loss: 1.7897
+Step 140, Loss: 1.8590
+Step 150, Loss: 1.7803
+Step 160, Loss: 1.7755
+Step 170, Loss: 1.8437
+Step 180, Loss: 1.7936
+Step 190, Loss: 1.8393
+Epoch 2, Average Loss: 1.7770
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_2.pt
+
+Epoch 3/10
+Step 0, Loss: 1.7835
+Step 10, Loss: 1.6858
+Step 20, Loss: 1.6932
+Step 30, Loss: 1.7300
+Step 40, Loss: 1.7409
+Step 50, Loss: 1.8383
+Step 60, Loss: 1.8131
+Step 70, Loss: 1.7606
+Step 80, Loss: 1.7975
+Step 90, Loss: 1.6840
+Step 100, Loss: 1.7018
+Step 110, Loss: 1.7739
+Step 120, Loss: 1.7709
+Step 130, Loss: 1.7163
+Step 140, Loss: 1.8416
+Step 150, Loss: 1.7843
+Step 160, Loss: 1.7765
+Step 170, Loss: 1.7884
+Step 180, Loss: 1.7751
+Step 190, Loss: 1.8276
+Epoch 3, Average Loss: 1.7679
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_3.pt
+
+Epoch 4/10
+Step 0, Loss: 1.7450
+Step 10, Loss: 1.7225
+Step 20, Loss: 1.7322
+Step 30, Loss: 1.7263
+Step 40, Loss: 1.6960
+Step 50, Loss: 1.8483
+Step 60, Loss: 1.8349
+Step 70, Loss: 1.6718
+Step 80, Loss: 1.8294
+Step 90, Loss: 1.7059
+Step 100, Loss: 1.7103
+Step 110, Loss: 1.7562
+Step 120, Loss: 1.7550
+Step 130, Loss: 1.6906
+Step 140, Loss: 1.8242
+Step 150, Loss: 1.7767
+Step 160, Loss: 1.8044
+Step 170, Loss: 1.7689
+Step 180, Loss: 1.8408
+Step 190, Loss: 1.7908
+Epoch 4, Average Loss: 1.7615
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_4.pt
+
+Epoch 5/10
+Step 0, Loss: 1.7951
+Step 10, Loss: 1.7264
+Step 20, Loss: 1.7646
+Step 30, Loss: 1.6482
+Step 40, Loss: 1.6886
+Step 50, Loss: 1.7685
+Step 60, Loss: 1.8002
+Step 70, Loss: 1.7106
+Step 80, Loss: 1.6374
+Step 90, Loss: 1.6637
+Step 100, Loss: 1.6932
+Step 110, Loss: 1.6988
+Step 120, Loss: 1.8018
+Step 130, Loss: 1.7914
+Step 140, Loss: 1.7684
+Step 150, Loss: 1.6309
+Step 160, Loss: 1.7114
+Step 170, Loss: 1.7212
+Step 180, Loss: 1.7173
+Step 190, Loss: 1.7044
+Epoch 5, Average Loss: 1.7311
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_5.pt
+
+Epoch 6/10
+Step 0, Loss: 1.7708
+Step 10, Loss: 1.6039
+Step 20, Loss: 1.6239
+Step 30, Loss: 1.6366
+Step 40, Loss: 1.6717
+Step 50, Loss: 1.6600
+Step 60, Loss: 1.6834
+Step 70, Loss: 1.6390
+Step 80, Loss: 1.6509
+Step 90, Loss: 1.6247
+Step 100, Loss: 1.6989
+Step 110, Loss: 1.7292
+Step 120, Loss: 1.7382
+Step 130, Loss: 1.7873
+Step 140, Loss: 1.6684
+Step 150, Loss: 1.6262
+Step 160, Loss: 1.6735
+Step 170, Loss: 1.6578
+Step 180, Loss: 1.6261
+Step 190, Loss: 1.7107
+Epoch 6, Average Loss: 1.7064
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_6.pt
+
+Epoch 7/10
+Step 0, Loss: 1.6609
+Step 10, Loss: 1.6984
+Step 20, Loss: 1.6048
+Step 30, Loss: 1.6678
+Step 40, Loss: 1.6284
+Step 50, Loss: 1.7029
+Step 60, Loss: 1.6965
+Step 70, Loss: 1.6795
+Step 80, Loss: 1.6372
+Step 90, Loss: 1.6767
+Step 100, Loss: 1.7839
+Step 110, Loss: 1.6735
+Step 120, Loss: 1.7893
+Step 130, Loss: 1.7836
+Step 140, Loss: 1.7383
+Step 150, Loss: 1.6104
+Step 160, Loss: 1.7050
+Step 170, Loss: 1.6470
+Step 180, Loss: 1.6051
+Step 190, Loss: 1.6886
+Epoch 7, Average Loss: 1.6983
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_7.pt
+
+Epoch 8/10
+Step 0, Loss: 1.6659
+Step 10, Loss: 1.6977
+Step 20, Loss: 1.5958
+Step 30, Loss: 1.6498
+Step 40, Loss: 1.6431
+Step 50, Loss: 1.6749
+Step 60, Loss: 1.7337
+Step 70, Loss: 1.7163
+Step 80, Loss: 1.6346
+Step 90, Loss: 1.5852
+Step 100, Loss: 1.7368
+Step 110, Loss: 1.6290
+Step 120, Loss: 1.7506
+Step 130, Loss: 1.7450
+Step 140, Loss: 1.7172
+Step 150, Loss: 1.6489
+Step 160, Loss: 1.6256
+Step 170, Loss: 1.5788
+Step 180, Loss: 1.6105
+Step 190, Loss: 1.6833
+Epoch 8, Average Loss: 1.6926
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_8.pt
+
+Epoch 9/10
+Step 0, Loss: 1.7427
+Step 10, Loss: 1.6318
+Step 20, Loss: 1.6177
+Step 30, Loss: 1.5755
+Step 40, Loss: 1.6444
+Step 50, Loss: 1.6600
+Step 60, Loss: 1.6752
+Step 70, Loss: 1.7028
+Step 80, Loss: 1.6114
+Step 90, Loss: 1.6056
+Step 100, Loss: 1.7196
+Step 110, Loss: 1.6465
+Step 120, Loss: 1.7234
+Step 130, Loss: 1.7815
+Step 140, Loss: 1.6440
+Step 150, Loss: 1.6007
+Step 160, Loss: 1.6479
+Step 170, Loss: 1.5946
+Step 180, Loss: 1.5977
+Step 190, Loss: 1.6723
+Epoch 9, Average Loss: 1.6838
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_9.pt
+
+Epoch 10/10
+Step 0, Loss: 1.7068
+Step 10, Loss: 1.6880
+Step 20, Loss: 1.6526
+Step 30, Loss: 1.5886
+Step 40, Loss: 1.6245
+Step 50, Loss: 1.6434
+Step 60, Loss: 1.6758
+Step 70, Loss: 1.6781
+Step 80, Loss: 1.6289
+Step 90, Loss: 1.6118
+Step 100, Loss: 1.6765
+Step 110, Loss: 1.6698
+Step 120, Loss: 1.7390
+Step 130, Loss: 1.7726
+Step 140, Loss: 1.6154
+Step 150, Loss: 1.6089
+Step 160, Loss: 1.6344
+Step 170, Loss: 1.5698
+Step 180, Loss: 1.5771
+Step 190, Loss: 1.6619
+Epoch 10, Average Loss: 1.6849
+[Info] 模型檢查點已保存至 ./checkpoints/20250105_163009/epoch_10.pt
