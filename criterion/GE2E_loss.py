@@ -73,23 +73,3 @@ class GE2ELoss(nn.Module):
             total_loss += loss
 
         return total_loss / len(unique_labels)
-
-
-# 測試代碼
-if __name__ == "__main__":
-    # 模擬隨機輸入
-    batch_size = 16
-    time_steps = 10
-    embedding_dim = 64
-
-    # 隨機生成 embeddings (三維情況)
-    embeddings = torch.randn(batch_size, time_steps, embedding_dim, requires_grad=True).to("cuda")
-    labels = torch.randint(0, 4, (batch_size,), device="cuda")  # 隨機生成 4 種標籤
-
-    loss_fn = GE2ELoss(device="cuda")
-    loss = loss_fn(embeddings, labels)
-    print(f"GE2E Loss: {loss.item():.4f}")
-
-    # 反向傳播檢查
-    loss.backward()
-    print(f"Gradients computed successfully!")
