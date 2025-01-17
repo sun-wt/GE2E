@@ -1,0 +1,219 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+Using Conformer model.
+[Info] 模型權重已從 ./checkpoints/20250117_113747/epoch_5.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.1460
+
+Evaluating keyword: house
+Positive samples: 2103, Negative samples: 103376
+AUC for house: 0.0664
+
+Evaluating keyword: wow
+Positive samples: 2113, Negative samples: 103366
+AUC for wow: 0.1210
+
+Evaluating keyword: dog
+Positive samples: 2118, Negative samples: 103361
+AUC for dog: 0.1675
+
+Evaluating keyword: no
+Positive samples: 3931, Negative samples: 101548
+AUC for no: 0.1175
+
+Evaluating keyword: up
+Positive samples: 3713, Negative samples: 101766
+AUC for up: 0.1457
+
+Evaluating keyword: marvin
+Positive samples: 2090, Negative samples: 103389
+AUC for marvin: 0.1331
+
+Evaluating keyword: follow
+Positive samples: 1569, Negative samples: 103910
+AUC for follow: 0.1451
+
+Evaluating keyword: five
+Positive samples: 4042, Negative samples: 101437
+AUC for five: 0.1496
+
+Evaluating keyword: go
+Positive samples: 3870, Negative samples: 101609
+AUC for go: 0.2033
+
+Evaluating keyword: on
+Positive samples: 3835, Negative samples: 101644
+AUC for on: 0.1113
+
+Evaluating keyword: forward
+Positive samples: 1547, Negative samples: 103932
+AUC for forward: 0.1508
+
+Evaluating keyword: visual
+Positive samples: 1582, Negative samples: 103897
+AUC for visual: 0.0501
+
+Evaluating keyword: yes
+Positive samples: 4034, Negative samples: 101445
+AUC for yes: 0.0656
+
+Evaluating keyword: happy
+Positive samples: 2044, Negative samples: 103435
+AUC for happy: 0.0775
+
+Evaluating keyword: backward
+Positive samples: 1654, Negative samples: 103825
+AUC for backward: 0.0585
+
+Evaluating keyword: nine
+Positive samples: 3924, Negative samples: 101555
+AUC for nine: 0.1263
+
+Evaluating keyword: off
+Positive samples: 3735, Negative samples: 101744
+AUC for off: 0.0953
+
+Evaluating keyword: one
+Positive samples: 3880, Negative samples: 101599
+AUC for one: 0.1283
+
+Evaluating keyword: seven
+Positive samples: 3988, Negative samples: 101491
+AUC for seven: 0.0759
+
+Evaluating keyword: bed
+Positive samples: 2004, Negative samples: 103475
+AUC for bed: 0.3095
+
+Evaluating keyword: learn
+Positive samples: 1565, Negative samples: 103914
+AUC for learn: 0.1490
+
+Evaluating keyword: sheila
+Positive samples: 2012, Negative samples: 103467
+AUC for sheila: 0.0436
+
+Evaluating keyword: down
+Positive samples: 3907, Negative samples: 101572
+AUC for down: 0.2331
+
+Evaluating keyword: two
+Positive samples: 3870, Negative samples: 101609
+AUC for two: 0.0843
+
+Evaluating keyword: left
+Positive samples: 3791, Negative samples: 101688
+AUC for left: 0.1740
+
+Evaluating keyword: zero
+Positive samples: 4042, Negative samples: 101437
+AUC for zero: 0.0435
+
+Evaluating keyword: six
+Positive samples: 3850, Negative samples: 101629
+AUC for six: 0.0774
+
+Evaluating keyword: cat
+Positive samples: 2021, Negative samples: 103458
+AUC for cat: 0.1255
+
+Evaluating keyword: eight
+Positive samples: 3777, Negative samples: 101702
+AUC for eight: 0.0719
+
+Evaluating keyword: four
+Positive samples: 3718, Negative samples: 101761
+AUC for four: 0.1300
+
+Evaluating keyword: three
+Positive samples: 3717, Negative samples: 101762
+AUC for three: 0.0529
+
+Evaluating keyword: stop
+Positive samples: 3862, Negative samples: 101617
+AUC for stop: 0.1013
+
+Evaluating keyword: tree
+Positive samples: 1749, Negative samples: 103730
+AUC for tree: 0.0718
+
+Evaluating keyword: bird
+Positive samples: 2054, Negative samples: 103425
+AUC for bird: 0.1484
+
+AUC Scores:
+right: 0.1460
+house: 0.0664
+wow: 0.1210
+dog: 0.1675
+no: 0.1175
+up: 0.1457
+marvin: 0.1331
+follow: 0.1451
+five: 0.1496
+go: 0.2033
+on: 0.1113
+forward: 0.1508
+visual: 0.0501
+yes: 0.0656
+happy: 0.0775
+backward: 0.0585
+nine: 0.1263
+off: 0.0953
+one: 0.1283
+seven: 0.0759
+bed: 0.3095
+learn: 0.1490
+sheila: 0.0436
+down: 0.2331
+two: 0.0843
+left: 0.1740
+zero: 0.0435
+six: 0.0774
+cat: 0.1255
+eight: 0.0719
+four: 0.1300
+three: 0.0529
+stop: 0.1013
+tree: 0.0718
+bird: 0.1484
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/right_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/house_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/wow_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/dog_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/no_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/up_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/marvin_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/follow_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/five_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/go_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/on_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/forward_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/visual_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/yes_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/happy_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/backward_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/nine_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/off_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/one_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/seven_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/bed_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/learn_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/sheila_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/down_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/two_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/left_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/zero_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/six_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/cat_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/eight_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/four_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/three_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/stop_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/tree_det_curve.png
+DET 曲線已保存至 ./checkpoints/20250117_113747/det_curves/bird_det_curve.png
+綜合 DET 曲線已保存至 ./checkpoints/20250117_113747/overall_det_curve.png

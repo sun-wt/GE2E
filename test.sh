@@ -6,12 +6,13 @@ results_dir="results/$timestamp"
 mkdir -p $results_dir
 
 # 執行指令，並記錄輸出到結果資料夾
-python evaluate.py \
+python test.py \
   --data_dir "/datas/store162/syt/GE2E/DB/google_speech_commands" \
+  --results_dir $results_dir \
   --enroll_path "./DB/enroll.pkl" \
   --test_path "./DB/test.pkl" \
   --model_type "conformer" \
-  --checkpoint_path "./checkpoints/20250117_113747/epoch_2.pt" \
+  --checkpoint_path "./checkpoints/20250117_113747/epoch_5.pt" \
   --input_dim 40 \
   --encoder_dim 256 \
   --num_encoder_layers 2 \

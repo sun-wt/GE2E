@@ -253,8 +253,8 @@ def main(args):
     for keyword, auc in auc_scores.items():
         print(f"{keyword}: {auc:.4f}")
     
-    det_curve_dir = os.path.join(os.path.dirname(args.checkpoint_path), 'det_curves')
-    overall_curve_path = os.path.join(os.path.dirname(args.checkpoint_path), 'overall_det_curve.png')
+    det_curve_dir = os.path.join(os.path.dirname(args.results_dir), 'det_curves')
+    overall_curve_path = os.path.join(os.path.dirname(args.results_dir), 'overall_det_curve.png')
 
     # 繪製並保存 DET 曲線
     plot_det_curves(det_curves, save_dir=det_curve_dir, overall_save_path=overall_curve_path)
@@ -263,6 +263,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate Conformer with GE2ELoss")
     parser.add_argument('--data_dir', type=str, default='/datas/store162/syt/GE2E/DB/google_speech_commands', help='Root directory of speech commands dataset')
+    parser.add_argument('--results_dir', type=str, default='results', help='Directory to save evaluation results')
     parser.add_argument('--checkpoint_path', type=str, required=True, help='Path to the model checkpoint (.pt) file')
     parser.add_argument('--enroll_path', type=str, default='DB/enroll.pkl', help='Path to the enrollment data pickle file')    
     parser.add_argument('--test_path', type=str, default='DB/test.pkl', help='Path to the enrollment data pickle file')    

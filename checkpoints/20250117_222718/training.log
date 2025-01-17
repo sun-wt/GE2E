@@ -1,0 +1,1434 @@
+PyTorch 版本: 1.13.1+cu117
+Using device: cuda
+Grouping data by WORD...
+ConformerEncoder(
+  (conv_subsample): Conv2dSubampling(
+    (sequential): Sequential(
+      (0): Conv2d(1, 256, kernel_size=(3, 3), stride=(2, 2))
+      (1): ReLU()
+      (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2))
+      (3): ReLU()
+    )
+  )
+  (input_projection): Sequential(
+    (0): Linear(
+      (linear): Linear(in_features=2304, out_features=256, bias=True)
+    )
+    (1): Dropout(p=0.1, inplace=False)
+  )
+  (layers): ModuleList(
+    (0): ConformerBlock(
+      (sequential): Sequential(
+        (0): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1): ResidualConnectionModule(
+          (module): MultiHeadedSelfAttentionModule(
+            (positional_encoding): RelPositionalEncoding()
+            (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (attention): RelativeMultiHeadAttention(
+              (query_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (key_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (value_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (pos_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=False)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (out_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+            )
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (2): ResidualConnectionModule(
+          (module): ConformerConvModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Transpose()
+              (2): PointwiseConv1d(
+                (conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+              )
+              (3): GLU()
+              (4): DepthwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(31,), stride=(1,), padding=(15,), groups=256, bias=False)
+              )
+              (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (6): Swish()
+              (7): PointwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+              )
+              (8): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (3): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (4): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (1): ConformerBlock(
+      (sequential): Sequential(
+        (0): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1): ResidualConnectionModule(
+          (module): MultiHeadedSelfAttentionModule(
+            (positional_encoding): RelPositionalEncoding()
+            (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (attention): RelativeMultiHeadAttention(
+              (query_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (key_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (value_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (pos_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=False)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (out_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+            )
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (2): ResidualConnectionModule(
+          (module): ConformerConvModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Transpose()
+              (2): PointwiseConv1d(
+                (conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+              )
+              (3): GLU()
+              (4): DepthwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(31,), stride=(1,), padding=(15,), groups=256, bias=False)
+              )
+              (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (6): Swish()
+              (7): PointwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+              )
+              (8): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (3): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (4): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+)
+[Info] 初始模型權重已從 ./checkpoints/20250117_113747/epoch_5.pt 加載。
+
+Epoch 1/10
+Selected words: ['stimulation', 'proposes', 'temporal', 'creativity', 'slime', 'illinois', 'counterfeit', 'skylight']
+Step 0, Loss: -0.6499, AUC: 0.0848
+Selected words: ['christmas', 'whether', 'opined', 'tenderly', 'detectives', 'look', 'swung', 'christopher']
+Selected words: ['rector', 'prodigy', 'boot', 'terrace', 'emil', 'resume', 'kitten', 'ames']
+Selected words: ['daredevil', 'scoreless', 'explosions', 'pods', 'sid', 'states', 'active', 'rap']
+Selected words: ['visiting', 'injured', 'centerville', 'andy', 'biographies', 'vulgar', 'ruth', 'banded']
+Selected words: ['customers', 'blacksmith', 'films', 'expatriate', 'beaches', 'surveyed', 'report', 'insulted']
+Selected words: ['chased', 'salon', 'quickly', 'red', 'interpretations', 'emitted', 'incredible', 'ferdinand']
+Selected words: ['jillian', 'farming', 'basel', 'perverse', 'splendid', 'esters', 'missouri', 'tattoo']
+Selected words: ['campaigns', 'contested', 'arrange', 'jakarta', 'dose', 'secretaries', 'armed', 'reliefs']
+Selected words: ['ordination', 'long', 'hog', 'quasi', 'vineyard', 'sylvester', 'hugging', 'overcoming']
+Selected words: ['theoretical', 'tipped', 'net', 'molecular', 'beige', 'costumes', 'horrible', 'mongolian']
+Step 10, Loss: -1.7903, AUC: 0.0739
+Selected words: ['shriek', 'stole', 'anybody', 'humboldt', 'sensing', 'cobblestone', 'stuff', 'supposed']
+Selected words: ['cowan', 'freshman', 'contented', 'eyes', 'accusation', 'fat', 'ines', 'reflect']
+Selected words: ['actor', 'feature', 'rub', 'angola', 'gets', 'possibilities', 'ismail', 'socrates']
+Selected words: ['mutsu', 'substitution', 'hierarchies', 'shuffle', 'fraction', 'almost', 'stairway', 'train']
+Selected words: ['jaka', 'integers', 'behaves', 'debating', 'cats', 'diminished', 'luminosity', 'medicines']
+Selected words: ['clinic', 'ramen', 'rushed', 'automaton', 'federation', 'triangulation', 'slovakia', 'cocktails']
+Selected words: ['compiled', 'stabbed', 'worryingly', 'parma', 'your', 'drowned', 'leader', 'counties']
+Selected words: ['sufi', 'experiments', 'determinant', 'lathe', 'sewage', 'question', 'reveal', 'recollect']
+Selected words: ['sunk', 'manila', 'drenching', 'evergreen', 'brightened', 'objective', 'crunch', 'tempo']
+Selected words: ['billboard', 'prejudices', 'trojans', 'tortured', 'celebrates', 'divide', 'temporal', 'industrial']
+Step 20, Loss: -1.2677, AUC: 0.0943
+Selected words: ['carbohydrate', 'setting', 'washing', 'scout', 'advanced', 'sandwich', 'capacities', 'neutrons']
+Selected words: ['rigid', 'ears', 'comfortably', 'philosophy', 'workout', 'access', 'fouls', 'bowl']
+Selected words: ['corset', 'judicial', 'era', 'cocks', 'deputies', 'eiffel', 'score', 'directional']
+Selected words: ['autobiography', 'dance', 'sellotape', 'serum', 'curve', 'edible', 'childbirths', 'draft']
+Selected words: ['see', 'viewed', 'contemplating', 'humorist', 'sizes', 'motionless', 'players', 'depressing']
+Selected words: ['tribesman', 'breeding', 'scholarship', 'handed', 'leave', 'buzzword', 'tanner', 'samoa']
+Selected words: ['replaces', 'greenwood', 'proceeding', 'naomi', 'duplicate', 'flesh', 'professionally', 'pastime']
+Selected words: ['dicaprio', 'soothes', 'pronouncing', 'smoking', 'mortgage', 'muller', 'mit', 'connotation']
+Selected words: ['side', 'puppy', 'taverns', 'pheromones', 'below', 'outstretched', 'intentions', 'conclusion']
+Selected words: ['burn', 'internet', 'sunlight', 'squeaky', 'sensation', 'hospital', 'ricky', 'south']
+Step 30, Loss: -2.2349, AUC: 0.0480
+Selected words: ['miner', 'gun', 'sunburn', 'symbolizes', 'fatty', 'signatures', 'challenged', 'drove']
+Selected words: ['mona', 'bid', 'protestants', 'acts', 'western', 'can', 'peabody', 'diesel']
+Selected words: ['stills', 'swallow', 'bank', 'unrestricted', 'campaigning', 'think', 'pune', 'warrants']
+Selected words: ['preserving', 'explanation', 'except', 'integrate', 'balancing', 'vancouver', 'intolerance', 'lining']
+Selected words: ['ecclesiastical', 'impulsive', 'heave', 'archaeology', 'melrose', 'flank', 'artifacts', 'complimented']
+Selected words: ['favorable', 'inhabits', 'pal', 'nudity', 'baseline', 'beautiful', 'centrist', 'ashby']
+Selected words: ['unlocked', 'herbert', 'boris', 'valuable', 'overflow', 'excursion', 'fremantle', 'deutsche']
+Selected words: ['incorporation', 'pasha', 'honking', 'las', 'seize', 'eligible', 'mixture', 'liturgy']
+Selected words: ['gerry', 'unitarian', 'gothenburg', 'switzerland', 'beer', 'landscapes', 'refugees', 'views']
+Selected words: ['gateway', 'dodgy', 'bucket', 'marlborough', 'distorted', 'recursive', 'lamar', 'parental']
+Step 40, Loss: -1.6409, AUC: 0.0820
+Selected words: ['drew', 'tibet', 'parkland', 'averages', 'maketh', 'leafs', 'horizons', 'outdated']
+Selected words: ['americano', 'isle', 'complexities', 'exhibit', 'italian', 'yelled', 'relays', 'sieves']
+Selected words: ['tucson', 'pleased', 'chelsea', 'borrow', 'pre', 'characteristic', 'rescue', 'confirm']
+Selected words: ['definitions', 'commitments', 'warming', 'arbitration', 'spattered', 'existing', 'trophies', 'lowlands']
+Selected words: ['amazing', 'survival', 'executions', 'royalist', 'conference', 'colombia', 'dried', 'unintended']
+Selected words: ['haunts', 'circuits', 'pensions', 'topography', 'yeast', 'anthropology', 'affirmed', 'lakota']
+Selected words: ['egyptians', 'peaceful', 'tossing', 'applications', 'gad', 'urgent', 'youthful', 'canyon']
+Selected words: ['instinct', 'scars', 'moat', 'laughter', 'upcoming', 'husbands', 'compliments', 'planned']
+Selected words: ['disappointment', 'banana', 'kathy', 'vibrations', 'nights', 'cursor', 'forearm', 'balancing']
+Selected words: ['cristiano', 'monitored', 'pulitzer', 'chinatown', 'hostilities', 'securities', 'surveyed', 'mirrors']
+Step 50, Loss: -2.1693, AUC: 0.0541
+Selected words: ['revoked', 'soldiers', 'tanner', 'professor', 'surprising', 'assembled', 'blisters', 'tehran']
+Selected words: ['navy', 'dog', 'turtle', 'leopold', 'blank', 'emerging', 'opposition', 'glitters']
+Selected words: ['zoological', 'thursday', 'swollen', 'glacial', 'reid', 'apostolic', 'summoned', 'reorganized']
+Selected words: ['theoretical', 'thin', 'statistically', 'smelt', 'favors', 'lorraine', 'loews', 'visitors']
+Selected words: ['ridge', 'bribes', 'employing', 'solidarity', 'rappers', 'apologies', 'redskins', 'socks']
+Selected words: ['taste', 'disappointment', 'hurting', 'access', 'sweat', 'computational', 'electron', 'rainfall']
+Selected words: ['noone', 'trump', 'erin', 'thomson', 'pickups', 'mackay', 'doodle', 'bradbury']
+Selected words: ['fathered', 'steven', 'enjoyed', 'coin', 'thaw', 'transformers', 'foxtrot', 'visually']
+Selected words: ['changes', 'passage', 'hobs', 'variable', 'men', 'specific', 'eton', 'concealed']
+Selected words: ['plum', 'happily', 'fundraising', 'produce', 'heap', 'dull', 'emerged', 'imprint']
+Step 60, Loss: -1.2725, AUC: 0.0655
+Selected words: ['elsa', 'katherine', 'certainly', 'columbia', 'bells', 'gould', 'tricycle', 'relative']
+Selected words: ['geo', 'iron', 'freeway', 'after', 'approach', 'truck', 'astonished', 'reservations']
+Selected words: ['cultivate', 'katz', 'variations', 'selling', 'hissed', 'dizzy', 'saudi', 'preserved']
+Selected words: ['frisbee', 'irony', 'providence', 'accounts', 'except', 'rajasthan', 'suburb', 'finalists']
+Selected words: ['mow', 'lamar', 'oversee', 'deployed', 'tying', 'prairies', 'prompt', 'klaus']
+Selected words: ['lipid', 'heritage', 'baking', 'visited', 'physicians', 'waitress', 'explain', 'upland']
+Selected words: ['institute', 'topping', 'retreats', 'mainline', 'unorthodox', 'theaters', 'clumsy', 'polish']
+Selected words: ['rat', 'mercury', 'motions', 'morley', 'lange', 'fog', 'meanings', 'mean']
+Selected words: ['press', 'proficient', 'vinegar', 'weird', 'distal', 'burglar', 'camels', 'darkness']
+Selected words: ['covenant', 'partnership', 'probe', 'bio', 'rasp', 'inherent', 'zucchini', 'catfish']
+Step 70, Loss: -2.7151, AUC: 0.0431
+Selected words: ['preach', 'colds', 'marriage', 'culturally', 'cuttings', 'blanc', 'sounds', 'enjoyment']
+Selected words: ['metaphor', 'comb', 'reader', 'gpus', 'angus', 'youthful', 'enterprise', 'missing']
+Selected words: ['forests', 'powder', 'amish', 'drove', 'yemen', 'uncle', 'chosen', 'toxic']
+Selected words: ['spindle', 'presenting', 'republics', 'pauses', 'avengers', 'quoted', 'knocked', 'complement']
+Selected words: ['engineered', 'bells', 'marquess', 'swallow', 'domestic', 'min', 'antelopes', 'coincidence']
+Selected words: ['lachrymosity', 'incentive', 'english', 'wares', 'weakly', 'providers', 'transylvania', 'thor']
+Selected words: ['person', 'virtual', 'airport', 'gorilla', 'quality', 'jeep', 'value', 'seam']
+Selected words: ['negotiating', 'tenderly', 'declines', 'flags', 'liquid', 'canoe', 'weekend', 'kicks']
+Selected words: ['copland', 'climate', 'club', 'frontal', 'dining', 'suicidal', 'aubergine', 'declared']
+Selected words: ['welles', 'norwich', 'mirrors', 'arias', 'dundas', 'illegally', 'swell', 'columbus']
+Step 80, Loss: -1.3864, AUC: 0.1885
+Selected words: ['equation', 'ambitions', 'fragrant', 'repulsive', 'eighth', 'begins', 'struck', 'induces']
+Selected words: ['articulate', 'conundrum', 'banning', 'alloys', 'scandinavia', 'refrigerator', 'homicide', 'protesting']
+Selected words: ['jennifer', 'complexities', 'artful', 'tickets', 'rifle', 'spoils', 'blu', 'sounded']
+Selected words: ['centimeters', 'infant', 'feedback', 'monumental', 'successive', 'alcoholic', 'syndrome', 'mehr']
+Selected words: ['practising', 'elegant', 'outs', 'guru', 'culprit', 'olivia', 'vivid', 'frightening']
+Selected words: ['slash', 'tempered', 'interchangeably', 'rarest', 'fender', 'excessively', 'cairn', 'flourished']
+Selected words: ['ellipses', 'theme', 'bonnet', 'cypress', 'marc', 'snowflake', 'distraught', 'toggle']
+Selected words: ['diversion', 'aden', 'satisfied', 'uniformly', 'chips', 'magdalene', 'monotypic', 'figure']
+Selected words: ['wilhelm', 'sill', 'albedo', 'mania', 'borneo', 'louie', 'euler', 'wetlands']
+Selected words: ['boilers', 'says', 'submarines', 'explanation', 'commons', 'satisfied', 'genre', 'bikini']
+Step 90, Loss: -3.0067, AUC: 0.0327
+Selected words: ['pro', 'present', 'susceptible', 'anaerobic', 'unfortunately', 'retreat', 'see', 'ahead']
+Selected words: ['martha', 'gate', 'resonance', 'global', 'flight', 'forgot', 'moniker', 'faster']
+Selected words: ['swapped', 'exponential', 'dope', 'macdonald', 'tribunal', 'continents', 'lack', 'myrtle']
+Selected words: ['debra', 'sunset', 'pepper', 'lately', 'beneficial', 'habitats', 'can’t', 'islanders']
+Selected words: ['longitude', 'kept', 'isolines', 'unacceptable', 'potato', 'patches', 'woodstock', 'bashing']
+Selected words: ['achieve', 'among', 'incidents', 'exhibiting', 'sedative', 'novelist', 'fraction', 'mecca']
+Selected words: ['sloped', 'prince', 'compilations', 'truthfully', 'twin', 'english', 'rink', 'bribe']
+Selected words: ['family', 'pace', 'merchandise', 'wellington', 'crouched', 'gentlemen', 'fixing', 'bradley']
+Selected words: ['margarine', 'mow', 'memorize', 'accepting', 'containers', 'collided', 'peaceful', 'pyrenees']
+Selected words: ['professionals', 'impounded', 'cannot', 'universal', 'print', 'renew', 'dashed', 'alternatives']
+Step 100, Loss: -2.4059, AUC: 0.0254
+Selected words: ['accessibility', 'awaited', 'thunderstorm', 'liberals', 'diode', 'underwater', 'herodotus', 'explicit']
+Selected words: ['lens', 'examined', 'charleston', 'pragmatic', 'debra', 'curtains', 'scenarios', 'crossing']
+Selected words: ['appreciation', 'writes', 'progressive', 'blamed', 'adjustable', 'radical', 'offering', 'accustomed']
+Selected words: ['absorb', 'pig', 'stroking', 'rolls', 'exposes', 'comparative', 'speeches', 'cardboard']
+Selected words: ['underwood', 'maintain', 'converts', 'babbled', 'puzzles', 'interactions', 'skyline', 'disorder']
+Selected words: ['combines', 'preserve', 'explore', 'angles', 'subdivided', 'promoting', 'pile', 'firms']
+Selected words: ['aforementioned', 'supported', 'aptitude', 'touching', 'mainland', 'brim', 'readable', 'mehr']
+Selected words: ['citing', 'indoors', 'disturbance', 'eliciting', 'doth', 'kitten', 'western', 'beginning']
+Selected words: ['network', 'beverages', 'judges', 'arsenic', 'polling', 'cigar', 'childless', 'blaming']
+Selected words: ['flattened', 'liquidity', 'ruining', 'calories', 'swims', 'conference', 'philadelphia', 'swell']
+Step 110, Loss: -1.8945, AUC: 0.0591
+Selected words: ['respects', 'deane', 'confide', 'study', 'sway', 'calves', 'pigeons', 'peoples']
+Selected words: ['goals', 'unlucky', 'paws', 'lydia', 'manure', 'weaving', 'prayed', 'bankers']
+Selected words: ['minority', 'tempo', 'manly', 'assassination', 'terrific', 'tufts', 'mitigate', 'brunette']
+Selected words: ['weber', 'landmark', 'canadian', 'tended', 'mattress', 'garcia', 'franciscan', 'insolvent']
+Selected words: ['erica', 'heavy', 'vaccines', 'flashing', 'telescope', 'colts', 'daunting', 'tool']
+Selected words: ['maximize', 'soft', 'skimmed', 'scalpel', 'classes', 'beech', 'soul', 'robe']
+Selected words: ['traverses', 'relieved', 'boone', 'guides', 'shiny', 'expo', 'gameplay', 'bleeding']
+Selected words: ['blind', 'incidental', 'hurley', 'put', 'ark', 'parkes', 'gentry', 'roche']
+Selected words: ['talent', 'jazz', 'preston', 'absorb', 'grid', 'acted', 'disturbingly', 'clinically']
+Selected words: ['bookkeeper', 'firewood', 'ahold', 'primary', 'speak', 'peninsula', 'protests', 'government']
+Step 120, Loss: -1.8721, AUC: 0.0560
+Selected words: ['centennial', 'mountaineering', 'asylum', 'bubbles', 'algiers', 'porcupine', 'parker', 'invites']
+Selected words: ['torpedo', 'paintings', 'basin', 'mental', 'barriers', 'quiet', 'euros', 'pronouncing']
+Selected words: ['violation', 'reagan', 'dumplings', 'botanic', 'ballad', 'disgust', 'natives', 'years']
+Selected words: ['marietta', 'warm', 'savannah', 'muhammad', 'everybody', 'lasting', 'martinez', 'posed']
+Selected words: ['stumps', 'observatory', 'flows', 'undertow', 'bathe', 'cowboy', 'notified', 'devote']
+Selected words: ['threats', 'ladies', 'result', 'strauss', 'bunched', 'surnames', 'finishes', 'encourages']
+Selected words: ['press', 'clapping', 'peerage', 'starch', 'yearbook', 'repetitive', 'entity', 'williamsburg']
+Selected words: ['ginger', 'witnessed', 'penguin', 'selected', 'ratio', 'brigades', 'corruption', 'disputes']
+Selected words: ['sponsorship', 'litmus', 'reductions', 'sparked', 'prostate', 'retracted', 'dwelling', 'medial']
+Selected words: ['panda', 'basics', 'attractive', 'bauer', 'hotch', 'clients', 'lyon', 'emotionally']
+Step 130, Loss: -2.1573, AUC: 0.0691
+Selected words: ['ethical', 'target', 'beast', 'keynes', 'ferns', 'advocate', 'takeoff', 'anita']
+Selected words: ['specific', 'risk', 'persia', 'primary', 'explanation', 'resided', 'reasoning', 'situation']
+Selected words: ['mourning', 'narrative', 'courage', 'settlement', 'vatican', 'oils', 'chong', 'elixir']
+Selected words: ['tumour', 'boardwalk', 'armenia', 'slater', 'labeling', 'anywhere', 'bon', 'complaints']
+Selected words: ['bastion', 'somewhere', 'stevens', 'midwestern', 'wilcox', 'virtual', 'arcades', 'compare']
+Selected words: ['pharmacist', 'confused', 'durham', 'thread', 'began', 'chronology', 'reprieve', 'majors']
+Selected words: ['crosses', 'longstanding', 'meg', 'atoms', 'orbital', 'sticker', 'checking', 'bliss']
+Selected words: ['gossips', 'wir', 'pesticides', 'weary', 'per', 'identification', 'discovery', 'mans']
+Selected words: ['godwin', 'aggression', 'roommate’s', 'billions', 'thieves', 'forming', 'bedrooms', 'patriotic']
+Selected words: ['aunts', 'saturn', 'juggling', 'wicket', 'pence', 'risk', 'prize', 'banners']
+Step 140, Loss: -0.2822, AUC: 0.1025
+Selected words: ['listen', 'cooler', 'hospitalized', 'jamming', 'cheering', 'silicon', 'unite', 'limiting']
+Selected words: ['securities', 'runner', 'rooted', 'snowman', 'reorganized', 'slayer', 'bathroom', 'bruce']
+Selected words: ['westmoreland', 'plateau', 'expectation', 'recognizing', 'sect', 'bulls', 'ripened', 'hampden']
+Selected words: ['stroll', 'five', 'mouth', 'cellar', 'procedures', 'hilary', 'rained', 'analysts']
+Selected words: ['agriculture', 'utilize', 'static', 'known', 'financial', 'clearly', 'robin', 'humanoid']
+Selected words: ['stain', 'bare', 'vienna', 'build', 'covering', 'bohemia', 'aires', 'lipid']
+Selected words: ['dressed', 'threaten', 'kayaking', 'gram', 'rusty', 'cebu', 'regulation', 'transitions']
+Selected words: ['submarine', 'bun', 'youth', 'frontman', 'tumbles', 'paints', 'norfolk', 'sacrifice']
+Selected words: ['samples', 'slant', 'halal', 'dad', 'valentine', 'utterance', 'berman', 'turbans']
+Selected words: ['manganese', 'sandstorm', 'generalization', 'tuna', 'cement', 'possesses', 'von', 'prominent']
+Step 150, Loss: -2.5803, AUC: 0.0385
+Selected words: ['further', 'relays', 'beginnings', 'comfort', 'validity', 'expertise', 'frigates', 'seahawks']
+Selected words: ['floor', 'babies', 'thrace', 'oriental', 'walkers', 'waves', 'takes', 'sometimes']
+Selected words: ['law', 'managing', 'variability', 'portals', 'certified', 'hotly', 'marley', 'stuck']
+Selected words: ['prone', 'frowned', 'woman', 'darts', 'parole', 'hearted', 'headband', 'averting']
+Selected words: ['calvert', 'hierarchy', 'skimmed', 'polka', 'drank', 'lisp', 'costumes', 'agent']
+Selected words: ['henrietta', 'romanesque', 'furness', 'sticking', 'observe', 'identity', 'packaged', 'pauses']
+Selected words: ['owl', 'kneeling', 'cumbria', 'precedent', 'marginal', 'riga', 'moderate', 'dire']
+Selected words: ['sculptor', 'patience', 'talk', 'racing', 'personalities', 'guatemala', 'cheated', 'jeeves']
+Selected words: ['gothenburg', 'terms', 'genuine', 'diabetics', 'instinct', 'donor', 'gloria', 'hayes']
+Selected words: ['sanctions', 'daring', 'behaved', 'caterpillar', 'rob', 'tonic', 'trio', 'trophy']
+Step 160, Loss: -1.5190, AUC: 0.0713
+Selected words: ['bombardment', 'piquet', 'galicia', 'formations', 'deacon', 'sands', 'spruce', 'chin']
+Selected words: ['latvian', 'completely', 'visionary', 'moderate', 'hereafter', 'actor', 'blended', 'chess']
+Selected words: ['ebony', 'understands', 'relying', 'arms', 'tendon', 'pathetic', 'advertisements', 'sprung']
+Selected words: ['select', 'fortunately', 'word', 'strangers', 'certainly', 'albert', 'bulletin', 'rate']
+Selected words: ['toothed', 'potential', 'inconsistent', 'chap', 'rotated', 'multiplication', 'eager', 'purposes']
+Selected words: ['reputed', 'peabody', 'mixed', 'descendant', 'urban', 'indication', 'anisotropic', 'vat']
+Selected words: ['stares', 'greenfield', 'stitch', 'damascus', 'maser', 'hijack', 'random', 'postulated']
+Selected words: ['petersburg', 'seed', 'sleeve', 'radically', 'laurence', 'pulsate', 'spectrum', 'pious']
+Selected words: ['taunton', 'diagnosis', 'timothy', 'parramatta', 'tries', 'anybody', 'midnight', 'wax']
+Selected words: ['outright', 'mont', 'your', 'asylum', 'listened', 'narrative', 'brigadier', 'invasive']
+Step 170, Loss: -2.3716, AUC: 0.0397
+Selected words: ['battles', 'breweries', 'bulk', 'paddling', 'renamed', 'colonization', 'merrimack', 'deserts']
+Selected words: ['temples', 'margarine', 'driving', 'boarder', 'autographs', 'atom', 'rink', 'emplaced']
+Selected words: ['rich', 'stepped', 'delivers', 'amy', 'chill', 'party', 'ripped', 'assistant']
+Selected words: ['tolerable', 'rider', 'proof', 'conscious', 'biking', 'neutrality', 'stratton', 'lonely']
+Selected words: ['ware', 'brothers', 'chaucer', 'morocco', 'abolished', 'cheered', 'currency', 'congestion']
+Selected words: ['turbans', 'diets', 'elias', 'scenarios', 'ministries', 'wings', 'healing', 'protestants']
+Selected words: ['charleston', 'steam', 'corpus', 'underestimating', 'pledge', 'merlin', 'bonding', 'lamps']
+Selected words: ['organizing', 'bartlett', 'league', 'whereabouts', 'sketching', 'sneaked', 'rushed', 'fascinated']
+Selected words: ['stacy', 'glass', 'studied', 'parades', 'dust', 'thematic', 'kappa', 'journeys']
+Selected words: ['mule', 'joe', 'stalk', 'benson', 'extinction', 'brutally', 'hybrid', 'server']
+Step 180, Loss: -2.0768, AUC: 0.0685
+Selected words: ['converts', 'dismantle', 'snowy', 'births', 'contact', 'pours', 'neal', 'booths']
+Selected words: ['girlfriend', 'syrup', 'coined', 'canned', 'fight', 'lacks', 'atomic', 'resolutions']
+Selected words: ['autograph', 'maternal', 'advisors', 'jew', 'balloons', 'shrieking', 'joanna', 'donating']
+Selected words: ['alike', 'downtown', 'panned', 'structural', 'most', 'psychic', 'airplanes', 'anonymously']
+Selected words: ['rows', 'kneel', 'relevance', 'vaudeville', 'summerson', 'pressing', 'escapes', 'pledge']
+Selected words: ['outcomes', 'pagan', 'casting', 'scouting', 'berries', 'raspberry', 'masks', 'continental']
+Selected words: ['inscribed', 'surname', 'stockings', 'fermentation', 'depiction', 'linking', 'umpire', 'guthrie']
+Selected words: ['dayton', 'mask', 'hancock', 'able', 'collide', 'swiftly', 'coil', 'internal']
+Selected words: ['wheeler', 'hatter', 'storks', 'automatically', 'skillful', 'butter', 'explores', 'interrupting']
+Selected words: ['biro', 'definitions', 'oppression', 'november', 'portraits', 'salute', 'must', 'surnames']
+Step 190, Loss: -0.7953, AUC: 0.0989
+Selected words: ['multitude', 'dangerous', 'competes', 'beds', 'insult', 'macon', 'shop', 'suffused']
+Selected words: ['seeds', 'speech', 'valet', 'walks', 'outskirts', 'tense', 'during', 'infant']
+Selected words: ['confederation', 'missouri', 'international', 'opening', 'interchange', 'steam', 'euros', 'novella']
+Selected words: ['inverness', 'sweaty', 'limes', 'endemic', 'ethic', 'alpha', 'bohemian', 'wrestle']
+Selected words: ['peaked', 'hurst', 'happiness', 'vermicelli', 'futuristic', 'steward', 'carol', 'reigned']
+Selected words: ['plaque', 'shades', 'noone', 'emerged', 'rapidity', 'restore', 'induce', 'sight']
+Selected words: ['fetch', 'courts', 'drugstore', 'serve', 'malignant', 'nomination', 'stump', 'bonn']
+Selected words: ['greyhounds', 'posterior', 'miami', 'paradise', 'surgeries', 'starved', 'confronts', 'bubble']
+Selected words: ['forlornly', 'wrists', 'watching', 'triplet', 'iceland', 'oops', 'denied', 'biographer']
+Selected words: ['defends', 'rogers', 'romance', 'refer', 'corresponding', 'clash', 'villager', 'triangles']
+Step 200, Loss: -1.8494, AUC: 0.0704
+Selected words: ['roost', 'why', 'respiratory', 'experiments', 'jimmy', 'evade', 'ames', 'picturesque']
+Selected words: ['shia', 'fibre', 'nokia', 'initialized', 'etymology', 'livid', 'drifting', 'ridings']
+Selected words: ['bun', 'folds', 'commonwealth', 'yell', 'coins', 'awarding', 'motorcyclist', 'dorset']
+Selected words: ['misses', 'premium', 'separation', 'signaling', 'evangelist', 'dashed', 'customary', 'lilly']
+Selected words: ['refilled', 'oxley', 'amazingly', 'continental', 'klaus', 'cheered', 'fork', 'wakey']
+Selected words: ['plants', 'shorty', 'affects', 'consonants', 'ranching', 'draughts', 'reproductive', 'anarchist']
+Selected words: ['westmoreland', 'methane', 'newbury', 'autumn', 'electrified', 'knights', 'happen', 'sarawak']
+Selected words: ['sault', 'document', 'biographies', 'nurses', 'countertop', 'migrants', 'luke', 'dissolved']
+Selected words: ['gum', 'achieving', 'wilkinson', 'shorts', 'tours', 'price', 'sleek', 'combine']
+Selected words: ['snakes', 'vega', 'broome', 'stoney', 'scarlett', 'floats', 'pronunciation', 'oklahoma']
+Step 210, Loss: -2.5559, AUC: 0.0479
+Selected words: ['luggage', 'suppress', 'region', 'claudius', 'initiation', 'renown', 'goddess', 'aiding']
+Selected words: ['rumbling', 'damn', 'cuffs', 'rural', 'buoy', 'ramp', 'tenth', 'causality']
+Selected words: ['fighter', 'partnered', 'isabella', 'lines', 'hobs', 'ideas', 'cappuccino', 'insurgents']
+Selected words: ['leadership', 'redundant', 'tangerines', 'shaken', 'ensures', 'hydrogen', 'kaiser', 'professional']
+Selected words: ['file', 'virtue', 'him', 'pioneers', 'reliably', 'courage', 'informally', 'colouring']
+Selected words: ['hawke', 'plots', 'philippe', 'brinkley', 'infirmary', 'balancing', 'effort', 'acres']
+Selected words: ['splashes', 'modules', 'downside', 'denote', 'spies', 'losses', 'andersen', 'abraham']
+Selected words: ['letting', 'rouge', 'candid', 'playhouse', 'butcher', 'whiskers', 'docile', 'upgraded']
+Selected words: ['witnesses', 'mack', 'protector', 'miracles', 'francisco', 'beautifully', 'bethesda', 'prairie']
+Selected words: ['accompany', 'dvd', 'prostitutes', 'unexplained', 'aryan', 'destinations', 'fares', 'reilly']
+Step 220, Loss: -1.2643, AUC: 0.1010
+Selected words: ['hub', 'onset', 'shipping', 'whatever', 'echoes', 'initiatives', 'papa', 'seminar']
+Selected words: ['ronald', 'protection', 'cream', 'downtown', 'promoting', 'tourism', 'ludicrously', 'vitro']
+Selected words: ['sweet', 'remains', 'reggae', 'affirmed', 'seasonal', 'pontiac', 'essex', 'trailers']
+Selected words: ['violin', 'hated', 'desolate', 'latency', 'climbs', 'contempt', 'sculptures', 'contain']
+Selected words: ['collaboration', 'electronic', 'suburb', 'shuts', 'denis', 'equipped', 'mains', 'subdivide']
+Selected words: ['device', 'kelley', 'low', 'jeff', 'specializing', 'suite', 'networks', 'pakistani']
+Selected words: ['volcano', 'wesleyan', 'quarks', 'drifted', 'distorted', 'menu', 'faced', 'ridiculous']
+Selected words: ['torpedo', 'guidelines', 'smartphone', 'sophie', 'write', 'suppose', 'thieves', 'extinction']
+Selected words: ['puzzling', 'endured', 'mentally', 'abdullah', 'horseman', 'tactics', 'aircraft', 'quad']
+Selected words: ['tees', 'relations', 'sinai', 'fitted', 'undergoing', 'pavilion', 'crude', 'organises']
+Step 230, Loss: -1.6252, AUC: 0.1108
+Selected words: ['lam', 'moment', 'tucson', 'squid', 'julie', 'cows', 'misleading', 'coughed']
+Selected words: ['derivative', 'tribune', 'spectacle', 'pulpit', 'shri', 'worse', 'architect', 'draper']
+Selected words: ['baffled', 'socialists', 'differently', 'starter', 'podcast', 'backyard', 'splash', 'ladder']
+Selected words: ['biker', 'edmund', 'includes', 'selective', 'medaling', 'palo', 'sears', 'pierced']
+Selected words: ['cafes', 'appendix', 'enable', 'emphasis', 'observation', 'generalization', 'dew', 'dived']
+Selected words: ['lurking', 'overhead', 'learn', 'infinite', 'toponym', 'space', 'foundry', 'disputes']
+Selected words: ['codes', 'constitutional', 'rig', 'flavours', 'years', 'painters', 'earldom', 'adult']
+Selected words: ['noir', 'alphabetically', 'discussing', 'lowell', 'forgotten', 'wifi', 'covert', 'next']
+Selected words: ['rockwell', 'inflicted', 'embroidery', 'modify', 'oversized', 'proverb', 'carnegie', 'cesareans']
+Selected words: ['knoxville', 'through', 'option', 'reese', 'lowlands', 'border', 'boarded', 'dunghill']
+Step 240, Loss: -3.0162, AUC: 0.0325
+Selected words: ['downfall', 'athletic', 'lovely', 'video', 'deliberate', 'custard', 'sheets', 'imitation']
+Selected words: ['interpret', 'glimpse', 'blossoms', 'arcade', 'theirs', 'discussing', 'chumps', 'gangster']
+Selected words: ['radicals', 'child', 'judas', 'highlighted', 'immaculate', 'hackney', 'opposite', 'atlantis']
+Selected words: ['thumbnails', 'cloth', 'testament', 'wisconsin', 'mules', 'vikings', 'scathing', 'identifying']
+Selected words: ['unconscious', 'niagara', 'morocco', 'against', 'baths', 'guitar', 'inventive', 'tennessee']
+Selected words: ['familiarity', 'inner', 'painful', 'counter', 'cents', 'gifts', 'genius', 'lines']
+Selected words: ['mckinley', 'abbreviated', 'ingredients', 'sault', 'hiram', 'ages', 'advisory', 'bus']
+Selected words: ['aubrey', 'depth', 'teammate', 'untrustworthy', 'resented', 'carriages', 'bald', 'perceived']
+Selected words: ['foresaw', 'mabel', 'awful', 'scouts', 'unpopular', 'prologue', 'plugins', 'rudy']
+Selected words: ['went', 'don’t', 'rude', 'pendulum', 'rendered', 'lens', 'delivered', 'parish']
+Step 250, Loss: -0.4508, AUC: 0.1843
+Selected words: ['formation', 'prominently', 'assessed', 'slavic', 'argentine', 'barks', 'chewy', 'dorothy']
+Selected words: ['varying', 'hamlet', 'inverted', 'appendix', 'humanitarian', 'pinch', 'outdated', 'dem']
+Selected words: ['dart', 'batsmen', 'lament', 'savagery', 'verde', 'cassie', 'talking', 'rocks']
+Selected words: ['raped', 'ugly', 'gadgets', 'treat', 'tout', 'autopsy', 'ballroom', 'policeman']
+Selected words: ['unsay', 'noone', 'utopian', 'loses', 'baseline', 'confiscated', 'hinduism', 'getting']
+Selected words: ['powerless', 'computationally', 'joking', 'entrepreneur', 'astronomical', 'valgrind', 'ripley', 'excludes']
+Selected words: ['asked', 'theorized', 'franchises', 'scooby', 'everyone', 'dexter', 'tally', 'emeritus']
+Selected words: ['twenty', 'work', 'andersen', 'noisily', 'antonio', 'forested', 'hydro', 'olivet']
+Selected words: ['fifteen', 'henderson', 'staging', 'he’ll', 'dimmed', 'honking', 'outer', 'celebrity']
+Selected words: ['interrogating', 'blue', 'mcdowell', 'plywood', 'canyon', 'glockenspiel', 'cart', 'foundry']
+Step 260, Loss: -2.3108, AUC: 0.0554
+Selected words: ['sour', 'shirts', 'choir', 'vedic', 'diapers', 'blisters', 'belts', 'dvd']
+Selected words: ['respectable', 'greatest', 'habitat', 'bloodshed', 'hippopotamus', 'governs', 'hero', 'technicians']
+Selected words: ['jim', 'accepting', 'uncontrolled', 'enlightenment', 'urine', 'adaptation', 'linn', 'factions']
+Selected words: ['ram', 'commune', 'hieroglyphics', 'unreleased', 'impassable', 'comedies', 'voyaged', 'boys']
+Selected words: ['simple', 'psi', 'zoning', 'altogether', 'marries', 'iowa', 'loews', 'delirium']
+Selected words: ['cruises', 'downside', 'dicaprio', 'amount', 'prototype', 'diane', 'ported', 'influences']
+Selected words: ['sanctioned', 'shropshire', 'quarter', 'ranked', 'heir', 'moroccan', 'avalon', 'remodeled']
+Selected words: ['printer', 'participating', 'supporters', 'consonants', 'speeds', 'collars', 'sever', 'patti']
+Selected words: ['rehearsal', 'hire', 'charges', 'sexually', 'sincere', 'detroit', 'gum', 'evaporated']
+Selected words: ['vessel', 'licenses', 'ports', 'computed', 'priceless', 'andrews', 'buses', 'clarkson']
+Step 270, Loss: -2.1826, AUC: 0.0743
+Selected words: ['child', 'tucked', 'involves', 'anagrams', 'linguistics', 'subdivisions', 'tenants', 'province']
+Selected words: ['connection', 'zombie', 'plants', 'hardship', 'giraffe', 'strategy', 'kindly', 'drums']
+Selected words: ['frescoes', 'curator', 'thorough', 'bacardi', 'wig', 'din', 'pays', 'transition']
+Selected words: ['reloaded', 'zodiac', 'cultivars', 'recipe', 'quad', 'wilkinson', 'willis', 'beverley']
+Selected words: ['taxicab', 'surface', 'philology', 'week', 'fairness', 'keychain', 'mellon', 'icy']
+Selected words: ['eternal', 'benedict', 'thomson', 'ship', 'banjo', 'inclusion', 'lacrosse', 'lifting']
+Selected words: ['artillery', 'clearance', 'bankers', 'schneider', 'largest', 'gram', 'national', 'desperate']
+Selected words: ['rocky', 'teachings', 'nail', 'war', 'clutch', 'clog', 'code', 'morgue']
+Selected words: ['histogram', 'cumbria', 'arabic', 'doping', 'realms', 'plunge', 'shoelaces', 'defenders']
+Selected words: ['clapped', 'well', 'prologue', 'stepson', 'down', 'renewal', 'golfers', 'interface']
+Step 280, Loss: -1.9352, AUC: 0.0810
+Selected words: ['waterfalls', 'presented', 'mauritius', 'illumination', 'siberia', 'calendars', 'reefs', 'convex']
+Selected words: ['approached', 'cairum', 'carnival', 'configure', 'charters', 'making', 'hers', 'supervisors']
+Selected words: ['splash', 'stables', 'extract', 'cellphone', 'nukes', 'impulse', 'aerospace', 'innovation']
+Selected words: ['digital', 'violations', 'kine', 'forced', 'artery', 'resurrected', 'variously', 'rabbis']
+Selected words: ['regina', 'iliad', 'circled', 'talking', 'rhine', 'tailor', 'gossip', 'betrayal']
+Selected words: ['property', 'bolsters', 'accurate', 'chink', 'teapots', 'unoccupied', 'careful', 'compute']
+Selected words: ['grandson', 'sumter', 'street', 'deli', 'tasks', 'ecological', 'switzerland', 'seawater']
+Selected words: ['beetroot', 'fraud', 'systems', 'translators', 'arsenic', 'external', 'fleece', 'disturbingly']
+Selected words: ['stylish', 'missionaries', 'corps', 'virtualbox', 'airplane', 'guests', 'developer', 'slides']
+Selected words: ['bubble', 'closures', 'dependent', 'paxton', 'brooks', 'suck', 'compliment', 'panza']
+Step 290, Loss: -2.7321, AUC: 0.0224
+Selected words: ['pupils', 'toast', 'stationary', 'ignorant', 'lesbian', 'kine', 'relatives', 'disposal']
+Selected words: ['assets', 'invaders', 'topology', 'represents', 'continuing', 'verdict', 'newsweek', 'nathan']
+Selected words: ['confessed', 'gussie', 'almost', 'droplet', 'culturally', 'berger', 'arabic', 'sarcastic']
+Selected words: ['williamsport', 'emperors', 'patrick', 'cattle', 'scott', 'hid', 'styled', 'gill']
+Selected words: ['regiments', 'alloy', 'staten', 'caucasian', 'tie', 'parliament', 'pilgrims', 'turin']
+Selected words: ['pertaining', 'editing', 'squire', 'hilt', 'molly', 'lizzie', 'beta', 'revision']
+Selected words: ['kirsty', 'sampson', 'complainers', 'christensen', 'sins', 'political', 'pulled', 'cleat']
+Selected words: ['thatched', 'traverse', 'thoroughly', 'grant', 'dispose', 'valet', 'denying', 'uppsala']
+Selected words: ['crusaders', 'nassau', 'edmund', 'divinity', 'orbit', 'goaltender', 'vega', 'easter']
+Selected words: ['beforehand', 'celestial', 'culinary', 'snowballs', 'marley', 'origin', 'whitewater', 'gap']
+Step 300, Loss: -3.1912, AUC: 0.0503
+Selected words: ['rotational', 'foreign', 'conclude', 'wagner', 'habitat', 'teams', 'decreasing', 'sick']
+Selected words: ['carla', 'pioneering', 'flies', 'poodle', 'extravagant', 'woolwich', 'champions', 'allocation']
+Selected words: ['assigned', 'surly', 'motorsport', 'inverness', 'receipt', 'newport', 'nebula', 'diaspora']
+Selected words: ['marta', 'feat', 'whitman', 'shields', 'crushing', 'disturbingly', 'avocados', 'bourgeois']
+Selected words: ['hunts', 'thinly', 'fell', 'barren', 'providence', 'subsections', 'sterling', 'bills']
+Selected words: ['rican', 'fitzgerald', 'nanny', 'emphasize', 'liquidity', 'directs', 'fulham', 'congressman']
+Selected words: ['symptoms', 'serpent', 'stalk', 'accidentally', 'demonstrated', 'reopened', 'norse', 'contraction']
+Selected words: ['definitive', 'oversees', 'paris', 'knowledge', 'mildred', 'leafs', 'ich', 'nibbles']
+Selected words: ['pocket', 'helping', 'speedway', 'chefs', 'lick', 'patterned', 'spokesman', 'preserving']
+Selected words: ['adds', 'aroused', 'irritant', 'manner', 'dominates', 'asthma', 'peaches', 'moderator']
+Step 310, Loss: -2.6986, AUC: 0.0349
+Selected words: ['quarrelling', 'exists', 'pulleys', 'excavation', 'breathed', 'dumpster', 'arthur', 'seymour']
+Selected words: ['sunderland', 'sinking', 'storage', 'reinforcements', 'licorice', 'subscribers', 'claim', 'mermaids']
+Selected words: ['alternatives', 'he’s', 'alcohols', 'depict', 'postgraduate', 'edwardian', 'tuck', 'pension']
+Selected words: ['correspondent', 'connolly', 'gratis', 'educational', 'dynamics', 'songwriters', 'multivariate', 'efforts']
+Selected words: ['tension', 'kernels', 'tuned', 'isolation', 'fathers', 'monastic', 'muffins', 'survives']
+Selected words: ['omelette', 'receives', 'countertop', 'unchanged', 'streaked', 'himalayas', 'renovation', 'lectured']
+Selected words: ['neighboring', 'additive', 'introductory', 'phil', 'employ', 'stuck', 'madeira', 'paintings']
+Selected words: ['utilities', 'graphs', 'comics', 'distances', 'amidst', 'cone', 'emma', 'mouths']
+Selected words: ['moderately', 'flyers', 'condiment', 'kisses', 'end', 'tagline', 'steep', 'slides']
+Selected words: ['synonymous', 'enraged', 'flounder', 'identified', 'whole', 'blockers', 'rum', 'magical']
+Step 320, Loss: -3.8209, AUC: 0.0187
+Selected words: ['neurons', 'pyramids', 'grant', 'anyhow', 'wrist', 'playboy', 'boris', 'alma']
+Selected words: ['coaches', 'ferguson', 'cellphone', 'studied', 'reconciled', 'duel', 'cypress', 'hollow']
+Selected words: ['gravitational', 'purse', 'bent', 'expenditures', 'haute', 'irritation', 'spinal', 'janis']
+Selected words: ['grassland', 'buttons', 'rapids', 'contain', 'hold', 'granada', 'cheetah', 'sublime']
+Selected words: ['chinook', 'heidi', 'vaulting', 'systems', 'observe', 'molly', 'ranged', 'sargent']
+Selected words: ['appears', 'wishing', 'harass', 'submarines', 'moroccan', 'federation', 'puritan', 'perhaps']
+Selected words: ['ways', 'wither', 'lied', 'obligation', 'populous', 'kitten', 'tunes', 'relied']
+Selected words: ['labelled', 'ominous', 'assurance', 'financially', 'nova', 'kitty', 'collier', 'superstitious']
+Selected words: ['sensation', 'act', 'deposition', 'emerge', 'advantage', 'guatemala', 'ins', 'clubhouse']
+Selected words: ['neutral', 'methodist', 'contestant', 'abrupt', 'superintendent', 'discussing', 'hoovered', 'specialized']
+Step 330, Loss: -2.2848, AUC: 0.0579
+Selected words: ['laude', 'saskatchewan', 'pasadena', 'stormy', 'scores', 'comparisons', 'raoul', 'blondhaired']
+Selected words: ['thereby', 'aspect', 'pulling', 'expresses', 'spot', 'forearmed', 'fixture', 'cutting']
+Selected words: ['midland', 'convince', 'talk', 'tanks', 'caramels', 'casualty', 'brown', 'exercises']
+Selected words: ['pluto', 'pseudorandom', 'reminiscing', 'picture', 'jackie', 'verbal', 'raoul', 'fixate']
+Selected words: ['eagles', 'peerage', 'growth', 'fully', 'county', 'jakarta', 'doctorate', 'arson']
+Selected words: ['archipelago', 'constraints', 'direct', 'infamous', 'nicest', 'flying', 'baby', 'mozambique']
+Selected words: ['carving', 'tops', 'abelian', 'tours', 'superstars', 'accusation', 'consistently', 'rules']
+Selected words: ['graphite', 'freud', 'joel', 'subsidies', 'make', 'entrance', 'der', 'paisley']
+Selected words: ['zone', 'levy', 'condensation', 'seated', 'pains', 'wells', 'christians', 'sicily']
+Selected words: ['corrections', 'calibration', 'richest', 'infuriates', 'sings', 'roxy', 'robes', 'till']
+Step 340, Loss: -3.9840, AUC: 0.0301
+Selected words: ['vacuum', 'abbreviated', 'donald', 'liquid', 'magnets', 'astronomers', 'exceptions', 'teamed']
+Selected words: ['rebels', 'retaliate', 'vibrating', 'levine', 'reigns', 'emphasis', 'horton', 'aggregate']
+Selected words: ['future', 'staged', 'liquids', 'fifteenth', 'trains', 'liquor', 'asphalt', 'profession']
+Selected words: ['deezer', 'omni', 'brings', 'gmo', 'falcon', 'damaged', 'ceremony', 'honored']
+Selected words: ['constrain', 'earrings', 'tuberculosis', 'cattle', 'tyne', 'dundee', 'longing', 'tools']
+Selected words: ['nonfiction', 'surfers', 'broadway', 'mixer', 'secondary', 'virgin', 'cordless', 'devotion']
+Selected words: ['attested', 'decollete', 'minor', 'necklines', 'geographic', 'neglected', 'dental', 'semester']
+Selected words: ['ram', 'bali', 'introduced', 'luxury', 'lawyer', 'variant', 'dropped', 'governorship']
+Selected words: ['indigenous', 'mistress', 'lover', 'isaac', 'arduous', 'convex', 'gregg', 'flushed']
+Selected words: ['offshore', 'clickable', 'reynolds', 'vince', 'saskatoon', 'kashmir', 'coordinates', 'jena']
+Step 350, Loss: -2.5628, AUC: 0.0251
+Selected words: ['inns', 'tendon', 'size', 'seattle', 'special', 'dormitory', 'stalls', 'carol']
+Selected words: ['basically', 'drone', 'italy', 'warriors', 'accordingly', 'rotated', 'trod', 'prussia']
+Selected words: ['nominal', 'liaison', 'clarendon', 'harmonics', 'beat', 'hertfordshire', 'abilene', 'rahman']
+Selected words: ['relaxed', 'secretariat', 'presentations', 'trap', 'owes', 'irving', 'northwestern', 'galilei']
+Selected words: ['donna', 'enquiries', 'sandstorm', 'relied', 'resin', 'detachment', 'stem', 'portmanteau']
+Selected words: ['people', 'negotiated', 'for', 'ipswich', 'lightbulbs', 'clutch', 'apricot', 'soil']
+Selected words: ['correct', 'unfortunately', 'announcement', 'skirts', 'pyrenees', 'serbs', 'minster', 'optimism']
+Selected words: ['pillars', 'administration', 'institutes', 'faltered', 'causality', 'turn', 'currencies', 'costumes']
+Selected words: ['wow', 'relax', 'victorious', 'vicious', 'instrumentals', 'assist', 'introduction', 'career']
+Selected words: ['kangaroos', 'conditioned', 'modest', 'focused', 'drowning', 'finalists', 'fixtures', 'yolk']
+Step 360, Loss: -2.6780, AUC: 0.0331
+Selected words: ['dante', 'developers', 'budgies', 'grated', 'maker', 'vaudeville', 'adjectives', 'monmouth']
+Selected words: ['skate', 'fright', 'reservations', 'doubtful', 'podcast', 'durham', 'gandhi', 'nicholson']
+Selected words: ['compiling', 'sikh', 'azerbaijan', 'physicists', 'rabbits', 'disability', 'reefs', 'katharine']
+Selected words: ['reissued', 'annapolis', 'celebrate', 'durban', 'unorthodox', 'tuck', 'confronted', 'indoor']
+Selected words: ['spartan', 'gizmo', 'shelley', 'hooks', 'vibrant', 'colombian', 'statewide', 'vista']
+Selected words: ['review', 'fetch', 'yemen', 'hardware', 'bulletin', 'beats', 'access', 'fired']
+Selected words: ['conclusion', 'noel', 'storyline', 'ambiguity', 'submerged', 'ten', 'consequent', 'wild']
+Selected words: ['installment', 'sirens', 'framework', 'outgoing', 'memory', 'fedric', 'drew', 'adjoins']
+Selected words: ['pirate', 'alexandre', 'antelope', 'laurens', 'scabbard', 'interconnected', 'fluid', 'phrase']
+Selected words: ['greeks', 'anyone', 'subtitled', 'oven', 'induce', 'crime', 'adopted', 'railroad']
+Step 370, Loss: -1.7519, AUC: 0.0886
+Selected words: ['inanimate', 'lament', 'pardon', 'crazy', 'faces', 'icelandic', 'divinity', 'miami']
+Selected words: ['academia', 'saskatchewan', 'listing', 'pop', 'large', 'retention', 'stops', 'attacker']
+Selected words: ['nod', 'saddened', 'prohibits', 'pavilion', 'kidnapping', 'ripping', 'midwifes', 'jarvis']
+Selected words: ['minority', 'considerably', 'motorized', 'patriot', 'louisville', 'green', 'bowls', 'mcintyre']
+Selected words: ['pedestrians', 'leniency', 'practiced', 'holmes', 'mothers', 'suspicions', 'termination', 'mikhail']
+Selected words: ['sheer', 'fades', 'seawater', 'silhouette', 'correlated', 'tightening', 'wilderness', 'restrictive']
+Selected words: ['neanderthals', 'institution', 'pip', 'bookshelf', 'stroking', 'collie', 'zion', 'unhappiness']
+Selected words: ['shafts', 'promises', 'had', 'sloan', 'opportunity', 'finishing', 'sandstone', 'literal']
+Selected words: ['feathers', 'ramayana', 'against', 'account', 'economist', 'plodding', 'cleavage', 'margins']
+Selected words: ['ufo', 'server', 'stems', 'ions', 'adjusted', 'humphrey', 'advocate', 'restaurants']
+Step 380, Loss: -3.0601, AUC: 0.0463
+Selected words: ['morale', 'anonymity', 'bloomfield', 'join', 'baby', 'sell', 'averaging', 'console']
+Selected words: ['cockpit', 'ogden', 'urim', 'motorway', 'commentators', 'live', 'wrote', 'karl']
+Selected words: ['tourism', 'knowing', 'wilcox', 'treatments', 'cheers', 'constantine', 'portuguese', 'progesterone']
+Selected words: ['abby', 'boroughs', 'bottomless', 'banquet', 'aluminum', 'shifting', 'first', 'mythology']
+Selected words: ['pulling', 'filters', 'antelopes', 'southwestern', 'allergy', 'masterpiece', 'faeries', 'supplied']
+Selected words: ['chanting', 'needing', 'chop', 'horace', 'illustrated', 'eyelids', 'trek', 'quarrelling']
+Selected words: ['islam', 'well', 'pages', 'theresa', 'crime', 'websites', 'beyond', 'creeping']
+Selected words: ['doodle', 'sage', 'threatened', 'theft', 'discloses', 'maternity', 'baby', 'resigned']
+Selected words: ['sanctuary', 'assemble', 'debris', 'chiang', 'gift', 'dame', 'ancestors', 'sugarcane']
+Selected words: ['gonna', 'zambia', 'haul', 'muhammad', 'kind', 'backdoor', 'main', 'lodging']
+Step 390, Loss: -2.2569, AUC: 0.0543
+Selected words: ['legitimate', 'circular', 'spit', 'offices', 'invent', 'behaves', 'gifted', 'bach']
+Selected words: ['dora', 'melt', 'abandonment', 'sixties', 'pad', 'handheld', 'biodiversity', 'compounds']
+Selected words: ['classics', 'fairview', 'thinged', 'meaning', 'bowie', 'falkland', 'painfully', 'newbury']
+Selected words: ['sherlock', 'prejudice', 'taxpayer', 'merging', 'lexington', 'colours', 'alexandra', 'wedge']
+Selected words: ['optimised', 'teamed', 'vanity', 'porn', 'landowner', 'gleamed', 'elm', 'canon']
+Selected words: ['deer', 'utrecht', 'now', 'ferris', 'desserts', 'barely', 'keystone', 'pune']
+Selected words: ['humanist', 'harvey', 'investing', 'juice', 'guards', 'psychopath', 'upset', 'reproduce']
+Selected words: ['filth', 'dane', 'poplar', 'theater', 'deities', 'nash', 'trunk', 'imperial']
+Selected words: ['conviction', 'figured', 'absorbed', 'boomed', 'edinburgh', 'corral', 'versions', 'orally']
+Selected words: ['meanings', 'riviera', 'enduring', 'torpedoes', 'adoptive', 'chord', 'bending', 'guarding']
+Step 400, Loss: -2.0385, AUC: 0.0422
+Selected words: ['shifting', 'harbor', 'dividing', 'they', 'supporting', 'phone', 'inhale', 'bret']
+Selected words: ['deity', 'sherbrooke', 'grasses', 'spinner', 'monster', 'dismay', 'considerations', 'jury']
+Selected words: ['chaired', 'cola', 'backdrop', 'cheerleader', 'orbiting', 'quorum', 'lerner', 'chung']
+Selected words: ['genealogy', 'ibrahim', 'crouching', 'correspondent', 'prank', 'migratory', 'shaping', 'offscreen']
+Selected words: ['marius', 'westward', 'devoid', 'subscribers', 'cord', 'norwich', 'exhibit', 'auch']
+Selected words: ['pour', 'kingsley', 'rhode', 'sharing', 'racetrack', 'cymbals', 'tie', 'auguste']
+Selected words: ['giraffe', 'knots', 'farmhouse', 'program', 'aldo', 'account', 'electron', 'profit']
+Selected words: ['inhibit', 'hypothesis', 'shredded', 'saul', 'navigable', 'spotify', 'parked', 'posse']
+Selected words: ['adept', 'lombard', 'brave', 'whisperer', 'yodel', 'rating', 'tonal', 'ethnicity']
+Selected words: ['danube', 'acrylic', 'trumpets', 'pools', 'vicious', 'lifted', 'circulating', 'gules']
+Step 410, Loss: -2.2149, AUC: 0.0696
+Selected words: ['foreigner', 'horrific', 'poses', 'thor', 'faster', 'radiogram', 'asserts', 'unification']
+Selected words: ['crow', 'lyric', 'stages', 'topmost', 'owen', 'tuppy', 'bassett', 'dll']
+Selected words: ['horned', 'grows', 'invocation', 'presently', 'chronic', 'noise', 'tribune', 'encrypting']
+Selected words: ['deduction', 'foreigner', 'lists', 'shrieking', 'bungee', 'determinant', 'calligraphy', 'permits']
+Selected words: ['displaying', 'dope', 'bug', 'samuel', 'industrialist', 'want', 'competition', 'susceptible']
+Selected words: ['registered', 'boots', 'tenor', 'airlock', 'news', 'forcing', 'penalty', 'mate']
+Selected words: ['frederick', 'successive', 'destroyers', 'wan', 'success', 'parkland', 'latham', 'rebirth']
+Selected words: ['slots', 'presumably', 'oops', 'approve', 'gigantic', 'bottles', 'rees', 'tensor']
+Selected words: ['diaz', 'headcloth', 'russian', 'georgian', 'pass', 'watertight', 'easier', 'erie']
+Selected words: ['prima', 'sanity', 'perturbed', 'merely', 'festivities', 'accomplice', 'toilets', 'appleton']
+Step 420, Loss: -2.3558, AUC: 0.0628
+Selected words: ['treasurer', 'generally', 'oldham', 'greetings', 'subdued', 'silesia', 'punk', 'fried']
+Selected words: ['coincided', 'reserve', 'marvel', 'choreographer', 'meaningless', 'aspect', 'escapade', 'claiming']
+Selected words: ['riley', 'zoning', 'amassed', 'gauge', 'concourse', 'mainstream', 'santos', 'stealing']
+Selected words: ['upgrades', 'blackburn', 'colors', 'ecological', 'foot', 'octree', 'pantheon', 'symbolizes']
+Selected words: ['descent', 'offline', 'kine', 'yearly', 'breakaway', 'simum', 'feel', 'alfonso']
+Selected words: ['panda', 'implication', 'extinguisher', 'decreasing', 'seventies', 'tortured', 'somebody', 'screeched']
+Selected words: ['wan', 'underwent', 'jain', 'jericho', 'oswego', 'disgrace', 'bargain', 'disposal']
+Selected words: ['shillings', 'fizzy', 'pulmonary', 'bedding', 'diaspora', 'homemade', 'decreasing', 'deescalate']
+Selected words: ['josephine', 'shan', 'norman', 'definitely', 'concert', 'sanders', 'recoil', 'sinus']
+Selected words: ['lectures', 'margin', 'brick', 'commenced', 'dishes', 'rum', 'hammer', 'wickham']
+Step 430, Loss: -1.7278, AUC: 0.0770
+Selected words: ['arrange', 'multiedit', 'robbins', 'bondage', 'virginia', 'herding', 'marathon', 'rome']
+Selected words: ['organise', 'absolute', 'marines', 'utica', 'trophies', 'bathe', 'forgives', 'charitable']
+Selected words: ['dubious', 'wan', 'northwood', 'irritant', 'remastered', 'breast', 'resembled', 'predator']
+Selected words: ['gig', 'intractable', 'elevation', 'sexuality', 'euler', 'configurations', 'validity', 'theater']
+Selected words: ['afterwards', 'database', 'tasked', 'scenes', 'bavaria', 'portraits', 'licence', 'health']
+Selected words: ['might', 'flipped', 'believe', 'researcher', 'boris', 'publish', 'risky', 'decryption']
+Selected words: ['tina', 'wharf', 'hostels', 'perusing', 'radiogram', 'cuddling', 'karate', 'caldera']
+Selected words: ['cerebral', 'cheryl', 'eloquence', 'column', 'haunt', 'displaced', 'bill', 'sipped']
+Selected words: ['dragon', 'longitudinal', 'meadow', 'horticulture', 'scout', 'dividends', 'ship', 'affecting']
+Selected words: ['patriarch', 'glaringly', 'dreams', 'entire', 'however', 'flip', 'bounds', 'intensive']
+Step 440, Loss: -2.1147, AUC: 0.0938
+Selected words: ['ethanol', 'soldiers', 'resurrected', 'abolition', 'victorious', 'domestically', 'greenville', 'unlocked']
+Selected words: ['huntington', 'interconnected', 'wick', 'precision', 'scant', 'pub', 'boroughs', 'chillier']
+Selected words: ['convince', 'preserved', 'hesitated', 'administer', 'retardants', 'martha', 'recorders', 'mouthful']
+Selected words: ['perusing', 'notions', 'warrant', 'soldiers', 'pauline', 'fellowships', 'inverness', 'lisa']
+Selected words: ['franco', 'rats', 'integers', 'sherwood', 'faction', 'cheeks', 'latex', 'chemist']
+Selected words: ['tuna', 'centurion', 'prudence', 'everett', 'yorkshire', 'ribbon', 'racial', 'inscribed']
+Selected words: ['moons', 'chair', 'byzantine', 'gave', 'stopped', 'gifts', 'chesterfield', 'procedure']
+Selected words: ['fag', 'trampoline', 'vintage', 'trumpeter', 'summerson', 'cunningham', 'saving', 'interconnected']
+Selected words: ['amazingly', 'stall', 'fremont', 'rhine', 'topological', 'fiberglass', 'cures', 'offers']
+Selected words: ['recognizable', 'del', 'lived', 'drunkard', 'watkins', 'parasitic', 'undoubtedly', 'impenetrable']
+Step 450, Loss: -1.8642, AUC: 0.0516
+Selected words: ['bedding', 'presidents', 'colleague', 'holland', 'recruit', 'butmaybe', 'harvested', 'ozark']
+Selected words: ['lounge', 'taxis', 'abraham', 'enduring', 'opacity', 'henderson', 'stunt', 'slush']
+Selected words: ['sufi', 'nasal', 'tragedies', 'variability', 'hillary', 'tama', 'coin', 'wren']
+Selected words: ['cab', 'billboard', 'prohibit', 'cometh', 'relativity', 'divine', 'controls', 'scarf']
+Selected words: ['humbug', 'cunningham', 'monarchs', 'verbs', 'ruefully', 'ink', 'stuck', 'finn']
+Selected words: ['centrist', 'infection', 'kirby', 'departing', 'climbers', 'flattened', 'carlo', 'interchangeable']
+Selected words: ['popped', 'sermon', 'bonner', 'rejection', 'clashes', 'goldman', 'metropolitan', 'deductible']
+Selected words: ['workload', 'underparts', 'plaques', 'commercial', 'prisons', 'blared', 'sticks', 'pronunciation']
+Selected words: ['chieftain', 'hurricanes', 'defense', 'docked', 'concerto', 'passes', 'lot', 'gully']
+Selected words: ['chancellor', 'jessie', 'remembers', 'darcy', 'aerospace', 'calder', 'loafers', 'presents']
+Step 460, Loss: -2.3038, AUC: 0.0851
+Selected words: ['spokesman', 'monotypic', 'cell', 'jeez', 'procrastination', 'fiddle', 'critics', 'ebb']
+Selected words: ['reversible', 'opium', 'reanimate', 'hilda', 'welcomed', 'staggered', 'tonic', 'hyper']
+Selected words: ['tracks', 'canal', 'dope', 'israeli', 'focal', 'gravy', 'mats', 'homeless']
+Selected words: ['racing', 'couldn’t', 'kathy', 'roar', 'dupont', 'screech', 'murder', 'neutralize']
+Selected words: ['dom', 'redevelopment', 'eyesight', 'ssh', 'salon', 'relieved', 'stupid', 'reflect']
+Selected words: ['assessing', 'governorship', 'refer', 'greenwich', 'chiral', 'snacking', 'teachings', 'arrays']
+Selected words: ['backlash', 'prayer', 'gradient', 'secrecy', 'sooner', 'systematic', 'missionary', 'greasy']
+Selected words: ['neighboring', 'liberation', 'grew', 'capella', 'schwartz', 'white', 'organizers', 'afternoons']
+Selected words: ['careers', 'harvest', 'struggling', 'rotterdam', 'dumbarton', 'dramatically', 'endorsement', 'found']
+Selected words: ['eager', 'france', 'sarawak', 'handle', 'cuts', 'maybury', 'shaping', 'grooves']
+Step 470, Loss: -2.9898, AUC: 0.0196
+Selected words: ['interspersed', 'revives', 'hemisphere', 'salts', 'occupying', 'remarried', 'carson', 'opener']
+Selected words: ['muffins', 'births', 'calamity', 'techno', 'decision', 'extremes', 'refuse', 'sediment']
+Selected words: ['reeves', 'mpeg', 'linking', 'diego', 'drenching', 'kiev', 'rumbling', 'linguist']
+Selected words: ['claw', 'bullying', 'posterior', 'tools', 'herbs', 'spock', 'steadily', 'credibility']
+Selected words: ['gregory', 'kilo', 'peaked', 'transformations', 'marston', 'champagne', 'alcohols', 'errors']
+Selected words: ['frost', 'wedge', 'transform', 'sarajevo', 'amanda', 'surfboard', 'dicaprio', 'dispatches']
+Selected words: ['agreeable', 'kremlin', 'deutsch', 'redhair', 'editions', 'dimension', 'seminary', 'organs']
+Selected words: ['edgar', 'adoptive', 'revelation', 'objectives', 'skillful', 'speaks', 'refusal', 'kitten']
+Selected words: ['snacking', 'subsidized', 'easternmost', 'classified', 'hicks', 'blots', 'scent', 'diversified']
+Selected words: ['possessing', 'monmouth', 'short', 'driver', 'surprise', 'wartime', 'identifiers', 'olives']
+Step 480, Loss: -2.3519, AUC: 0.0482
+Selected words: ['weavers', 'selfless', 'prompted', 'trades', 'monarchs', 'rendezvous', 'dicaprio', 'municipality']
+Selected words: ['chromatic', 'factor', 'infiltrated', 'horror', 'germanic', 'syracuse', 'uproar', 'betrayed']
+Selected words: ['abbreviation', 'voter', 'sloane', 'strolled', 'concerned', 'granada', 'novel', 'aging']
+Selected words: ['won’t', 'quaint', 'nutrition', 'genera', 'pretending', 'launched', 'legislator', 'keller']
+Selected words: ['cereals', 'hickory', 'reigns', 'valuable', 'failed', 'putnam', 'old', 'always']
+Selected words: ['trojan', 'unwell', 'gustav', 'normans', 'installation', 'lifted', 'ventura', 'port']
+Selected words: ['props', 'preparations', 'lunatic', 'marrying', 'turmoil', 'comparison', 'terse', 'vintage']
+Selected words: ['aspen', 'vigorously', 'tissues', 'yacht', 'shore', 'industrialist', 'crushed', 'infirmary']
+Selected words: ['demolished', 'salvation', 'ranches', 'passive', 'hopefully', 'fulfilled', 'citing', 'puccini']
+Selected words: ['meanwhile', 'adventures', 'motionless', 'array', 'arsenal', 'warrior', 'kaufman', 'could']
+Step 490, Loss: -2.7820, AUC: 0.0622
+Selected words: ['divorced', 'asians', 'threads', 'menus', 'housed', 'guarantee', 'official', 'edith']
+Selected words: ['vacant', 'mile', 'terrorism', 'housed', 'sensed', 'determination', 'irrelevant', 'instability']
+Selected words: ['oregon', 'diamonds', 'husband', 'parcel', 'prospered', 'enclosed', 'spelling', 'sullen']
+Selected words: ['controlled', 'crimson', 'pirouetted', 'crate', 'electrified', 'trainees', 'hints', 'banker']
+Selected words: ['potentially', 'enlisted', 'conserve', 'activated', 'champ', 'ability', 'streams', 'bookmark']
+Selected words: ['marianne', 'sectarian', 'mare', 'reel', 'assistants', 'acuity', 'encounter', 'cheering']
+Selected words: ['safest', 'ken', 'finer', 'removal', 'harvest', 'potentially', 'litter', 'parry']
+Selected words: ['studying', 'race', 'larry', 'cubes', 'ainu', 'drinks', 'sleek', 'magnets']
+Selected words: ['dangles', 'dropped', 'fidget', 'crossing', 'chalk', 'stealing', 'shawty', 'binaries']
+Selected words: ['acres', 'thereby', 'brackets', 'hear', 'regimental', 'mongolia', 'decorated', 'tasmania']
+Step 500, Loss: -1.7043, AUC: 0.0379
+Selected words: ['calcium', 'stanley', 'purpose', 'quasi', 'bracelets', 'directions', 'reunion', 'admirable']
+Selected words: ['tel', 'treatments', 'turtles', 'escaping', 'officials', 'applications', 'schooling', 'berman']
+Selected words: ['anonymous', 'socially', 'mobility', 'ours', 'lush', 'upstairs', 'insulted', 'spartans']
+Selected words: ['soviet', 'squirrels', 'alchemists', 'ezra', 'fang', 'accepts', 'mediocre', 'endowed']
+Selected words: ['muppet', 'absent', 'coordinates', 'warsaw', 'tramp', 'philanthropist', 'speculated', 'merger']
+Selected words: ['tesco', 'friedman', 'hostility', 'ludicrously', 'avoiding', 'dictionaries', 'shelley', 'schumacher']
+Selected words: ['pierce', 'auctions', 'mina', 'humor', 'gibbered', 'originate', 'misfortunes', 'usage']
+Selected words: ['arterial', 'erin', 'lekrjahre', 'syndication', 'attire', 'shaving', 'belong', 'successor']
+Selected words: ['duffy', 'wildly', 'overs', 'pills', 'inanimate', 'neville', 'choirs', 'mae']
+Selected words: ['funds', 'bold', 'coke', 'primitive', 'flaring', 'ease', 'rails', 'jerk']
+Step 510, Loss: -2.6953, AUC: 0.0575
+Selected words: ['swarming', 'denotes', 'whispered', 'recomendation', 'brittle', 'olga', 'yesterday', 'fiery']
+Selected words: ['bark', 'middleaged', 'gasoline', 'covenant', 'farmer', 'cod', 'lock', 'losses']
+Selected words: ['burt', 'juniors', 'burgh', 'topping', 'sweeney', 'renowned', 'remarkably', 'bureau']
+Selected words: ['savage', 'enraged', 'assessments', 'alain', 'proponent', 'controls', 'bandits', 'crewe']
+Selected words: ['kentucky', 'histories', 'read', 'magnitude', 'annoying', 'seasonally', 'memoir', 'snap']
+Selected words: ['diversified', 'campaign', 'overall', 'shooters', 'computationally', 'exchanges', 'continuing', 'told']
+Selected words: ['trevor', 'portland', 'web', 'pickles', 'splendid', 'format', 'patriotic', 'thing']
+Selected words: ['fragmented', 'derived', 'escorted', 'selma', 'fixing', 'playoffs', 'zone', 'florescent']
+Selected words: ['september', 'barrie', 'dawson', 'nineteen', 'diplomats', 'texas', 'credentials', 'upholstery']
+Selected words: ['trey', 'civilization', 'ballistic', 'represent', 'destruction', 'headwaters', 'bacterial', 'thrift']
+Step 520, Loss: -2.6490, AUC: 0.0419
+Selected words: ['erickson', 'dungeon', 'sands', 'sustain', 'stop', 'thermodynamic', 'australians', 'replied']
+Selected words: ['pausing', 'strap', 'comprising', 'repetition', 'synthetic', 'ken', 'steal', 'historic']
+Selected words: ['contracting', 'stick', 'bellevue', 'dangerous', 'visited', 'scalable', 'legato', 'advance']
+Selected words: ['accessed', 'background', 'weary', 'avalanche', 'canned', 'intensified', 'basalt', 'warranty']
+Selected words: ['archaeologists', 'muffled', 'taiwanese', 'watching', 'burmese', 'parking', 'coliseum', 'genesee']
+Selected words: ['hypnotized', 'defibrillator', 'modernism', 'deeds', 'homeless', 'sash', 'pausing', 'ambassador']
+Selected words: ['homer', 'implode', 'petitioned', 'familiarize', 'chaucer', 'generations', 'excavation', 'remembering']
+Selected words: ['guard', 'enlarged', 'existential', 'substantive', 'selena', 'vehicles', 'polar', 'render']
+Selected words: ['informs', 'mantel', 'pseudonym', 'für', 'tokugawa', 'amazing', 'immobile', 'pleased']
+Selected words: ['attacks', 'reacts', 'mare', 'african', 'ruler', 'shariah', 'commitments', 'atlantic']
+Step 530, Loss: -2.0215, AUC: 0.0616
+Selected words: ['mallard', 'tyre', 'tulip', 'bloodshed', 'obnoxious', 'unnecessarily', 'seperate', 'neighborhood']
+Selected words: ['cargo', 'liv', 'norma', 'thwarted', 'researchers', 'classically', 'renault', 'beginnings']
+Selected words: ['sake', 'equally', 'pancakes', 'dive', 'parodies', 'tickets', 'bunny', 'too']
+Selected words: ['wondrous', 'entities', 'oat', 'latest', 'amassed', 'woodward', 'cushing', 'ridley']
+Selected words: ['illustrates', 'uproar', 'absolutely', 'bow', 'audio', 'rovers', 'karin', 'modelled']
+Selected words: ['compute', 'die', 'booklet', 'kitchens', 'lawns', 'hides', 'colonists', 'meanings']
+Selected words: ['was', 'spilled', 'seashore', 'adaptable', 'adjustments', 'cage', 'technological', 'undoubtedly']
+Selected words: ['sunken', 'captivating', 'slaves', 'boxing', 'cartwright', 'tamara', 'accept', 'ripped']
+Selected words: ['prevention', 'convex', 'palau', 'aspen', 'sexually', 'grand', 'dana', 'hotch']
+Selected words: ['neuralizer', 'newspapers', 'movements', 'hijack', 'oppression', 'pineapple', 'williams', 'consulting']
+Step 540, Loss: -2.2193, AUC: 0.0533
+Selected words: ['yang', 'rubble', 'offering', 'clashes', 'sensor', 'tray', 'carpenter', 'babylonian']
+Selected words: ['mastered', 'darren', 'waking', 'kicking', 'scare', 'ferret', 'mistaken', 'cuddling']
+Selected words: ['smiths', 'hunched', 'cable', 'conductor', 'dean', 'encouraging', 'prostrate', 'paxton']
+Selected words: ['node', 'sin', 'collingwood', 'nudism', 'successor', 'commissioning', 'spilled', 'cousins']
+Selected words: ['ragged', 'passage', 'ghostwriting', 'individuals', 'flat', 'biting', 'firmly', 'wick']
+Selected words: ['revenge', 'stinks', 'fractals', 'designations', 'bloke', 'vacant', 'futsal', 'rank']
+Selected words: ['pajamas', 'undeclared', 'rocking', 'genetics', 'subtropical', 'gerard', 'alphabetical', 'repetitious']
+Selected words: ['accessed', 'definitive', 'chronic', 'interment', 'commendation', 'violins', 'ethnically', 'threaten']
+Selected words: ['makers', 'bumps', 'wiltshire', 'tumbled', 'kidding', 'meteorite', 'stinker', 'bastion']
+Selected words: ['luxembourg', 'hoop', 'gradual', 'alloys', 'lesson', 'westchester', 'gazette', 'cognitive']
+Step 550, Loss: -1.3945, AUC: 0.0616
+Selected words: ['gerald', 'mono', 'harley', 'iota', 'attorney', 'trackers', 'diane', 'conflicting']
+Selected words: ['recording', 'neglect', 'penicillin', 'attitudes', 'organize', 'strawberry', 'dear', 'assembling']
+Selected words: ['yesterday', 'sundry', 'suspended', 'pelvis', 'further', 'verbal', 'bouts', 'spiritual']
+Selected words: ['bigger', 'kinda', 'infected', 'hustle', 'armagh', 'sparta', 'popcorn', 'speech']
+Selected words: ['rebound', 'dont', 'flaws', 'sanchez', 'monolith', 'slant', 'information', 'disappear']
+Selected words: ['miners', 'hurts', 'restrictive', 'tags', 'guilty', 'masterpiece', 'seas', 'bunch']
+Selected words: ['defining', 'soviet', 'sandstorm', 'winfrey', 'toni', 'rack', 'compliments', 'fraction']
+Selected words: ['you’re', 'totems', 'somehow', 'cheek', 'auditioned', 'margin', 'possible', 'pun']
+Selected words: ['matured', 'casual', 'producers', 'drapes', 'erin', 'hobby', 'parochial', 'paraguay']
+Selected words: ['bulk', 'raising', 'direct', 'traveled', 'consensus', 'lakeland', 'bloomfield', 'osbourne']
+Step 560, Loss: -2.6637, AUC: 0.0638
+Selected words: ['risen', 'indices', 'overcoming', 'closure', 'scenery', 'splashes', 'murders', 'suppose']
+Selected words: ['vocalist', 'teammate', 'paintball', 'kine', 'sedative', 'mia', 'paddy', 'mundane']
+Selected words: ['dreary', 'conserve', 'bluff', 'poke', 'notre', 'artificially', 'rent', 'offence']
+Selected words: ['diesel', 'pregnancy', 'bounty', 'engraved', 'nod', 'wondering', 'trumpet', 'checkpoints']
+Selected words: ['assaults', 'unresting', 'lend', 'raging', 'recommends', 'twixt', 'landlord', 'cells']
+Selected words: ['advertising', 'resulted', 'wellington', 'upstate', 'precedence', 'discoveries', 'gum', 'simplest']
+Selected words: ['haute', 'morrow', 'moore', 'leisure', 'informative', 'reservoir', 'aviv', 'espresso']
+Selected words: ['williams', 'directly', 'policy', 'cocked', 'reversible', 'month', 'rap', 'puddles']
+Selected words: ['seal', 'lateral', 'threads', 'independence', 'relief', 'treatises', 'reappears', 'relic']
+Selected words: ['audience', 'cushing', 'babysitting', 'predecessors', 'conspicuous', 'preventing', 'cooling', 'prospects']
+Step 570, Loss: -2.3610, AUC: 0.0599
+Selected words: ['respectable', 'lutheran', 'configurable', 'enforcement', 'jet', 'excludes', 'predecessor', 'lagoon']
+Selected words: ['inhibit', 'categorized', 'chance', 'arsenal', 'eliciting', 'backup', 'maryland', 'airlines']
+Selected words: ['flexible', 'succession', 'adapter', 'rare', 'anxious', 'openings', 'innate', 'fays']
+Selected words: ['other', 'braid', 'influenza', 'serviced', 'turning', 'batter', 'alexis', 'neat']
+Selected words: ['metres', 'powerful', 'emitting', 'lighthouse', 'allocated', 'stemmed', 'romani', 'rafting']
+Selected words: ['righteous', 'tusk', 'exploring', 'mentioning', 'winslow', 'eventual', 'decomposition', 'incumbent']
+Selected words: ['article', 'chemotherapy', 'guys', 'bid', 'northampton', 'lounge', 'reclamation', 'sikh']
+Selected words: ['amidst', 'thicker', 'shirley', 'ulcer', 'desmond', 'plodded', 'efforts', 'resident']
+Selected words: ['hampshire', 'features', 'sierra', 'mirco', 'raspberry', 'fiction', 'nationally', 'kiev']
+Selected words: ['pass', 'cummings', 'dillon', 'attacked', 'adapt', 'herbivores', 'bulls', 'mackay']
+Step 580, Loss: -1.6472, AUC: 0.1353
+Selected words: ['cornwall', 'bluetooth', 'twigs', 'becomes', 'intersection', 'shawty', 'sizzling', 'digitally']
+Selected words: ['skeleton', 'sarajevo', 'carey', 'loop', 'emails', 'phrases', 'onions', 'settled']
+Selected words: ['decides', 'generators', 'hike', 'simplest', 'mongolia', 'patriarchs', 'pirouetted', 'disposes']
+Selected words: ['profoundly', 'prestigious', 'often', 'grunt', 'latitude', 'rapidly', 'multiedit', 'coastal']
+Selected words: ['give', 'scalability', 'navajo', 'menace', 'entitled', 'bun', 'hunted', 'daughters']
+Selected words: ['wentworth', 'amy', 'cliffs', 'guerrero', 'stood', 'facilitated', 'major', 'whirlwind']
+Selected words: ['pals', 'disappearance', 'bradbury', 'glen', 'towns', 'canned', 'sled', 'typing']
+Selected words: ['gadget', 'translates', 'garments', 'normans', 'shoe', 'royal', 'ceremonies', 'berry']
+Selected words: ['alpha', 'explains', 'intervals', 'combined', 'comparison', 'graphical', 'edwards', 'takeover']
+Selected words: ['ellie', 'cables', 'refuge', 'sandals', 'wires', 'suspected', 'swore', 'period']
+Step 590, Loss: -3.4526, AUC: 0.0492
+Selected words: ['lightbulbs', 'babbage', 'aquarium', 'medicine', 'francs', 'historians', 'functioned', 'celebrates']
+Selected words: ['friedrich', 'peach', 'hazardous', 'bakery', 'classmates', 'synthesis', 'avalon', 'stall']
+Selected words: ['survey', 'rushed', 'goddard', 'adventures', 'similar', 'storied', 'bean', 'morden']
+Selected words: ['newborn', 'adjustments', 'jesus', 'pylons', 'soaking', 'consecrated', 'chipotle', 'experienced']
+Selected words: ['requests', 'brake', 'profiles', 'cell', 'pumpkins', 'augustine', 'locality', 'closes']
+Selected words: ['ware', 'competitors', 'shipyard', 'survived', 'tuppy', 'timor', 'amid', 'he’ll']
+Selected words: ['stubby', 'easier', 'overly', 'mughal', 'nope', 'decomposition', 'yellowish', 'raspberry']
+Selected words: ['gear', 'putnam', 'naval', 'rootless', 'trust', 'unix', 'operators', 'coherent']
+Selected words: ['arrived', 'cookies', 'fuel', 'unbelievable', 'basic', 'justin', 'fiercely', 'feathered']
+Selected words: ['triangular', 'peninsula', 'strengthening', 'excitedly', 'medici', 'literal', 'loyal', 'yugoslavia']
+Step 600, Loss: -1.2636, AUC: 0.0888
+Selected words: ['philips', 'vermicelli', 'acts', 'puncture', 'reached', 'drapes', 'twigs', 'kilns']
+Selected words: ['veto', 'trickle', 'caroline', 'engined', 'rebuilding', 'glover', 'nationals', 'worked']
+Selected words: ['candy', 'childbirths', 'sumter', 'orthography', 'kelsey', 'snacks', 'procedure', 'cosmic']
+Selected words: ['cited', 'possesses', 'confession', 'weinberg', 'legato', 'prince', 'soared', 'establishing']
+Selected words: ['undergoing', 'highgate', 'satellites', 'cornerstone', 'ups', 'lucy', 'philosopher', 'entrusted']
+Selected words: ['explained', 'phenomena', 'waddled', 'chronological', 'tract', 'cock', 'sheldon', 'countries']
+Selected words: ['brightly', 'yolks', 'sprayed', 'unveiled', 'empty', 'limits', 'lex', 'workman']
+Selected words: ['classically', 'postgraduate', 'masterson', 'feeling', 'protocol', 'elevated', 'fats', 'flagged']
+Selected words: ['yellow', 'powerless', 'comedies', 'porter', 'subscription', 'yang', 'gage', 'cleveland']
+Selected words: ['jonas', 'driving', 'salvation', 'configurations', 'dixon', 'fibers', 'footballers', 'architectures']
+Step 610, Loss: -2.9060, AUC: 0.0482
+Selected words: ['tinsel', 'charger', 'phantom', 'fayetteville', 'sputtered', 'exchanged', 'retaliate', 'lots']
+Selected words: ['crown', 'grazing', 'similarity', 'changed', 'spinner', 'layer', 'erupted', 'refusal']
+Selected words: ['hive', 'howe', 'burying', 'communities', 'struggle', 'pilgrim', 'eyelids', 'piston']
+Selected words: ['despise', 'cameron', 'dispatch', 'erect', 'sabbath', 'according', 'banished', 'deepest']
+Selected words: ['blind', 'spotify', 'amazingly', 'anchors', 'cheats', 'hygiene', 'tributary', 'towing']
+Selected words: ['screech', 'resembles', 'objected', 'intervals', 'knives', 'area', 'last', 'remix']
+Selected words: ['expansion', 'scandinavia', 'vinci', 'tranquillity', 'livid', 'correctional', 'lausanne', 'biases']
+Selected words: ['onward', 'dance', 'recipes', 'recognizing', 'miranda', 'mecca', 'distrustful', 'opera']
+Selected words: ['machine', 'sneeze', 'healy', 'liberal', 'rewards', 'enjoys', 'demonstrations', 'arrangement']
+Selected words: ['turn', 'shipwreck', 'spiciness', 'stronghold', 'snowed', 'stripe', 'splinter', 'entail']
+Step 620, Loss: -1.3449, AUC: 0.0975
+Selected words: ['smashup', 'town', 'athletic', 'enough', 'windscreen', 'pneumonia', 'indefinitely', 'along']
+Selected words: ['benefactor', 'embarrassing', 'jerome', 'coasts', 'shame', 'secondly', 'sinner', 'tucson']
+Selected words: ['rhodes', 'porto', 'viscosity', 'succession', 'educational', 'city', 'misrecognized', 'beauty']
+Selected words: ['abortion', 'grossing', 'ecological', 'listings', 'believe', 'offenders', 'warp', 'investigate']
+Selected words: ['cheat', 'janis', 'bed', 'quantitative', 'surveyor', 'mini', 'lightweight', 'singh']
+Selected words: ['nice', 'judgment', 'gal', 'navigate', 'flowed', 'elmer', 'exhilarated', 'crossings']
+Selected words: ['scary', 'comment', 'galway', 'irrelevant', 'slipped', 'tribes', 'blinked', 'lauded']
+Selected words: ['piccadilly', 'bribery', 'members', 'karate', 'yukon', 'anxiously', 'diffraction', 'seventies']
+Selected words: ['accusing', 'reporter', 'traces', 'infidels', 'bakers', 'aligned', 'alignment', 'utilities']
+Selected words: ['haul', 'montoya', 'porous', 'erotic', 'branding', 'kits', 'frogs', 'trigger']
+Step 630, Loss: -3.7060, AUC: 0.0205
+Selected words: ['modified', 'zoo', 'motion', 'harald', 'exclusive', 'became', 'inflammatory', 'sheets']
+Selected words: ['ups', 'buffalo', 'drifting', 'hops', 'culminated', 'rio', 'bitten', 'blossom']
+Selected words: ['albania', 'implode', 'depict', 'imperative', 'copper', 'fraud', 'stayed', 'glory']
+Selected words: ['posted', 'conquer', 'amelia', 'typeface', 'defined', 'capitalism', 'flowers', 'widely']
+Selected words: ['sneaking', 'thatcher', 'helen', 'prayed', 'drug', 'collaborate', 'appetite', 'domination']
+Selected words: ['whisperer', 'succession', 'spies', 'constituent', 'tolerate', 'hollow', 'pale', 'yankees']
+Selected words: ['wolff', 'rabbis', 'localized', 'stern', 'philanthropy', 'jon', 'paces', 'numbering']
+Selected words: ['hourly', 'wheelchair', 'barton', 'graduating', 'physics', 'deutsch', 'hook', 'ezra']
+Selected words: ['respiration', 'brushed', 'hebron', 'ejection', 'waddled', 'populace', 'seats', 'loan']
+Selected words: ['winked', 'geese', 'rural', 'mimic', 'protests', 'wider', 'harass', 'insular']
+Step 640, Loss: -1.9217, AUC: 0.0440
+Selected words: ['indicator', 'reliable', 'lettuce', 'mosquito', 'suspense', 'nest', 'cambridgeshire', 'vanished']
+Selected words: ['paisley', 'progresses', 'diversity', 'recollection', 'leanne', 'devi', 'dilated', 'concepts']
+Selected words: ['near', 'fence', 'pioneer', 'mona', 'portrayal', 'cares', 'scabbard', 'sobered']
+Selected words: ['marred', 'unmarried', 'wrists', 'allow', 'participate', 'limerick', 'aesthetic', 'unwell']
+Selected words: ['teller', 'wonders', 'japanese', 'disorders', 'beauty', 'pioneered', 'perfection', 'leveling']
+Selected words: ['endemic', 'then', 'lauren', 'sir', 'roads', 'exposition', 'exit', 'shame']
+Selected words: ['cardiff', 'savings', 'yes', 'sponsored', 'distinctive', 'spite', 'mob', 'shining']
+Selected words: ['mini', 'neighbors', 'put', 'belfast', 'frustrated', 'taxa', 'lausanne', 'challenged']
+Selected words: ['thriller', 'delivered', 'motorcycle', 'owes', 'nor', 'homo', 'journals', 'compatible']
+Selected words: ['teutonic', 'preferred', 'opened', 'forks', 'hilt', 'festivities', 'bends', 'manually']
+Step 650, Loss: -2.3900, AUC: 0.0795
+Selected words: ['mechanic', 'farewell', 'prefecture', 'faltered', 'fold', 'superhero', 'adviser', 'smart']
+Selected words: ['keras', 'kazakhstan', 'organized', 'lankan', 'laying', 'creativity', 'goose', 'cabins']
+Selected words: ['agent', 'surly', 'cramp', 'moses', 'graded', 'superstars', 'transaction', 'naturally']
+Selected words: ['hails', 'outnumbered', 'belonged', 'batsman', 'primarily', 'embargo', 'lincoln', 'scramble']
+Selected words: ['deafening', 'elective', 'restructuring', 'metz', 'schizophrenia', 'knocking', 'lorry', 'savanna']
+Selected words: ['pyramid', 'rooney', 'pencils', 'bald', 'recession', 'wilton', 'grayson', 'partners']
+Selected words: ['excited', 'rotational', 'hoist', 'commemorative', 'school’s', 'silly', 'console', 'snack']
+Selected words: ['contaminated', 'leiden', 'andover', 'formerly', 'confused', 'goal', 'descendants', 'andes']
+Selected words: ['astrology', 'egotism', 'brands', 'reaching', 'announcement', 'rebuilding', 'shifts', 'bridges']
+Selected words: ['profitable', 'hindu', 'diagnostic', 'beatles', 'searched', 'melted', 'syriac', 'taboo']
+Step 660, Loss: -2.9206, AUC: 0.0261
+Selected words: ['affords', 'accusation', 'rocked', 'flickered', 'baltimore', 'hails', 'abdominal', 'didn’t']
+Selected words: ['arrears', 'belonging', 'triangles', 'ashtray', 'consciousness', 'colts', 'noteworthy', 'clunky']
+Selected words: ['rejoin', 'wears', 'leapt', 'trees', 'useless', 'kidneys', 'lectures', 'helsinki']
+Selected words: ['unopposed', 'regarded', 'hesitated', 'whistles', 'poverty', 'shipyard', 'opengl', 'tina']
+Selected words: ['bulls', 'applicants', 'cons', 'mare', 'devices', 'subfamily', 'touring', 'books']
+Selected words: ['upstate', 'ledge', 'stroller', 'cures', 'fairy', 'hughes', 'lanka', 'snoopy']
+Selected words: ['rafting', 'moccasins', 'compatible', 'crocodiles', 'attraction', 'elbe', 'aberdeen', 'coincides']
+Selected words: ['second', 'camels', 'berwick', 'multi', 'compelling', 'swooping', 'left', 'swiss']
+Selected words: ['jacket', 'boots', 'presumed', 'sixteenth', 'weave', 'will', 'keeping', 'constantine']
+Selected words: ['skipping', 'toboggan', 'restore', 'fairfax', 'diverted', 'connection', 'dust', 'airlock']
+Step 670, Loss: -4.2682, AUC: 0.0336
+Selected words: ['merritt', 'assume', 'flyers', 'alexis', 'prevalent', 'account', 'blackwood', 'strands']
+Selected words: ['possess', 'pune', 'flooring', 'dim', 'page', 'invariant', 'turmoil', 'transylvania']
+Selected words: ['fleetwood', 'jailed', 'traitorous', 'dusty', 'clashes', 'intellectuals', 'durban', 'subsidiary']
+Selected words: ['entities', 'develop', 'staffordshire', 'fort', 'irresolute', 'admits', 'corruption', 'fork']
+Selected words: ['beware', 'ritzy', 'nuns', 'coined', 'congregations', 'bathtub', 'limbs', 'wins']
+Selected words: ['matured', 'tourism', 'duct', 'visiting', 'alleviate', 'relating', 'treason', 'scrape']
+Selected words: ['correspond', 'resembled', 'cannon', 'auction', 'avocados', 'wrestled', 'something', 'dramatically']
+Selected words: ['sulfate', 'higher', 'stuff', 'extinguisher', 'cloudy', 'buns', 'ninety', 'things']
+Selected words: ['involves', 'shook', 'british', 'sniffles', 'enhanced', 'thumbnails', 'bison', 'intact']
+Selected words: ['faculties', 'examiner', 'hilltop', 'lunkheads', 'blackmails', 'somerset', 'mask', 'alfonso']
+Step 680, Loss: -3.0333, AUC: 0.0471
+Selected words: ['finest', 'georges', 'fires', 'mini', 'receptions', 'lacks', 'salzburg', 'silly']
+Selected words: ['tack', 'korea', 'last', 'retention', 'transmission', 'retreats', 'pam', 'zone']
+Selected words: ['arranged', 'perchance', 'works', 'zealand', 'playboy', 'completion', 'ronald', 'cymbals']
+Selected words: ['populist', 'ceramic', 'monocular', 'planet', 'rock', 'lastly', 'gifford', 'colchester']
+Selected words: ['apologize', 'synonyms', 'combinations', 'nervous', 'doctor', 'celia', 'negotiation', 'chewing']
+Selected words: ['acquiring', 'strata', 'vestibular', 'memoirs', 'luigi', 'cruisers', 'mead', 'domes']
+Selected words: ['folks', 'jealousy', 'secretariat', 'recipients', 'shorty', 'sino', 'prostrate', 'made']
+Selected words: ['tunnel', 'tavis', 'cocktails', 'generated', 'possession', 'exceeded', 'toni', 'gamble']
+Selected words: ['liberated', 'acted', 'soy', 'herald', 'spectral', 'seizure', 'platform', 'connectivity']
+Selected words: ['chinatown', 'gpus', 'prevailed', 'determinant', 'jerome', 'recap', 'blaming', 'mcpherson']
+Step 690, Loss: -2.5773, AUC: 0.0394
+Selected words: ['origins', 'crack', 'sputtered', 'postulated', 'miracle', 'tuned', 'polymer', 'halo']
+Selected words: ['flaw', 'ministerial', 'presence', 'drops', 'repertoire', 'revolved', 'wrapping', 'consequent']
+Selected words: ['junta', 'mainline', 'cavity', 'emigration', 'garbage', 'perished', 'businessmen', 'mccartney']
+Selected words: ['strict', 'humming', 'servant', 'covering', 'composer', 'insight', 'statement', 'dundas']
+Selected words: ['egg', 'cap', 'handheld', 'libraries', 'unit', 'camcorder', 'surreal', 'bridgewater']
+Selected words: ['utility', 'earth', 'megan', 'birches', 'explored', 'sensing', 'despite', 'beatty']
+Selected words: ['godmother', 'strips', 'twins', 'practiced', 'initiation', 'peers', 'but', 'incompatible']
+Selected words: ['namesake', 'willie', 'plantations', 'crusty', 'fort', 'bookmark', 'brisk', 'minneapolis']
+Selected words: ['knives', 'missile', 'corrosive', 'dobson', 'rockets', 'emeritus', 'parramatta', 'joking']
+Selected words: ['crustaceans', 'arriva', 'still', 'focusing', 'confederate', 'babysitting', 'gauge', 'strode']
+Step 700, Loss: -2.4915, AUC: 0.0601
+Selected words: ['androids', 'hussein', 'mantle', 'helping', 'coming', 'saddened', 'affairs', 'media']
+Selected words: ['stung', 'empties', 'synonym', 'screened', 'sandwiches', 'muslims', 'obviously', 'hectares']
+Selected words: ['mined', 'paramedic', 'andre', 'criticisms', 'fest', 'bows', 'prost', 'long']
+Selected words: ['diode', 'cretaceous', 'vegan', 'sailors', 'impatiently', 'hiring', 'injuries', 'codex']
+Selected words: ['carnegie', 'euros', 'pressings', 'warranty', 'poultry', 'footballer', 'cabs', 'jesuit']
+Selected words: ['rubber', 'checkpoints', 'sydney', 'diaspora', 'tongues', 'avocados', 'panoramic', 'aching']
+Selected words: ['strap', 'busch', 'proportions', 'dressing', 'reality', 'graphics', 'stevie', 'northrop']
+Selected words: ['hawaiian', 'sail', 'nozzle', 'relaxed', 'john', 'founding', 'things', 'tracts']
+Selected words: ['knapsack', 'augustus', 'commanded', 'leafed', 'faith', 'hesitation', 'arthritis', 'linguists']
+Selected words: ['baskets', 'passionately', 'observing', 'clamored', 'gwen', 'bergen', 'err', 'dane']
+Step 710, Loss: -1.6592, AUC: 0.0727
+Selected words: ['honestly', 'adventure', 'hears', 'personnel', 'airdrop', 'gum', 'gestures', 'diminutive']
+Selected words: ['combinations', 'packer', 'valet', 'vestibular', 'subjects', 'threatened', 'rallies', 'addictive']
+Selected words: ['unsolved', 'pairing', 'unfortunately', 'indoors', 'nagoya', 'tending', 'sicilian', 'plates']
+Selected words: ['newcastle', 'doubted', 'lam', 'amendments', 'spas', 'polish', 'maitland', 'invitation']
+Selected words: ['scars', 'container', 'encoded', 'deleted', 'manufacturers', 'moment', 'scared', 'choosing']
+Selected words: ['footing', 'empires', 'reggie', 'cornerback', 'operations', 'mailing', 'dubbed', 'than']
+Selected words: ['distributions', 'hangover', 'regulate', 'psychology', 'prehistoric', 'takeouts', 'comply', 'mouthful']
+Selected words: ['overtake', 'labels', 'brewers', 'boomerang', 'sentiment', 'cakes', 'make', 'gully']
+Selected words: ['aurora', 'twain', 'tributes', 'collaborated', 'repair', 'plundered', 'harvey', 'arthritis']
+Selected words: ['olivet', 'bisexual', 'collectively', 'coefficient', 'sex', 'racer', 'dumbarton', 'thorough']
+Step 720, Loss: -3.4513, AUC: 0.0204
+Selected words: ['landings', 'robson', 'says', 'neglect', 'advanced', 'spot', 'chevron', 'necessary']
+Selected words: ['hewn', 'hobbits', 'informing', 'rapped', 'sores', 'ratified', 'bell', 'dorothy']
+Selected words: ['raining', 'commissioners', 'fur', 'policemen', 'sunburns', 'sullen', 'alta', 'fastest']
+Selected words: ['blondhair', 'cap', 'pascal', 'reminder', 'sleepy', 'economic', 'acton', 'rachid']
+Selected words: ['hydroxide', 'phoenix', 'biologists', 'mutex', 'calculus', 'cumberland', 'characteristic', 'ashore']
+Selected words: ['speech', 'consort', 'stained', 'insignia', 'undergoing', 'sun', 'murderer', 'reaching']
+Selected words: ['sunk', 'angry', 'cared', 'spit', 'vain', 'thrashed', 'navigation', 'albion']
+Selected words: ['volunteered', 'explosives', 'compromised', 'shift', 'manhunt', 'enterprise', 'surname', 'kilometre']
+Selected words: ['expenditures', 'i’m', 'perfection', 'gratitude', 'behave', 'rideau', 'atkins', 'lap']
+Selected words: ['undertakes', 'danced', 'replied', 'filtered', 'tempting', 'behind', 'flammable', 'atm']
+Step 730, Loss: -2.0257, AUC: 0.1193
+Selected words: ['drummer', 'deepest', 'everton', 'sedative', 'yvonne', 'faeries', 'mysteriously', 'alright']
+Selected words: ['impression', 'creeping', 'diagonal', 'fag', 'multivariate', 'vietnamese', 'enquiries', 'auckland']
+Selected words: ['diverge', 'talks', 'everlasting', 'jedi', 'altars', 'vegetarians', 'hermitage', 'dagger']
+Selected words: ['adolf', 'disappeared', 'rhodes', 'institutes', 'veil', 'slang', 'fitzgerald', 'fooled']
+Selected words: ['somewhat', 'shortcuts', 'rosebush', 'sara', 'mohammed', 'licensing', 'treaty', 'berger']
+Selected words: ['emmy', 'histogram', 'spattered', 'vineyard', 'fancier', 'farm', 'controlling', 'activists']
+Selected words: ['marching', 'gracefully', 'harald', 'poem', 'benson', 'gdp', 'budapest', 'tolerate']
+Selected words: ['plug', 'selected', 'pneumatic', 'stoke', 'jeffrey', 'cheers', 'slacker', 'bernardino']
+Selected words: ['intrigued', 'magnet', 'rubin', 'updates', 'keyboardist', 'extant', 'cameo', 'guiana']
+Selected words: ['horseshoe', 'coaster', 'humming', 'persisted', 'repository', 'denver', 'equality', 'dumped']
+Step 740, Loss: -1.9634, AUC: 0.0571
+Selected words: ['chaucer', 'lanes', 'holds', 'entirety', 'rhodes', 'poets', 'erie', 'appearing']
+Selected words: ['cosmic', 'ears', 'specializing', 'fresh', 'welch', 'pubs', 'hair', 'reruns']
+Selected words: ['pill', 'declares', 'commemorates', 'anthem', 'clumsily', 'brilliantly', 'atlas', 'exemption']
+Selected words: ['shape', 'commands', 'information', 'averages', 'ovens', 'wrestle', 'flounder', 'freeway']
+Selected words: ['sydney', 'pimped', 'hoodie', 'farther', 'earls', 'laguna', 'turnpike', 'porter']
+Selected words: ['secure', 'benton', 'mainstay', 'keene', 'shaw', 'perusing', 'boyd', 'mario']
+Selected words: ['oracle', 'platted', 'handbook', 'commentators', 'joy', 'loot', 'proximity', 'financial']
+Selected words: ['orders', 'recruited', 'ordinary', 'bastion', 'sport', 'exploited', 'span', 'identify']
+Selected words: ['girlfriend', 'conducted', 'homeless', 'statistical', 'guiding', 'proceed', 'sack', 'shipwreck']
+Selected words: ['humorous', 'chauffeur', 'paced', 'brittany', 'rug', 'hours', 'interpreter', 'breastplate']
+Step 750, Loss: -3.9818, AUC: 0.0121
+Selected words: ['birch', 'shortages', 'kin', 'claire', 'indy', 'rippers', 'enthusiasts', 'laurens']
+Selected words: ['ending', 'penguins', 'labels', 'hula', 'eric', 'cannot', 'sophisticated', 'knife']
+Selected words: ['odessa', 'investigated', 'acts', 'descriptors', 'vessel', 'stolen', 'exodus', 'seagull']
+Selected words: ['monsters', 'singleton', 'contestant', 'devout', 'cooperative', 'situation', 'hilary', 'towel']
+Selected words: ['pinkish', 'gazette', 'progressist', 'transported', 'flies', 'agency', 'conduct', 'scooter']
+Selected words: ['serie', 'statistical', 'estimates', 'burgh', 'benedict', 'tired', 'dispense', 'zestful']
+Selected words: ['anne', 'living', 'scars', 'zip', 'superb', 'precisely', 'failure', 'cocks']
+Selected words: ['fibrous', 'acid', 'staircase', 'luck', 'andhra', 'pope', 'witch', 'trams']
+Selected words: ['alongside', 'sourced', 'weir', 'writings', 'date', 'wireless', 'valour', 'sinclair']
+Selected words: ['lucia', 'deployed', 'daylight', 'noteworthy', 'repeal', 'insistently', 'vowed', 'octagonal']
+Step 760, Loss: -0.5363, AUC: 0.1359
+Selected words: ['knee', 'covering', 'assembly', 'deals', 'polls', 'plentiful', 'booking', 'wars']
+Selected words: ['under', 'seaside', 'subset', 'extent', 'thornton', 'sang', 'wines', 'fault']
+Selected words: ['quench', 'guides', 'caste', 'regiment', 'furiously', 'disposal', 'figured', 'lighthouses']
+Selected words: ['haile', 'handlebars', 'martians', 'medial', 'becoming', 'staggered', 'privilege', 'russo']
+Selected words: ['owens', 'robson', 'ajax', 'ladies', 'shy', 'electric', 'firefox', 'sealed']
+Selected words: ['patrol', 'smelt', 'doo', 'maxim', 'moons', 'statistic', 'cited', 'ill']
+Selected words: ['celebrities', 'beret', 'information', 'flaring', 'cascades', 'litmus', 'bern', 'shuttered']
+Selected words: ['wet', 'nasa', 'arboreal', 'mister', 'killed', 'wrath', 'alabama', 'cleaned']
+Selected words: ['experimented', 'afghan', 'brussels', 'casing', 'kits', 'animation', 'whipping', 'apologize']
+Selected words: ['rhine', 'pearl', 'eggs', 'checksum', 'disapproval', 'seized', 'masterpiece', 'helene']
+Step 770, Loss: -2.7023, AUC: 0.0385
+Selected words: ['toronto', 'tame', 'horace', 'extra', 'invest', 'readers', 'tiberius', 'trainees']
+Selected words: ['bieber', 'teddy', 'finalized', 'tomb', 'rouen', 'jockey', 'virtual', 'earliest']
+Selected words: ['periods', 'abortion', 'dora', 'drawing', 'tolls', 'persistent', 'hound', 'semester']
+Selected words: ['bundles', 'rica', 'himalayas', 'rated', 'georgian', 'commotion', 'pickering', 'invitation']
+Selected words: ['harlan', 'rallies', 'malls', 'superstructure', 'smoothly', 'hempstead', 'workaround', 'wounds']
+Selected words: ['blues', 'headdress', 'conserved', 'obediently', 'thereafter', 'judas', 'tips', 'gained']
+Selected words: ['ada', 'equals', 'urban', 'razor', 'contented', 'giuseppe', 'coffin', 'hold']
+Selected words: ['trout', 'independently', 'succumbed', 'stake', 'bugle', 'clinic', 'celebrating', 'desktop']
+Selected words: ['palm', 'lyric', 'influenza', 'futuristic', 'garry', 'coordination', 'sob', 'delegates']
+Selected words: ['abrasions', 'pheromones', 'suggests', 'fielded', 'wither', 'rodney', 'brains', 'priesthood']
+Step 780, Loss: -3.6723, AUC: 0.0316
+Selected words: ['drought', 'luminosity', 'bay', 'plucked', 'dice', 'comrades', 'confidential', 'food']
+Selected words: ['courier', 'safer', 'humanism', 'chimney', 'semantic', 'optimised', 'glow', 'launcher']
+Selected words: ['butterfly', 'affiliated', 'coinage', 'were', 'flavoured', 'minded', 'impatient', 'bartender']
+Selected words: ['determinant', 'snyder', 'analysts', 'sherman', 'causeway', 'keyword', 'philips', 'degraded']
+Selected words: ['arguing', 'invited', 'scathing', 'edited', 'blast', 'thatched', 'precisely', 'brute']
+Selected words: ['overall', 'colder', 'mistakenly', 'frankfort', 'mantel', 'mortuary', 'einstein', 'families']
+Selected words: ['all', 'foundations', 'stubby', 'gwen', 'calcite', 'decay', 'flies', 'trenton']
+Selected words: ['restrictions', 'boniface', 'benches', 'separately', 'fragile', 'investigator', 'insular', 'kibbutz']
+Selected words: ['historian', 'straw', 'resettled', 'agnostic', 'playfellow', 'sutton', 'financial', 'tanner']
+Selected words: ['brightening', 'rust', 'whistler', 'unrest', 'unloving', 'abstract', 'articles', 'originate']
+Step 790, Loss: -1.1985, AUC: 0.0877
+Selected words: ['davis', 'chapter', 'pedro', 'bey', 'ventured', 'convictions', 'trial', 'jimmy']
+Selected words: ['comet', 'intellectuals', 'hoovered', 'asphalt', 'drying', 'abound', 'announcers', 'cobalt']
+Selected words: ['stubbs', 'propagate', 'emphasis', 'uncertainty', 'consort', 'sprung', 'examples', 'required']
+Selected words: ['currently', 'painful', 'obeyed', 'enemies', 'generalization', 'specialist', 'computational', 'litigation']
+Selected words: ['independent', 'workshop', 'thyme', 'bingham', 'cinnamon', 'banker', 'admire', 'repulsed']
+Selected words: ['pole', 'modules', 'finer', 'humor', 'atomic', 'everlasting', 'anglican', 'expenditure']
+Selected words: ['fashions', 'request', 'origins', 'misspellings', 'flights', 'persia', 'necessary', 'intensely']
+Selected words: ['terminal', 'jan', 'clipped', 'alain', 'shallow', 'medical', 'vice', 'typical']
+Selected words: ['romano', 'closet', 'romeo', 'still', 'odour', 'barn', 'francis', 'amazingly']
+Selected words: ['undeveloped', 'jockey', 'prescribed', 'faulty', 'negligible', 'readable', 'appeals', 'lorenzo']
+Step 800, Loss: -2.5186, AUC: 0.0585
+Selected words: ['disciplines', 'brochure', 'mercenary', 'ghosts', 'squat', 'marguerite', 'email', 'either']
+Selected words: ['tribunal', 'kirsten', 'operas', 'tiny', 'wanders', 'uncontrollably', 'icons', 'rodeo']
+Selected words: ['consent', 'yates', 'debate', 'hackers', 'irrigation', 'sufficient', 'choose', 'ethnicity']
+Selected words: ['neurons', 'largely', 'gothenburg', 'summarized', 'follow', 'religious', 'dizzy', 'everyone']
+Selected words: ['programmed', 'exists', 'puberty', 'inserted', 'newport', 'gross', 'insoluble', 'riot']
+Selected words: ['maxwell', 'tel', 'louses', 'treatises', 'fortress', 'dill', 'ivor', 'delightful']
+Selected words: ['esteem', 'rugs', 'orthogonal', 'realizes', 'sights', 'molotov', 'operating', 'chennai']
+Selected words: ['petroleum', 'algebras', 'suddenly', 'criticize', 'muffins', 'wit', 'resolved', 'shaping']
+Selected words: ['educator', 'payload', 'converse', 'commemorating', 'owes', 'wilmington', 'discretion', 'interacting']
+Selected words: ['vietnamese', 'protestant', 'schism', 'phenomena', 'levi', 'dirt', 'thanks', 'forestry']
+Step 810, Loss: -1.5839, AUC: 0.1395
+Selected words: ['polymer', 'surpassed', 'late', 'licence', 'lama', 'airdrop', 'chatting', 'amira']
+Selected words: ['entourage', 'grenade', 'sports', 'goddesses', 'evidently', 'censored', 'casey', 'entrepreneurs']
+Selected words: ['babies', 'accusation', 'hardcore', 'intensely', 'originals', 'discontinued', 'garrison', 'blur']
+Selected words: ['revolvers', 'marseille', 'midway', 'raw', 'greeted', 'speedy', 'influenced', 'blockade']
+Selected words: ['judged', 'toll', 'rover', 'onions', 'aviator', 'shipwreck', 'irresolute', 'divers']
+Selected words: ['trees', 'solder', 'prohibits', 'speedway', 'frederic', 'spaced', 'heel', 'locals']
+Selected words: ['requirement', 'hurrying', 'powdered', 'visited', 'diagrams', 'landfall', 'titan', 'syria']
+Selected words: ['pulses', 'implements', 'godlike', 'boundary', 'administration', 'nationality', 'riga', 'overture']
+Selected words: ['remember', 'spades', 'nitrogen', 'rouge', 'fairview', 'borders', 'catalan', 'shoots']
+Selected words: ['vicious', 'pupil', 'plainly', 'perturbed', 'agrarian', 'guide', 'objectives', 'logs']
+Step 820, Loss: -3.6062, AUC: 0.0563
+Selected words: ['savannah', 'phone', 'flickering', 'desmond', 'poisonous', 'aberdeen', 'arbor', 'maintenance']
+Selected words: ['narrowly', 'nearby', 'unfazed', 'terrorist', 'survey', 'stacked', 'team', 'chromosomes']
+Selected words: ['corruption', 'richter', 'doss', 'dipped', 'erik', 'upperparts', 'leaf', 'weeping']
+Selected words: ['easier', 'roommate', 'written', 'sandy', 'bud', 'advocate', 'donors', 'stunning']
+Selected words: ['succumbed', 'coughed', 'roast', 'hogs', 'charged', 'upland', 'squeeze', 'ashley']
+Selected words: ['few', 'chemist', 'nonlinear', 'curtain', 'association', 'climber', 'betty', 'indo']
+Selected words: ['tomorrows', 'commands', 'phoned', 'imminent', 'dated', 'obverse', 'flue', 'uniform']
+Selected words: ['vault', 'royalty', 'consignment', 'purity', 'simultaneous', 'gill', 'wrongdoing', 'agrarian']
+Selected words: ['inference', 'repeats', 'tempt', 'grand', 'casts', 'recognition', 'elbowed', 'town']
+Selected words: ['stone', 'lever', 'diligence', 'founded', 'queensland', 'glacier', 'submarines', 'career']
+Step 830, Loss: -2.0224, AUC: 0.0600
+Selected words: ['religious', 'oversight', 'edition', 'piper', 'entertainment', 'horsepower', 'indirectly', 'reader']
+Selected words: ['benson', 'ripley', 'kerry', 'looking', 'pip', 'swings', 'los', 'plentiful']
+Selected words: ['importance', 'prospective', 'soil', 'augustus', 'kalamazoo', 'coronation', 'metz', 'crawled']
+Selected words: ['tons', 'airline', 'aspirations', 'bringing', 'nasa', 'feuded', 'erica', 'device']
+Selected words: ['snagged', 'expense', 'booked', 'iterator', 'cafe', 'knox', 'therefore', 'perception']
+Selected words: ['nicaragua', 'spartan', 'discovered', 'tipped', 'stephens', 'wireless', 'exam', 'isle']
+Selected words: ['wary', 'isolate', 'leaning', 'hiker', 'superman', 'echo', 'lyrical', 'squid']
+Selected words: ['romans', 'guardians', 'titan', 'courtship', 'coward', 'trampoline', 'amusing', 'lancaster']
+Selected words: ['sensors', 'tariffs', 'sarajevo', 'municipalities', 'claiming', 'highlights', 'forgive', 'emphatically']
+Selected words: ['stood', 'pioneer', 'german', 'integrity', 'sincerely', 'llama', 'snowboard', 'potato']
+Step 840, Loss: -2.9312, AUC: 0.0758
+Selected words: ['footprints', 'toyota', 'starr', 'judgement', 'yvonne', 'participate', 'meteorite', 'summons']
+Selected words: ['alain', 'cub', 'car', 'gazette', 'reruns', 'faculty', 'doing', 'dragon']
+Selected words: ['soared', 'log', 'edna', 'humboldt', 'degradation', 'gardens', 'bound', 'warmth']
+Selected words: ['suspense', 'tales', 'condition', 'art', 'depots', 'muppet', 'presley', 'immature']
+Selected words: ['pigments', 'ulysses', 'milk', 'colleague', 'parliamentary', 'anxious', 'persecution', 'flowered']
+Selected words: ['wits', 'katrina', 'boycott', 'code', 'brisbane', 'steven', 'prosecution', 'busiest']
+Selected words: ['frequent', 'conflict', 'purchase', 'practicing', 'bravo', 'married', 'rents', 'reloaded']
+Selected words: ['prevent', 'lava', 'billing', 'maxwell', 'finn', 'diffuse', 'oval', 'mashed']
+Selected words: ['savouring', 'chopin', 'sure', 'thumb', 'capella', 'upgrade', 'sundry', 'mysteriously']
+Selected words: ['air', 'macedonia', 'rota', 'shaving', 'believes', 'websites', 'criterion', 'boxed']
+Step 850, Loss: -3.3126, AUC: 0.0185
+Selected words: ['trance', 'securities', 'rivals', 'grayson', 'ignored', 'phosphorus', 'marries', 'skis']
+Selected words: ['prevalence', 'conservation', 'radiogram', 'clifford', 'tram', 'scope', 'eldorado', 'positions']
+Selected words: ['decade', 'fellowship', 'jessica', 'joe', 'dispersal', 'legislation', 'ill', 'zoom']
+Selected words: ['badass', 'toddlers', 'directions', 'sentimental', 'flashy', 'pruning', 'flue', 'consistency']
+Selected words: ['females', 'udder', 'aggression', 'kibbutz', 'water', 'asteroid', 'depicted', 'meetings']
+Selected words: ['entirely', 'dwell', 'ultimatum', 'bach', 'mathematicians', 'tornado', 'wheat', 'synagogue']
+Selected words: ['contingent', 'beak', 'oblong', 'bog', 'accord', 'obsidian', 'napkin', 'manuscript']
+Selected words: ['october', 'oaks', 'garland', 'abandoned', 'references', 'paint', 'mardi', 'tonic']
+Selected words: ['restores', 'noir', 'dumbfounded', 'sleepy', 'barrels', 'nursery', 'friction', 'gaze']
+Selected words: ['vegetable', 'discography', 'permits', 'shelton', 'earned', 'decay', 'breton', 'divide']
+Step 860, Loss: -1.3121, AUC: 0.0746
+Selected words: ['pounder', 'fattens', 'openings', 'fluid', 'heath', 'cometh', 'notified', 'vintage']
+Selected words: ['staged', 'awaken', 'aaron', 'drain', 'farewell', 'breeze', 'crying', 'saying']
+Selected words: ['pads', 'writers', 'ping', 'lived', 'painful', 'tractors', 'maiden', 'audition']
+Selected words: ['villain', 'paraplegic', 'spies', 'aboard', 'favors', 'inspiration', 'hogs', 'goddesses']
+Selected words: ['tags', 'cornerback', 'sense', 'pushes', 'storeroom', 'bottomless', 'competed', 'consultation']
+Selected words: ['rational', 'boxing', 'holden', 'penalty', 'essex', 'celebration', 'surrounded', 'rejection']
+Selected words: ['extinction', 'arnav', 'swatter', 'gad', 'explained', 'payload', 'dreadful', 'brussels']
+Selected words: ['learns', 'thai', 'conditioner', 'temperature', 'expanding', 'melissa', 'study', 'tyson']
+Selected words: ['corona', 'weekday', 'horizon', 'recommended', 'screwball', 'amiga', 'smuggling', 'settlements']
+Selected words: ['lights', 'homophobia', 'breeze', 'dreadful', 'victorian', 'tnt', 'bauer', 'paintings']
+Step 870, Loss: -2.2453, AUC: 0.0395
+Selected words: ['pulling', 'words', 'grayish', 'contemplating', 'neolithic', 'premature', 'cut', 'proclaimed']
+Selected words: ['lifeboat', 'entities', 'ledge', 'list', 'devastated', 'chance', 'cologne', 'lime']
+Selected words: ['decryption', 'analyze', 'overland', 'full', 'lies', 'prepares', 'administrative', 'gypsum']
+Selected words: ['clerks', 'shepherds', 'fairchild', 'embargo', 'gotcha', 'conserved', 'what', 'fields']
+Selected words: ['eclipse', 'tanning', 'blondhaired', 'augustine', 'nationally', 'shareholder', 'ada', 'prohibit']
+Selected words: ['dealer', 'wellington', 'messing', 'accelerated', 'nile', 'commitments', 'protestant', 'adler']
+Selected words: ['gal', 'tucson', 'researcher', 'additional', 'archibald', 'foreigner', 'quarterly', 'boxed']
+Selected words: ['shoes', 'winds', 'edgewood', 'disturbed', 'needing', 'ride', 'apparent', 'bumming']
+Selected words: ['rug', 'citizens', 'finely', 'forgave', 'disapproval', 'what', 'westward', 'northampton']
+Selected words: ['wildly', 'tricking', 'monks', 'verbs', 'hit', 'bullet', 'boone', 'acquisitions']
+Step 880, Loss: -2.2255, AUC: 0.0609
+Selected words: ['posts', 'fixable', 'revolutionary', 'spectra', 'swag', 'adelaide', 'wick', 'regency']
+Selected words: ['niles', 'segregation', 'disability', 'asset', 'lightbulbs', 'dirty', 'pyeongchang', 'stephenson']
+Selected words: ['bog', 'bakers', 'caldera', 'answers', 'hardest', 'homo', 'scanning', 'downs']
+Selected words: ['emmanuel', 'overrun', 'ignorant', 'necessarily', 'navigation', 'endowment', 'indefinitely', 'theological']
+Selected words: ['cognitive', 'homemade', 'filling', 'conrad', 'voluntary', 'appetite', 'bombardment', 'minors']
+Selected words: ['battles', 'avoidance', 'contrasted', 'putin', 'attitude', 'garb', 'fore', 'genuine']
+Selected words: ['kidnap', 'formidable', 'bargain', 'knuckles', 'recorded', 'byzantine', 'culminated', 'alexandre']
+Selected words: ['kilo', 'ahmed', 'themselves', 'fascination', 'doss', 'degenerate', 'torpedoes', 'surpassed']
+Selected words: ['tranquil', 'shifting', 'beneath', 'unturned', 'monmouth', 'connected', 'rose', 'responses']
+Selected words: ['stocked', 'mod', 'infrequent', 'denver', 'encouragement', 'generating', 'beaches', 'forlornly']
+Step 890, Loss: -3.3973, AUC: 0.0183
+Selected words: ['lecturer', 'imprison', 'parishioners', 'airplay', 'mont', 'sequel', 'snowflake', 'subsystem']
+Selected words: ['theology', 'alternatives', 'soprano', 'cotton', 'stepdaughter', 'dowager', 'autumn', 'restoring']
+Selected words: ['mainline', 'campaigning', 'apologised', 'southwestern', 'fuselage', 'askew', 'impressions', 'falkland']
+Selected words: ['beyond', 'dick', 'ruth', 'clementine', 'imitated', 'impose', 'gore', 'insisted']
+Selected words: ['participate', 'alliances', 'gonna', 'russian', 'sighing', 'chores', 'tugged', 'eagerly']
+Selected words: ['fence', 'brain', 'deformed', 'gathered', 'render', 'paraffin', 'wrestler', 'investigation']
+Selected words: ['jade', 'carr', 'presidents', 'orders', 'regionally', 'distinguishes', 'regained', 'capitals']
+Selected words: ['inches', 'yen', 'sabah', 'tufts', 'guilt', 'quivering', 'coincide', 'interpretive']
+Selected words: ['gate', 'specialists', 'composing', 'mashed', 'green', 'warden', 'silver', 'inventing']
+Selected words: ['commodity', 'misleading', 'philosophic', 'smoke', 'hardly', 'mount', 'dominion', 'quantify']
+Step 900, Loss: -3.3372, AUC: 0.0397
+Selected words: ['tiled', 'pros', 'stinker', 'exterior', 'connor', 'bethel', 'activities', 'chattanooga']
+Selected words: ['region', 'basil', 'darker', 'childbirth', 'faith', 'monoplane', 'iguana', 'flutes']
+Selected words: ['goddess', 'hayden', 'refusing', 'alphabetically', 'humans', 'baker', 'narrated', 'putty']
+Selected words: ['perfectly', 'jamaican', 'collective', 'visitors', 'hoses', 'susan', 'having', 'demon']
+Selected words: ['higher', 'mysteries', 'corner', 'veteran', 'corp', 'pets', 'zoo', 'circular']
+Selected words: ['enjoyable', 'china', 'grippers', 'typical', 'contest', 'tragedy', 'projected', 'gideon']
+Selected words: ['gala', 'eaton', 'stately', 'strap', 'promising', 'ecstasy', 'rewarded', 'kick']
+Selected words: ['bearer', 'pairing', 'humor', 'pseudo', 'regency', 'unexpectedly', 'characteristics', 'chancellor']
+Selected words: ['compromised', 'bible', 'via', 'distinctly', 'camera', 'laws', 'margarine', 'appear']
+Selected words: ['toothed', 'chambers', 'misconduct', 'pork', 'statehood', 'grandson', 'stubbs', 'beautifully']
+Step 910, Loss: -3.1135, AUC: 0.0619
+Selected words: ['every', 'forbade', 'smack', 'niles', 'recoil', 'centuries', 'contented', 'bengal']
+Selected words: ['suburb', 'represent', 'gardens', 'connecticut', 'sorry', 'recited', 'nicht', 'lawyer']
+Selected words: ['screwball', 'architect', 'shaving', 'barbarian', 'they', 'eliminate', 'orchestrated', 'viewing']
+Selected words: ['cereals', 'burma', 'music', 'donegal', 'allison', 'bedding', 'reformation', 'generous']
+Selected words: ['elevation', 'tributaries', 'firewalls', 'illusions', 'archaeologists', 'mutex', 'decks', 'saskatchewan']
+Selected words: ['honourable', 'caffeine', 'faltering', 'appreciation', 'transmission', 'suez', 'chant', 'roadside']
+Selected words: ['hugh', 'odour', 'communism', 'equator', 'prisons', 'prostitutes', 'prometheus', 'intentional']
+Selected words: ['melville', 'depressingly', 'abbreviated', 'oral', 'deductible', 'setup', 'overdubs', 'osborne']
+Selected words: ['expertly', 'arduous', 'dirt', 'stephanie', 'trouble', 'error', 'aviv', 'gag']
+Selected words: ['friend', 'witchcraft', 'he’s', 'easiest', 'riffs', 'specially', 'assistant', 'worcestershire']
+Step 920, Loss: -2.4807, AUC: 0.0365
+Selected words: ['closed', 'interiors', 'sculpted', 'adaptations', 'kangaroo', 'partner', 'clergy', 'adi']
+Selected words: ['baden', 'marketing', 'walks', 'manufactures', 'locations', 'headlong', 'immigrants', 'mikhail']
+Selected words: ['temporal', 'commons', 'nursing', 'storylines', 'solved', 'clive', 'investor', 'qualified']
+Selected words: ['branched', 'strengthening', 'planters', 'rainwater', 'elimination', 'touched', 'accumulated', 'damp']
+Selected words: ['fighting', 'doodle', 'falling', 'antibiotics', 'observation', 'insects', 'noticing', 'cole']
+Selected words: ['gerard', 'debt', 'subjective', 'trinidad', 'shocks', 'stares', 'clumsily', 'tight']
+Selected words: ['nurses', 'hidden', 'interchangeably', 'managing', 'signaling', 'rolls', 'inviting', 'pregnancy']
+Selected words: ['comical', 'indianapolis', 'province', 'inherently', 'gmo', 'segment', 'constitution', 'ghost']
+Selected words: ['educators', 'quo', 'merit', 'unloving', 'members', 'affect', 'droop', 'concave']
+Selected words: ['pueblo', 'bradbury', 'trusts', 'ian', 'regularly', 'finding', 'quarterback', 'istanbul']
+Step 930, Loss: -3.4927, AUC: 0.0437
+Selected words: ['golf', 'uncontrollable', 'calibrate', 'electrode', 'closely', 'erupted', 'neatly', 'mistress']
+Selected words: ['spray', 'institutions', 'leaning', 'honorable', 'recounting', 'barracks', 'religion', 'arrival']
+Selected words: ['sanders', 'liverpool', 'jessie', 'turnout', 'garnered', 'ownership', 'hate', 'returned']
+Selected words: ['arden', 'renewal', 'establish', 'mohamed', 'proms', 'razors', 'exist', 'offers']
+Selected words: ['natives', 'aperture', 'thereupon', 'declined', 'charger', 'resettled', 'moncton', 'matching']
+Selected words: ['stripes', 'progressed', 'toni', 'rings', 'bashing', 'inject', 'reissued', 'volume']
+Selected words: ['manages', 'apps', 'belt', 'federalist', 'appointed', 'spaceship', 'oil', 'wills']
+Selected words: ['magdalene', 'captains', 'gustav', 'examiner', 'accepting', 'certificates', 'tuning', 'paprika']
+Selected words: ['lindsay', 'eggs', 'poison', 'campgrounds', 'kerry', 'whitby', 'fresno', 'scanner']
+Selected words: ['behaves', 'scientists', 'ceramic', 'game', 'gourmet', 'audrey', 'complicated', 'surreal']
+Step 940, Loss: -2.5428, AUC: 0.0626
+Selected words: ['reproduced', 'testament', 'concourse', 'precision', 'shri', 'bolivia', 'palau', 'reconstructed']
+Selected words: ['negotiations', 'admiralty', 'avid', 'inventive', 'vocalists', 'corporations', 'veterinary', 'see']
+Selected words: ['compiling', 'test', 'dip', 'darby', 'palo', 'spiral', 'frequented', 'executed']
+Selected words: ['hires', 'neurons', 'vigorously', 'homicide', 'bedford', 'ritual', 'linguists', 'objected']
+Selected words: ['tweed', 'pyramid', 'bahrain', 'grandstand', 'czech', 'ipswich', 'lauded', 'barrier']
+Selected words: ['terrain', 'tenements', 'breeches', 'noel', 'winners', 'insolvent', 'application', 'feigned']
+Selected words: ['explains', 'sexes', 'clarify', 'yarn', 'decorated', 'peers', 'sinus', 'estates']
+Selected words: ['frying', 'ellie', 'squeeze', 'southgate', 'divulge', 'altar', 'acquired', 'lough']
+Selected words: ['platforms', 'croydon', 'hails', 'exempt', 'office', 'compliance', 'lathe', 'classed']
+Selected words: ['mondays', 'disappointment', 'countless', 'wrench', 'soothing', 'dragonfly', 'certainly', 'labs']
+Step 950, Loss: -2.1623, AUC: 0.0568
+Selected words: ['helix', 'numbering', 'egoistic', 'nash', 'teammates', 'grasped', 'conversely', 'stumbling']
+Selected words: ['powerfully', 'marshall', 'struggling', 'corals', 'empty', 'detachment', 'penultimate', 'richer']
+Selected words: ['innit', 'lads', 'casting', 'judged', 'fluttered', 'soloist', 'watching', 'haute']
+Selected words: ['otter', 'slabs', 'scouting', 'coastal', 'recoil', 'reginald', 'continuation', 'farms']
+Selected words: ['solar', 'viscosity', 'camcorder', 'feminism', 'guests', 'smoker', 'maroon', 'dimes']
+Selected words: ['heap', 'tri', 'acclaim', 'gypsies', 'clyde', 'burger', 'tertiary', 'busy']
+Selected words: ['unsure', 'inscriptions', 'refrain', 'shuffle', 'chloride', 'decay', 'genome', 'embarrass']
+Selected words: ['hamburgers', 'survivor', 'brinkley', 'hamburg', 'nottingham', 'precedent', 'frankfurt', 'acquire']
+Selected words: ['jump', 'reminiscent', 'handlebars', 'engagement', 'accumulate', 'exchanges', 'characters', 'environments']
+Selected words: ['determining', 'jorge', 'restrooms', 'promptly', 'intruders', 'automation', 'counters', 'transports']
+Step 960, Loss: -2.4841, AUC: 0.0511
+Selected words: ['accuses', 'conventionally', 'doubled', 'warren', 'outlaw', 'sundry', 'translates', 'fix']
+Selected words: ['rider', 'griffin', 'rescues', 'branded', 'opted', 'centralized', 'cable', 'julia']
+Selected words: ['tier', 'pitcher', 'antique', 'fatalities', 'thwarted', 'deficit', 'rap', 'microphones']
+Selected words: ['custodian', 'jumped', 'mattress', 'teach', 'eliot', 'flames', 'latin', 'halt']
+Selected words: ['genders', 'curvature', 'dream', 'partners', 'organizer', 'miniatures', 'skinned', 'hesitate']
+Selected words: ['escaped', 'caused', 'brushed', 'chronological', 'gross', 'motor', 'stripes', 'quay']
+Selected words: ['firms', 'valuable', 'brewed', 'avocados', 'decatur', 'inert', 'detach', 'saturdays']
+Selected words: ['compliment', 'par', 'cheaper', 'sweep', 'loo', 'owned', 'viewer', 'monk']
+Selected words: ['calories', 'relay', 'comprise', 'reasonable', 'defenses', 'animation', 'invariant', 'passions']
+Selected words: ['vegan', 'quarterly', 'attached', 'counterparts', 'scalable', 'swat', 'analyses', 'sammy']
+Step 970, Loss: -3.0941, AUC: 0.0149
+Selected words: ['revue', 'mature', 'lithuania', 'translucent', 'encryption', 'peaches', 'doomsday', 'subsidiary']
+Selected words: ['wagon', 'comprehensive', 'mauritius', 'irrational', 'downward', 'pipeline', 'holders', 'chesapeake']
+Selected words: ['rudy', 'inventions', 'louise', 'material', 'like', 'drawing', 'stylized', 'selling']
+Selected words: ['syrup', 'pear', 'pancake', 'selfless', 'cartridge', 'accusation', 'psychologist', 'embrace']
+Selected words: ['dominated', 'awakened', 'going', 'assorted', 'hiv', 'riches', 'garfield', 'educated']
+Selected words: ['assignments', 'currency', 'grandson', 'annabelle', 'presbyterian', 'waterfront', 'georges', 'droop']
+Selected words: ['filtered', 'jennings', 'floated', 'glance', 'coordinator', 'welded', 'awfully', 'chest']
+Selected words: ['modest', 'lack', 'coating', 'venue', 'shetland', 'feline', 'cells', 'doping']
+Selected words: ['seekers', 'pseudorandom', 'floorboards', 'array', 'woolly', 'tyler', 'applauded', 'geraldine']
+Selected words: ['daisy', 'fifties', 'eventual', 'buenos', 'overwhelming', 'prefetching', 'reform', 'unpublished']
+Step 980, Loss: -2.5833, AUC: 0.0860
+Selected words: ['shifted', 'emptied', 'flavored', 'inspected', 'krishna', 'stowe', 'forged', 'wines']
+Selected words: ['beliefs', 'sulfide', 'rare', 'correlation', 'outlets', 'adler', 'insulation', 'voted']
+Selected words: ['districts', 'shelley', 'stimulate', 'oder', 'farmed', 'enabled', 'fact', 'triplet']
+Selected words: ['huxley', 'nor', 'speedy', 'shimmered', 'shrinking', 'lucky', 'pushed', 'tyrrell']
+Selected words: ['paintings', 'internationally', 'horsemen', 'tractor', 'quarter', 'nielsen', 'layer', 'wager']
+Selected words: ['culver', 'rodeo', 'lemma', 'pesticides', 'steel', 'predeceased', 'epilepsy', 'represent']
+Selected words: ['rae', 'approaches', 'quest', 'chieftains', 'noticing', 'commissaire', 'outset', 'heroin']
+Selected words: ['containers', 'stealth', 'blank', 'reviewer', 'workout', 'incompatible', 'ashley', 'greener']
+Selected words: ['smartest', 'dime', 'wilder', 'wisconsin', 'monstrosities', 'sherlock', 'telephoned', 'ghost']
+Selected words: ['tyler', 'resigning', 'nasal', 'bottoms', 'offer', 'cases', 'slime', 'eigtheen']
+Step 990, Loss: -2.4921, AUC: 0.0480
+Selected words: ['extremes', 'insulted', 'refreshments', 'gale', 'serving', 'participating', 'matters', 'elections']
+Selected words: ['syringe', 'pet', 'brownish', 'broke', 'interrupt', 'scheduling', 'dodges', 'stark']
+Selected words: ['illustrates', 'singapore', 'monuments', 'palaces', 'libel', 'accusations', 'entrusted', 'residual']
+Selected words: ['inconsistent', 'sleeping', 'borders', 'fleshy', 'disappeared', 'devils', 'coughed', 'somewhat']
+Selected words: ['thoroughbred', 'upper', 'puffs', 'landlord', 'afternoon', 'perpetual', 'statutes', 'subject']
+Selected words: ['transit', 'elton', 'thistle', 'lorenzo', 'davenport', 'jamaican', 'preceding', 'prefetching']
+Selected words: ['legacy', 'bunker', 'levee', 'frees', 'lucas', 'i’ll', 'choosing', 'mediterranean']
+Selected words: ['search', 'northumberland', 'crouch', 'attend', 'mint', 'turkmenistan', 'hugh', 'fragment']
+Selected words: ['affinity', 'bicycle', 'mitchell', 'storage', 'flickered', 'bikers', 'barred', 'spurious']
+Epoch 1, Average Loss: -2.4608, Average AUC: 0.0560
+[Info] 模型檢查點已保存至 ./checkpoints/20250117_222718/epoch_1.pt
+
+Epoch 2/10
+Selected words: ['workout', 'outer', 'declines', 'miracles', 'flint', 'rapped', 'troubles', 'foxtrot']
+Step 0, Loss: -1.5284, AUC: 0.0799
+Selected words: ['soliloquies', 'taste', 'groceries', 'attracts', 'golfers', 'holocaust', 'broadcasting', 'reno']
+Selected words: ['commotion', 'pragmatic', 'mop', 'transit', 'constitution', 'obligatory', 'sell', 'rank']
+Selected words: ['ram', 'software', 'chewing', 'incheon', 'illusions', 'loose', 'aluminium', 'will']
+Selected words: ['buccaneers', 'community', 'franchises', 'britney', 'lively', 'misery', 'lankan', 'cheerfulness']
+Selected words: ['warmer', 'flames', 'rank', 'turbo', 'murdoch', 'tore', 'observations', 'enquired']
+Selected words: ['contain', 'braced', 'reproducible', 'rigourously', 'gerard', 'sussex', 'affiliated', 'handle']
+Selected words: ['grout', 'burton', 'slash', 'called', 'conviction', 'scalar', 'mod', 'norwegian']
+Selected words: ['vegas', 'octopus', 'willis', 'coached', 'list', 'marketplace', 'aerial', 'frogs']
+Selected words: ['baptist', 'courage', 'alcoholism', 'las', 'footprints', 'transparent', 'powered', 'creativity']
+Selected words: ['veil', 'bodied', 'destroys', 'many', 'headband', 'persuade', 'cat', 'saturdays']
+Step 10, Loss: -3.9077, AUC: 0.0357
+Selected words: ['resultant', 'cheated', 'patriot', 'entertaining', 'league', 'variation', 'firth', 'cocks']
+Selected words: ['chameleon', 'dana', 'hangar', 'hopping', 'monterey', 'seizure', 'trust', 'monroe']
+Selected words: ['unwanted', 'masonry', 'royale', 'lies', 'dandy', 'brisbane', 'eclipse', 'defects']
+Selected words: ['truly', 'clifford', 'pseudonyms', 'textbooks', 'navajo', 'grassy', 'concerned', 'kayak']
+Selected words: ['cadmium', 'herbal', 'craig', 'articulate', 'rooms', 'clergyman', 'herring', 'expressway']
+Selected words: ['peoples', 'beating', 'insights', 'admire', 'queer', 'gurgled', 'heading', 'seaweed']
+Selected words: ['readings', 'blurred', 'indecipherable', 'multiplexing', 'chairs', 'whistles', 'jockey', 'routes']
+Selected words: ['visualized', 'illuminated', 'defenses', 'dissolved', 'artisans', 'geologic', 'embroidery', 'broadcast']
+Selected words: ['lobes', 'further', 'attorneys', 'judas', 'clarity', 'invalid', 'heehaw', 'falsetto']
+Selected words: ['recitals', 'evelyn', 'caroline', 'possessed', 'surrounds', 'poisoning', 'unfazed', 'baloney']
+Step 20, Loss: -2.7105, AUC: 0.0489
+Selected words: ['projected', 'candidates', 'citing', 'torres', 'explaining', 'loo', 'massacred', 'awareness']
+Selected words: ['handwriting', 'auspicious', 'insert', 'dispose', 'intellectuals', 'litter', 'field', 'batcave']
+Selected words: ['neodymium', 'griffin', 'franklin', 'glass', 'milkshake', 'humor', 'dodgers', 'raoul']
+Selected words: ['cockroaches', 'flip', 'woodpecker', 'sinking', 'patriarch', 'bury', 'flourishing', 'disagree']
+Selected words: ['respite', 'ecstasy', 'catalysts', 'planted', 'arisen', 'catholics', 'ebony', 'shower']
+Selected words: ['eden', 'thaw', 'pan', 'outed', 'newman', 'arizona', 'kingship', 'repertory']
+Selected words: ['eastwood', 'hung', 'seashore', 'inhale', 'invite', 'genuine', 'genes', 'bertrand']
+Selected words: ['intermittent', 'intent', 'william', 'feller', 'modules', 'volcanic', 'groom', 'learns']
+Selected words: ['liturgy', 'seizing', 'romanesque', 'lining', 'julian', 'penetrating', 'continental', 'sculptors']
+Selected words: ['inform', 'treat', 'plea', 'spectacle', 'isometric', 'direct', 'encounter', 'infuriates']
+Step 30, Loss: -2.5407, AUC: 0.0642
+Selected words: ['shire', 'united', 'bentley', 'chris', 'bring', 'phyllis', 'adventurous', 'establishing']
+Selected words: ['translates', 'marshmallows', 'enter', 'parachuting', 'recount', 'acceleration', 'krishna', 'don’t']
+Selected words: ['implied', 'dimes', 'commentaries', 'plagiarism', 'members', 'hayes', 'seated', 'emphasised']
+Selected words: ['processing', 'distal', 'isolines', 'restrictive', 'pruning', 'skull', 'timidly', 'detonation']
+Selected words: ['revoked', 'motivate', 'mooney', 'engineer', 'dart', 'crustaceans', 'immersive', 'camps']
+Selected words: ['ferrari', 'envelopes', 'wooden', 'norwegia', 'peters', 'stewart', 'visualization', 'located']
+Selected words: ['alexandre', 'army', 'cleveland', 'wisest', 'mack', 'vogue', 'aces', 'clad']
+Selected words: ['rust', 'agreements', 'presentation', 'yogurt', 'jensen', 'wrapped', 'floods', 'morphological']
+Selected words: ['carroll', 'sumter', 'hamlets', 'lick', 'reese', 'cornices', 'avenue', 'hesitation']
+Selected words: ['reopens', 'processed', 'slab', 'patches', 'darlington', 'traits', 'flaps', 'clocks']
+Step 40, Loss: -2.9709, AUC: 0.0542
+Selected words: ['uproar', 'ethiopia', 'mesh', 'prompt', 'stokes', 'lakes', 'recommendation', 'migrant']
+Selected words: ['monetary', 'botanical', 'duncan', 'engagements', 'hellenistic', 'imaginative', 'rye', 'deal']
+Selected words: ['suited', 'causing', 'persuades', 'metal', 'weight', 'harm', 'publications', 'hansen']
+Selected words: ['partridge', 'scudder', 'mountain', 'prostitutes', 'communities', 'retractable', 'testament', 'precedence']
+Selected words: ['nassau', 'rates', 'mayors', 'commemorates', 'quay', 'handwriting', 'starving', 'uttereth']
+Selected words: ['proficient', 'doughnuts', 'guppy', 'father', 'guam', 'solely', 'limp', 'benefactor']
+Selected words: ['bing', 'predecessors', 'olives', 'ethnic', 'vastly', 'getting', 'convenient', 'demonstrations']
+Selected words: ['transportation', 'isabel', 'bottomless', 'host', 'vibration', 'bribes', 'cheryl', 'those']
+Selected words: ['hysteria', 'colorado', 'loyalty', 'projectile', 'trait', 'axe', 'rents', 'donor']
+Selected words: ['hosts', 'sergeant', 'furry', 'swirl', 'carthage', 'quadrangle', 'crimes', 'ely']
+Step 50, Loss: -3.7144, AUC: 0.0390
+Selected words: ['fragrance', 'customized', 'combination', 'westfield', 'devote', 'ethical', 'resistant', 'brewster']
+Selected words: ['clyde', 'joke', 'squatting', 'modeling', 'betty', 'rust', 'rake', 'selma']
+Selected words: ['monarchs', 'wind', 'manning', 'hugh', 'murphy', 'hilltop', 'sitcoms', 'carlos']
+Selected words: ['clergy', 'introduction', 'seek', 'katy', 'noticeboard', 'hitting', 'divisions', 'mewing']
+Selected words: ['fork', 'lights', 'relieve', 'spy', 'polly', 'parachuting', 'corridors', 'compatible']
+Selected words: ['ulster', 'beverley', 'motive', 'denver', 'paddy', 'potch', 'starts', 'soundtrack']
+Selected words: ['luck', 'app', 'unlikely', 'honors', 'frankly', 'stabbed', 'support', 'primarily']
+Selected words: ['landowner', 'witch', 'rents', 'planned', 'sets', 'nato', 'haiti', 'piracy']
+Selected words: ['sins', 'dug', 'chairperson', 'postage', 'escorted', 'fireworks', 'wet', 'fined']
+Selected words: ['planetary', 'rucksack', 'vickers', 'opened', 'architects', 'omen', 'cloak', 'occurs']
+Step 60, Loss: -1.2972, AUC: 0.1181
+Selected words: ['pupil', 'vulnerable', 'lettering', 'continuity', 'refreshed', 'mixes', 'positioning', 'habitats']
+Selected words: ['paternal', 'here', 'classical', 'investigative', 'yard', 'advice', 'nest', 'dickens']
+Selected words: ['refilled', 'sensitive', 'consultant', 'periodic', 'revenue', 'bugs', 'vicky', 'palaces']
+Selected words: ['miranda', 'firmware', 'lineage', 'majesty', 'surrounded', 'slides', 'humans', 'heuristic']
+Selected words: ['voltage', 'royce', 'yummy', 'tailed', 'def', 'aimed', 'phantom', 'continuance']
+Selected words: ['firefox', 'brothers', 'lachrymosity', 'ethel', 'meditate', 'loaded', 'thicket', 'militia']
+Selected words: ['suffrage', 'elbow', 'photographs', 'pavel', 'footwear', 'kenyon', 'fayetteville', 'motel']
+Selected words: ['institute', 'liberal', 'lebanese', 'taxa', 'speckled', 'manufacturing', 'king', 'siegel']
+Selected words: ['invited', 'armagh', 'saxophone', 'flip', 'hooper', 'truelove', 'overly', 'hostages']
+Selected words: ['pull', 'logo', 'raja', 'sudan', 'sonora', 'chorus', 'wears', 'victory']
+Step 70, Loss: -2.6506, AUC: 0.0442
+Selected words: ['screws', 'mouldy', 'confederates', 'blisters', 'cathy', 'kowloon', 'generating', 'sidebar']
+Selected words: ['inception', 'billie', 'escaped', 'israel', 'badger', 'browser', 'denounced', 'paperwork']
+Selected words: ['super', 'butterfly', 'blogs', 'sudan', 'gentlemen', 'encounter', 'concussion', 'crude']
+Selected words: ['dungeon', 'conservative', 'suspension', 'auditions', 'dill', 'favorable', 'philippe', 'stowe']
+Selected words: ['din', 'loudness', 'snag', 'ping', 'ignored', 'governing', 'clan', 'benz']
+Selected words: ['reuse', 'manson', 'repair', 'malibu', 'kathleen', 'thousands', 'point', 'verse']
+Selected words: ['hectic', 'basketball', 'recipe', 'cloud', 'stubbs', 'booth', 'contests', 'token']
+Selected words: ['forensic', 'axis', 'micronesia', 'dickens', 'company', 'carriageways', 'angelo', 'schema']
+Selected words: ['bots', 'terence', 'manuals', 'kitchens', 'fixtures', 'assistant', 'hunters', 'creativity']
+Selected words: ['impressed', 'yarmouth', 'dose', 'proportions', 'tissues', 'sink', 'monotony', 'convey']
+Step 80, Loss: -3.5056, AUC: 0.0343
+Selected words: ['maid', 'electronically', 'karin', 'emulation', 'parking', 'flew', 'ruled', 'pattered']
+Selected words: ['semantics', 'announcer', 'throne', 'indigenous', 'ornate', 'props', 'aromatic', 'craterlets']
+Selected words: ['reducing', 'shortest', 'sneakers', 'constituent', 'pun', 'brian', 'extreme', 'trent']
+Selected words: ['passages', 'add', 'danes', 'cabot', 'addressing', 'workflow', 'inclusion', 'passion']
+Selected words: ['flags', 'coaster', 'victims', 'falls', 'wildcats', 'pancakes', 'headlights', 'plato']
+Selected words: ['twilight', 'branded', 'mothers', 'brushing', 'mardi', 'stark', 'playoff', 'exodus']
+Selected words: ['wronged', 'pulsate', 'emigrated', 'daring', 'extends', 'winners', 'safety', 'decorated']
+Selected words: ['dominate', 'clinics', 'municipal', 'boomed', 'parading', 'waterfall', 'stephen', 'aesthetic']
+Selected words: ['biting', 'elbe', 'lollipop', 'alert', 'constitute', 'manipulation', 'tavern', 'periods']
+Selected words: ['theresa', 'corners', 'barrett', 'greatest', 'upstream', 'telegrams', 'transcripts', 'puzzling']
+Step 90, Loss: -3.0213, AUC: 0.0587
+Selected words: ['cristiano', 'sigh', 'slabs', 'deduction', 'shrieking', 'multiplied', 'unprecedented', 'burying']
+Selected words: ['spice', 'interoperability', 'jealousy', 'claire', 'silica', 'kindle', 'investments', 'companies']
+Selected words: ['adjacent', 'upheld', 'don‘t', 'wind', 'dumbfounded', 'lori', 'coordinated', 'gorge']
+Selected words: ['former', 'vaccine', 'limb', 'mercenary', 'proclaimed', 'psychopath', 'terra', 'inverness']
+Selected words: ['campground', 'behaviour', 'quantities', 'sauce', 'gold', 'andhra', 'holmes', 'registers']
+Selected words: ['wiser', 'valid', 'tim', 'query', 'alloys', 'qualify', 'combines', 'locker']
+Selected words: ['handheld', 'dickson', 'nautical', 'nomadic', 'nose', 'gemini', 'explaining', 'judiciary']
+Selected words: ['murray', 'easily', 'vans', 'thesis', 'govern', 'rocky', 'towns', 'lies']
+Selected words: ['lawn', 'loves', 'cereal', 'saints', 'university', 'raisins', 'phase', 'inch']
+Selected words: ['anchors', 'gujarati', 'whilst', 'assam', 'romania', 'champagne', 'conferences', 'roy']
+Step 100, Loss: -4.0728, AUC: 0.0353
+Selected words: ['entries', 'donegal', 'swift', 'contribute', 'devastating', 'completely', 'confronts', 'kaplan']
+Selected words: ['language', 'bounds', 'indigo', 'rod', 'baseline', 'soared', 'voodoo', 'far']
+Selected words: ['specials', 'incidence', 'serge', 'keyboard', 'ballroom', 'nobody', 'color', 'fixable']
+Selected words: ['electronics', 'disappointed', 'undeclared', 'descends', 'surgeons', 'lays', 'corp', 'merchandise']
+Selected words: ['spurs', 'supporters', 'whistler', 'lewes', 'melody', 'weimar', 'obscurity', 'feuds']
+Selected words: ['noun', 'johnathan', 'article', 'aluminium', 'monetary', 'homeland', 'bard', 'we’ll']
+Selected words: ['pirates', 'held', 'errand', 'cutters', 'garments', 'helsinki', 'legion', 'polls']
+Selected words: ['triathlon', 'wheeled', 'multiplication', 'secrecy', 'fool', 'executives', 'geo', 'airstrip']
+Selected words: ['medial', 'nigel', 'equinox', 'dinners', 'volatile', 'amused', 'pertaining', 'swings']
+Selected words: ['adding', 'beneath', 'uncertainty', 'conditional', 'vent', 'contained', 'tray', 'spun']
+Step 110, Loss: -2.4447, AUC: 0.0378
+Selected words: ['warrington', 'courgette', 'kaufman', 'channels', 'admiral', 'sprung', 'morphology', 'orthodox']
+Selected words: ['coordinator', 'biometric', 'youtube', 'learn', 'waving', 'obvious', 'curling', 'strange']
+Selected words: ['lyons', 'fish', 'chromosomes', 'dill', 'believing', 'execute', 'unitarian', 'bells']
+Selected words: ['mewing', 'barracks', 'eggshell', 'filtered', 'legacy', 'waited', 'attentively', 'aviator']
+Selected words: ['stub', 'excuse', 'gerald', 'apologised', 'francs', 'geography', 'insane', 'charles']
+Selected words: ['linguistics', 'global', 'impedance', 'variations', 'task', 'torn', 'alphabetical', 'manufacturing']
+Selected words: ['grooves', 'grouping', 'nostalgia', 'masonic', 'diving', 'toured', 'ghetto', 'commits']
+Selected words: ['stereotypes', 'password', 'poisonous', 'avon', 'proof', 'gustav', 'assuming', 'simpler']
+Selected words: ['projective', 'extensive', 'extensions', 'emmy', 'barnes', 'assets', 'managers', 'hubs']
+Selected words: ['empress', 'dorchester', 'executions', 'organiser', 'buoy', 'judgement', 'luckier', 'harmed']
+Step 120, Loss: -3.1223, AUC: 0.0396
+Selected words: ['brandon', 'replica', 'southeast', 'outline', 'harassing', 'hamburgers', 'prefetching', 'declared']
+Selected words: ['mori', 'success', 'deploy', 'facilitators', 'meteorology', 'aggressive', 'burying', 'poured']
+Selected words: ['chip', 'persistent', 'incumbents', 'olga', 'lust', 'naughty', 'beetle', 'desks']
+Selected words: ['patrol', 'discuss', 'colorway', 'silhouette', 'curry', 'takes', 'iguana', 'violated']
+Selected words: ['dom', 'cummings', 'oslo', 'jew', 'pairing', 'allah', 'capsules', 'maurice']
+Selected words: ['faraway', 'closures', 'concerns', 'curves', 'baker', 'decimal', 'judgement', 'stroller']

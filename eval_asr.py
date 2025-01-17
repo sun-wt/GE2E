@@ -11,10 +11,8 @@ import argparse
 from pathlib import Path
 from tqdm import tqdm
 
-# 导入 ESPnet 相关模块
-from espnet2.bin.asr_inference import Speech2Text  # 假设使用 Speech2Text 进行推理
+from espnet2.bin.asr_inference import Speech2Text  # 這裡使用 ESPnet2 的 ASR 模型
 
-# 设定设备
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
@@ -160,14 +158,12 @@ def main(args):
 
     # 初始化 ESPnet ASR 模型
     print("Loading ESPnet ASR model...")
-    # 替换为实际的预训练模型ID或路径
     speech2text = Speech2Text.from_pretrained("Shinji Watanabe/librispeech_asr_train_asr_transformer_e18_raw_bpe_sp_valid.acc.best")
     asr_model = speech2text.asr_model.to(device)
 
     # 評估模型
     auc_scores, det_curves = evaluate_gsc_espnet(asr_model, enroll_data, test_data)
 
-    # 打印 AUC 分數
     print("\nAUC Scores:")
     for keyword, auc in auc_scores.items():
         print(f"{keyword}: {auc:.4f}")
