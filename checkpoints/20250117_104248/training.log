@@ -1,0 +1,284 @@
+PyTorch 版本: 1.13.1+cu117
+Using device: cuda
+Grouping data by WORD...
+ConformerEncoder(
+  (conv_subsample): Conv2dSubampling(
+    (sequential): Sequential(
+      (0): Conv2d(1, 256, kernel_size=(3, 3), stride=(2, 2))
+      (1): ReLU()
+      (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2))
+      (3): ReLU()
+    )
+  )
+  (input_projection): Sequential(
+    (0): Linear(
+      (linear): Linear(in_features=2304, out_features=256, bias=True)
+    )
+    (1): Dropout(p=0.1, inplace=False)
+  )
+  (layers): ModuleList(
+    (0): ConformerBlock(
+      (sequential): Sequential(
+        (0): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1): ResidualConnectionModule(
+          (module): MultiHeadedSelfAttentionModule(
+            (positional_encoding): RelPositionalEncoding()
+            (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (attention): RelativeMultiHeadAttention(
+              (query_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (key_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (value_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (pos_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=False)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (out_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+            )
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (2): ResidualConnectionModule(
+          (module): ConformerConvModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Transpose()
+              (2): PointwiseConv1d(
+                (conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+              )
+              (3): GLU()
+              (4): DepthwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(31,), stride=(1,), padding=(15,), groups=256, bias=False)
+              )
+              (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (6): Swish()
+              (7): PointwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+              )
+              (8): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (3): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (4): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (1): ConformerBlock(
+      (sequential): Sequential(
+        (0): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1): ResidualConnectionModule(
+          (module): MultiHeadedSelfAttentionModule(
+            (positional_encoding): RelPositionalEncoding()
+            (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (attention): RelativeMultiHeadAttention(
+              (query_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (key_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (value_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (pos_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=False)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (out_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+            )
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (2): ResidualConnectionModule(
+          (module): ConformerConvModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Transpose()
+              (2): PointwiseConv1d(
+                (conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+              )
+              (3): GLU()
+              (4): DepthwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(31,), stride=(1,), padding=(15,), groups=256, bias=False)
+              )
+              (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (6): Swish()
+              (7): PointwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+              )
+              (8): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (3): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (4): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+)
+[Info] 初始模型權重已從 ./checkpoints/40_256_2_2.pt 加載。
+
+Epoch 1/20
+Selected words: ['constricted', 'americas', 'jars', 'taxicab', 'bootleg', 'surprise', 'carthage', 'alder']
+Step 0, Loss: 1.9096, AUC: 0.5849
+Selected words: ['taxonomic', 'iterator', 'dispatches', 'anatomical', 'imprisonment', 'nanny', 'quechua', 'eastwood']
+Selected words: ['founder', 'tile', 'environments', 'concave', 'complain', 'williamson', 'swimmers', 'alexandre']
+Selected words: ['grayish', 'faltering', 'ned', 'presently', 'worried', 'enterprises', 'panned', 'heinrich']
+Selected words: ['burnham', 'surrounding', 'you’d', 'lenna', 'accuse', 'hostile', 'arrangement', 'blanket']
+Selected words: ['expansion', 'attribution', 'premise', 'focusing', 'superseded', 'screen', 'dressing', 'loaf']
+Selected words: ['convict', 'exceeds', 'genetically', 'campaign', 'terrible', 'thanked', 'fires', 'dissented']
+Selected words: ['languages', 'feasible', 'weddings', 'bread', 'lower', 'scopes', 'september', 'ecosystems']
+Selected words: ['topic', 'vows', 'repeating', 'detachment', 'harvey', 'hollered', 'brine', 'flung']
+Selected words: ['yorkshire', 'depressingly', 'evaluate', 'sherry', 'demographic', 'blue', 'alias', 'dirt']
+Selected words: ['vulnerable', 'prevention', 'berber', 'strait', 'diaspora', 'civic', 'company', 'legged']
+Step 10, Loss: 1.4707, AUC: 0.7517
+Selected words: ['sanctioned', 'traps', 'brolly', 'diseases', 'undoubtedly', 'bayer', 'they', 'vaguely']
+Selected words: ['computers', 'stereo', 'computational', 'largely', 'chiefs', 'kevin', 'frequencies', 'soccer']
+Selected words: ['textile', 'proposals', 'piers', 'governs', 'organize', 'sault', 'sandals', 'carver']
+Selected words: ['leak', 'floats', 'maori', 'norman', 'henley', 'jumped', 'diverted', 'first']
+Selected words: ['continually', 'arrays', 'ridings', 'myanmar', 'constitute', 'auctions', 'elemental', 'wagner']
+Selected words: ['greater', 'declaring', 'highlighted', 'insult', 'sudbury', 'dodged', 'turmoil', 'aerobic']
+Selected words: ['tense', 'hatching', 'amplifiers', 'prefers', 'briggs', 'mildrid', 'bavarian', 'johnstown']
+Selected words: ['dielectric', 'uncovered', 'sheath', 'deteriorated', 'upkeep', 'resembled', 'esters', 'concurrent']
+Selected words: ['quarrel', 'sealed', 'proves', 'widowed', 'radiator', 'nudge', 'know', 'pasta']
+Selected words: ['tonga', 'amateur', 'surge', 'wins', 'auditory', 'science', 'centre', 'matter']
+Step 20, Loss: 1.7795, AUC: 0.5909
+Selected words: ['bacterial', 'barks', 'fact', 'indy', 'dormitory', 'hayden', 'breakfast', 'liberal']
+Selected words: ['geologist', 'partially', 'belongings', 'tinsel', 'shaved', 'alexandra', 'specialists', 'vagrant']
+Selected words: ['ecclesiastical', 'hobart', 'translates', 'vocal', 'mangrove', 'reminiscent', 'blackmails', 'saxon']
+Selected words: ['disperse', 'virgin', 'involved', 'germans', 'eyelids', 'horsepower', 'michael', 'lotus']
+Selected words: ['bother', 'hospitals', 'randomization', 'costume', 'disastrous', 'longsighted', 'fashionable', 'carpenter']
+Selected words: ['custer', 'sheffield', 'colleagues', 'regents', 'jointly', 'brescia', 'junk', 'tours']
+Selected words: ['nancy', 'sealer', 'embraced', 'sculptors', 'crib', 'vents', 'perceive', 'elaine']
+Selected words: ['achieve', 'fractions', 'linguistic', 'childbirths', 'stern', 'masts', 'opted', 'holds']
+Selected words: ['aegis', 'arguments', 'uprising', 'chrome', 'weapons', 'rewind', 'golfer', 'mirrored']
+Selected words: ['all', 'narnia', 'precipitation', 'customary', 'adapt', 'appointed', 'tablet', 'raiders']
+Step 30, Loss: 1.3807, AUC: 0.7339
+Selected words: ['stated', 'beside', 'beyond', 'asa', 'clans', 'sharon', 'wooden', 'labrador']
+Selected words: ['contacted', 'suppress', 'page', 'latest', 'eroding', 'cadets', 'laude', 'avalon']
+Selected words: ['manganese', 'moonlight', 'enchanted', 'folder', 'overland', 'sneeze', 'ignored', 'launched']
+Selected words: ['resemblance', 'albans', 'maya', 'artist', 'fullerton', 'uttar', 'ethical', 'imitating']
+Selected words: ['weighs', 'rite', 'hillsborough', 'beetroot', 'quebec', 'pierre', 'exoskeleton', 'pointing']
+Selected words: ['innovation', 'predators', 'sheep', 'squeaky', 'tend', 'unused', 'kicked', 'ebb']
+Selected words: ['dresden', 'kilometres', 'ordinances', 'swimmer', 'refinement', 'ghosts', 'cummings', 'mounting']
+Selected words: ['stubbs', 'delight', 'burlington', 'built', 'rover', 'quarters', 'boxer', 'err']
+Selected words: ['departs', 'nasal', 'aluminum', 'found', 'achievements', 'swapped', 'unrest', 'flirting']
+Selected words: ['benz', 'bubbles', 'hewlett', 'planetary', 'own', 'wants', 'timeline', 'before']
+Step 40, Loss: 1.3443, AUC: 0.6746
+Selected words: ['fats', 'appliances', 'jeez', 'introductory', 'pan', 'occupy', 'athletes', 'upland']
+Selected words: ['breweries', 'ipad', 'rainwater', 'repercussions', 'journalistic', 'checks', 'skater', 'severity']
+Selected words: ['umbilical', 'drains', 'luxury', 'success', 'enforce', 'assessments', 'suddenly', 'hilly']
+Selected words: ['operations', 'slender', 'slides', 'ernie', 'reacted', 'credibility', 'leaked', 'refer']
+Selected words: ['harm', 'raincoat', 'paper', 'dialog', 'dusty', 'blackout', 'you’re', 'medicinal']
+Selected words: ['offer', 'neighbors', 'flaws', 'breakfast', 'cemetery', 'duration', 'metallica', 'skunk']
+Selected words: ['painted', 'amendment', 'crossing', 'community', 'retrieve', 'amazon', 'helene', 'chewy']
+Selected words: ['intercept', 'moon', 'joan', 'excluded', 'practise', 'herald', 'daisy', 'reverse']
+Selected words: ['sees', 'sammy', 'teaching', 'ripped', 'overlay', 'interrogating', 'jointly', 'wasteland']
+Selected words: ['deteriorated', 'organisms', 'pig', 'unjust', 'bernie', 'refinement', 'connector', 'campaigns']
+Step 50, Loss: 1.1136, AUC: 0.7719
+Selected words: ['southeast', 'olympia', 'dams', 'examining', 'prepared', 'summarized', 'norse', 'feller']
+Selected words: ['jamming', 'catalog', 'tropical', 'katie', 'burma', 'longsighted', 'circulation', 'homology']
+Selected words: ['grows', 'ordinary', 'professional', 'copying', 'crawled', 'appoint', 'forge', 'zip']
+Selected words: ['ascending', 'summarized', 'endurance', 'jest', 'cargo', 'advisors', 'confidential', 'unchanged']
+Selected words: ['shutting', 'comprised', 'districts', 'vietnam', 'penang', 'park', 'presbyterian', 'huntingdon']
+Selected words: ['brigades', 'impeachment', 'valve', 'armour', 'missionaries', 'elmira', 'commended', 'announcing']
+Selected words: ['whoever', 'insurance', 'budapest', 'gentle', 'numeric', 'rashid', 'initiatives', 'pond']
+Selected words: ['pottery', 'rancho', 'developmental', 'scripture', 'simultaneously', 'apostles', 'woody', 'clans']
+Selected words: ['regime', 'patented', 'closing', 'discs', 'advertise', 'hyper', 'perturbed', 'bought']
+Selected words: ['option', 'apparatus', 'constructive', 'livery', 'mayors', 'assume', 'lebanese', 'nighttime']
+Step 60, Loss: 1.7592, AUC: 0.6830
+Selected words: ['mouldy', 'efforts', 'heavenly', 'ironic', 'alterations', 'baskets', 'bitcoin', 'shoots']
+Selected words: ['sooner', 'exposed', 'reckless', 'million', 'trickier', 'colombo', 'din', 'parrot']
+Selected words: ['aisle', 'galloped', 'smoked', 'venue', 'scarecrow', 'convert', 'jewel', 'breaching']
+Selected words: ['swear', 'canadiens', 'brunswick', 'makeshift', 'contradict', 'returnable', 'regis', 'class']
+Selected words: ['profitable', 'embraced', 'harmony', 'pueblo', 'jurassic', 'issue', 'toddler', 'cairum']
+Selected words: ['davison', 'corresponded', 'south', 'alone', 'passive', 'spire', 'demon', 'agreeable']
+Selected words: ['coached', 'duplicate', 'regretted', 'layered', 'trailers', 'millennium', 'superstar', 'portraying']
+Selected words: ['faiths', 'canadian', 'night', 'elbowed', 'christy', 'peanut', 'russo', 'chris']
+Selected words: ['bill', 'martians', 'creek', 'injustice', 'nobel', 'settlers', 'dutch', 'hoodie']
+Selected words: ['vane', 'alpine', 'tenants', 'murders', 'gloss', 'tucked', 'collectible', 'buckley']
+Step 70, Loss: 1.2668, AUC: 0.7381
+Selected words: ['dialog', 'furiously', 'color', 'prioritize', 'chandler', 'torpedo', 'prince', 'badass']
+Selected words: ['bread', 'wisest', 'shouldn’t', 'exposing', 'midpoint', 'mandarin', 'nature', 'rod']
+Selected words: ['soiled', 'insertion', 'aryan', 'newsletter', 'bernard', 'loo', 'planks', 'knock']
+Selected words: ['evolution', 'freezing', 'recipe', 'usa', 'spectral', 'colonists', 'liberals', 'danny']
+Selected words: ['migrate', 'reorganized', 'kyoto', 'thinly', 'race', 'sewing', 'pylons', 'chichester']
+Selected words: ['fallen', 'cascade', 'ovation', 'pressures', 'arnav', 'buzzword', 'truest', 'snatched']
+Selected words: ['peerage', 'calibration', 'renault', 'appointed', 'emoticons', 'vampire', 'colonel', 'resonant']
+Selected words: ['shortcomings', 'signature', 'activists', 'popped', 'flick', 'range', 'mackenzie', 'wagons']
+Selected words: ['ambitious', 'digest', 'caffeine', 'boxed', 'davenport', 'lara', 'disappearing', 'shout']
+Selected words: ['olympic', 'missionary', 'foundation', 'policy', 'tribute', 'program', 'ontario', 'promote']
+Step 80, Loss: 1.6168, AUC: 0.6044
+Selected words: ['boulevard', 'classroom', 'vowel', 'throughput', 'fizz', 'proto', 'unsafe', 'assessing']
+Selected words: ['issue', 'diabetic', 'claw', 'histories', 'wednesday', 'apache', 'john', 'dozen']
+Selected words: ['stella', 'university', 'staples', 'novels', 'fibres', 'running', 'peripheral', 'saints']
+Selected words: ['aerobic', 'commutative', 'reporting', 'kabul', 'catholic', 'foes', 'fingerprint', 'syndrome']
