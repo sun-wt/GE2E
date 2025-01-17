@@ -148,17 +148,35 @@ def evaluate_gsc(model, enroll_data, test_data, num_enrollment=10):
 
     return auc_scores, det_curves
 
-def plot_det_curves(det_curves, save_path='det_curve.png'):
-    plt.figure(figsize=(10, 8))
+def plot_det_curves(det_curves, save_dir='results/det_curves', overall_save_path='overall_det_curve.png'):
+    """繪製每個關鍵字的 DET 曲線並保存，最後生成綜合 DET 曲線"""
+    os.makedirs(save_dir, exist_ok=True)
+
+    # 單獨為每個關鍵字繪製 DET 曲線
+    for target, (fpr, fnr) in det_curves.items():
+        plt.figure(figsize=(8, 6))
+        plt.plot(fpr, fnr, label=f"{target}")
+        plt.xlabel("False Positive Rate (FPR)")
+        plt.ylabel("False Negative Rate (FNR)")
+        plt.title(f"DET Curve for '{target}'")
+        plt.legend()
+        plt.grid()
+        target_save_path = os.path.join(save_dir, f"{target}_det_curve.png")
+        plt.savefig(target_save_path)
+        print(f"DET 曲線已保存至 {target_save_path}")
+        plt.close()
+
+    # 綜合所有關鍵字的 DET 曲線
+    plt.figure(figsize=(12, 8))
     for target, (fpr, fnr) in det_curves.items():
         plt.plot(fpr, fnr, label=f"{target}")
     plt.xlabel("False Positive Rate (FPR)")
     plt.ylabel("False Negative Rate (FNR)")
-    plt.title("DET Curve")
+    plt.title("Overall DET Curve")
     plt.legend()
     plt.grid()
-    plt.savefig(save_path)
-    print(f"DET 曲線已保存至 {save_path}")
+    plt.savefig(overall_save_path)
+    print(f"綜合 DET 曲線已保存至 {overall_save_path}")
     plt.close()
 
 def main(args):
@@ -234,9 +252,12 @@ def main(args):
     print("\nAUC Scores:")
     for keyword, auc in auc_scores.items():
         print(f"{keyword}: {auc:.4f}")
+    
+    det_curve_dir = os.path.join(os.path.dirname(args.checkpoint_path), 'det_curves')
+    overall_curve_path = os.path.join(os.path.dirname(args.checkpoint_path), 'overall_det_curve.png')
 
-    plot_save_path = os.path.join(os.path.dirname(args.checkpoint_path), 'det_curve.png')
-    plot_det_curves(det_curves, save_path=plot_save_path)
+    # 繪製並保存 DET 曲線
+    plot_det_curves(det_curves, save_dir=det_curve_dir, overall_save_path=overall_curve_path)
     
 
 if __name__ == "__main__":
