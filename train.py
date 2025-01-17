@@ -4,14 +4,13 @@ from torch.utils.data import DataLoader, Dataset
 import pandas as pd
 from torch.nn.utils.rnn import pad_sequence
 from conformer.conformer.encoder import ConformerEncoder
-from collections import defaultdict
 import torch.optim as optim
 from criterion.GE2E_loss import GE2ELoss
 import torch.nn as nn
 import numpy as np
 import librosa
 import argparse
-from datetime import datetime
+from sklearn.metrics import roc_curve, auc
 import random
 
  # 設定設備
@@ -107,40 +106,57 @@ def collate_fn(batch):
     labels = torch.cat(labels, dim=0)  # [total_samples]
     return features, labels
 
+from torch.cuda.amp import autocast, GradScaler
+
 def train_model(model, train_dataloader, optimizer, loss_fn, device, epochs, save_checkpoint_dir):
+    scaler = GradScaler()  # 用於混合精度訓練的梯度縮放器
+
     for epoch in range(epochs):
         print(f"\nEpoch {epoch + 1}/{epochs}")
         model.train()
         total_loss = 0.0
+        total_auc = 0.0
 
         for step, (inputs, labels) in enumerate(train_dataloader):
-            inputs = inputs.to(device)  # [batch_size * samples_per_label, time, input_dim]
+            inputs = inputs.to(device)
             labels = labels.to(device)
-
-            # 計算每個序列的有效長度
             input_lengths = torch.tensor([inputs.shape[1]] * inputs.shape[0], dtype=torch.long, device=device)
 
-            # forward
-            emb, _ = model(inputs, input_lengths)  # 傳遞 inputs 和 input_lengths
-            loss = loss_fn(emb, labels)
-
-            # backward
             optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+
+            # 使用 autocast 進行混合精度訓練
+            with autocast():
+                emb, _ = model(inputs, input_lengths)
+
+                # 重置 Loss 函數內的 true_labels 和 pred_scores
+                loss_fn.true_labels = []
+                loss_fn.pred_scores = []
+
+                # 同時計算 Loss 和 AUC
+                loss, step_auc = loss_fn(emb, labels)
+
+            # 梯度縮放以防止數值不穩定
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
 
             total_loss += loss.item()
+            total_auc += step_auc
 
-            if step % 10 == 0:
-                print(f"Step {step}, Loss: {loss.item():.4f}")
+            if step % 10 == 0:  # 每 10 個 step 打印一次
+                print(f"Step {step}, Loss: {loss.item():.4f}, AUC: {step_auc:.4f}")
 
+        # 計算 epoch 平均 Loss 和 AUC
         avg_loss = total_loss / len(train_dataloader)
-        print(f"Epoch {epoch + 1}, Average Loss: {avg_loss:.4f}")
+        avg_auc = total_auc / len(train_dataloader)
+
+        print(f"Epoch {epoch + 1}, Average Loss: {avg_loss:.4f}, Average AUC: {avg_auc:.4f}")
 
         # 保存檢查點
         checkpoint_path = os.path.join(save_checkpoint_dir, f"epoch_{epoch + 1}.pt")
         torch.save(model.state_dict(), checkpoint_path)
         print(f"[Info] 模型檢查點已保存至 {checkpoint_path}")
+
 
 def main(args):
 
@@ -179,7 +195,7 @@ def main(args):
         print(f"[Info] 初始模型權重已保存至 {checkpoint_path}")
         
     # 設置損失函數和優化器
-    loss_fn = GE2ELoss(device=device)
+    loss_fn = GE2ELoss(device=device, use_alpha_beta=args.use_alpha_beta)  
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
     # 創建檢查點保存目錄
@@ -203,6 +219,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_attention_heads', type=int, default=4, help='Number of attention heads')
     parser.add_argument('--epochs', type=int, default=10, help='Number of training epochs')
     parser.add_argument('--learning_rate', type=float, default=1e-3, help='Learning rate for optimizer')
+    parser.add_argument('--use_alpha_beta', action='store_true', help='Use alpha and beta in GE2E loss')
 
     args = parser.parse_args()
     main(args)

@@ -1,11 +1,10 @@
-tensorflow-gpu==2.4.1
 pandas
 Levenshtein
 scipy
 nltk
 inflect
 numpy==1.19.2
-tensorflow-model-optimization==0.6.0
+torch==2.5.1
 librosa==0.9.1
 datasets
 tqdm

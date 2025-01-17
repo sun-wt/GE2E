@@ -163,11 +163,11 @@ def plot_det_curves(det_curves, save_path='det_curve.png'):
 
 def main(args):
     # 檢查是否存在 pickle 文件
-    if os.path.exists('enroll.pkl') and os.path.exists('test.pkl'):
+    if os.path.exists(args.enroll_path) and os.path.exists(args.test_path):
         print("Loading data from pickle files...")
-        with open('enroll.pkl', 'rb') as f:
+        with open(args.enroll_path, 'rb') as f:
             enroll_data = pickle.load(f)
-        with open('test.pkl', 'rb') as f:
+        with open(args.test_path, 'rb') as f:
             test_data = pickle.load(f)
         print("Data loaded from pickle files.")
     else:
@@ -188,10 +188,10 @@ def main(args):
         print("Loaded enroll and test data.")
 
         # 保存數據為 pickle 文件
-        with open('enroll.pkl', 'wb') as f:
+        with open(args.enroll_path, 'wb') as f:
             pickle.dump(enroll_data, f)
             print("Enrollment data saved to enroll.pkl")
-        with open('test.pkl', 'wb') as f:
+        with open(args.test_path, 'wb') as f:
             pickle.dump(test_data, f)
             print("Test data saved to test.pkl")
 
@@ -243,6 +243,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate Conformer with GE2ELoss")
     parser.add_argument('--data_dir', type=str, default='/datas/store162/syt/GE2E/DB/google_speech_commands', help='Root directory of speech commands dataset')
     parser.add_argument('--checkpoint_path', type=str, required=True, help='Path to the model checkpoint (.pt) file')
+    parser.add_argument('--enroll_path', type=str, default='DB/enroll.pkl', help='Path to the enrollment data pickle file')    
+    parser.add_argument('--test_path', type=str, default='DB/test.pkl', help='Path to the enrollment data pickle file')    
     parser.add_argument('--keywords', type=str, required=False, help='Comma-separated list of keywords to evaluate')
     parser.add_argument('--model_type', type=str, required=True, choices=['conformer'], help='Model type to use')
     parser.add_argument('--input_dim', type=int, default=40, help='Input feature dimension')

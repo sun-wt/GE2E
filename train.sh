@@ -3,13 +3,13 @@
 # 設置參數
 PKL_PATH="./MSWC_MIN_10.pkl"                        # 原始數據的路徑
 CHECKPOINT_DIR="./checkpoints"                      # 檢查點的主資料夾
-CHECKPOINT_NAME="20250110_130358/epoch_15.pt"       # 初始檢查點的名稱
+CHECKPOINT_NAME="40_256_2_2.pt"                     # 初始檢查點的名稱
 BATCH_SIZE=8                                        # DataLoader 的批次大小
-INPUT_DIM=80                                        # 輸入特徵維度
+INPUT_DIM=40                                        # 輸入特徵維度
 VIRTUAL_BATCH_SIZE=1000                             # 虛擬批次大小
-ENCODER_DIM=64                                      # 編碼器維度
-NUM_ENCODER_LAYERS=1                                # 編碼器層數
-NUM_ATTENTION_HEADS=1                               # 注意力頭數
+ENCODER_DIM=256                                     # 編碼器維度
+NUM_ENCODER_LAYERS=2                                # 編碼器層數
+NUM_ATTENTION_HEADS=2                               # 注意力頭數
 EPOCHS=5                                            # 訓練的 epoch 數量
 LEARNING_RATE=1e-3                                  # 優化器的學習率
 
@@ -35,6 +35,7 @@ python train.py \
     --num_attention_heads $NUM_ATTENTION_HEADS \
     --epochs $EPOCHS \
     --learning_rate $LEARNING_RATE \
+    --use_alpha_beta \
     | tee "$LOG_FILE"
 
 echo "訓練完成！檢查點和日誌已保存至 $SAVE_DIR"

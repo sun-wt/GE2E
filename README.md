@@ -28,12 +28,12 @@ bash generate_fixed_pkl.sh
 ```bash
 cd ..
 
-# change the PKL_PATH in fix.sh
-bash fix.sh
+# change the parameter in train.sh
+bash train.sh
 ```
 
 3. Inference
 ```bash
-# change the checkpoint path in evaluate.sh
-bash evaluate.sh
+# change the checkpoint path in test.sh
+bash test.sh
 ```
