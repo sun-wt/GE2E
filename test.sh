@@ -12,7 +12,7 @@ python test.py \
   --enroll_path "./DB/enroll.pkl" \
   --test_path "./DB/test.pkl" \
   --model_type "conformer" \
-  --checkpoint_path "./checkpoints/40_256_2_2.pt" \
+  --checkpoint_path "./checkpoints/20250118_161303/epoch_1.pt" \
   --input_dim 40 \
   --encoder_dim 256 \
   --num_encoder_layers 2 \

@@ -3,14 +3,14 @@
 # 設置參數
 PKL_PATH="./MSWC_MIN_10.pkl"                        # 原始數據的路徑
 CHECKPOINT_DIR="./checkpoints"                      # 檢查點的主資料夾
-CHECKPOINT_NAME="40_512_6_4.pt"                     # 初始檢查點的名稱
+CHECKPOINT_NAME="20250118_161303/epoch_1.pt"                      # 初始檢查點的名稱
 BATCH_SIZE=8                                        # DataLoader 的批次大小
 INPUT_DIM=40                                        # 輸入特徵維度
 VIRTUAL_BATCH_SIZE=1000                             # 虛擬批次大小
-ENCODER_DIM=512                                     # 編碼器維度
-NUM_ENCODER_LAYERS=6                                # 編碼器層數
-NUM_ATTENTION_HEADS=4                               # 注意力頭數
-EPOCHS=15                                           # 訓練的 epoch 數量
+ENCODER_DIM=256                                     # 編碼器維度
+NUM_ENCODER_LAYERS=2                                # 編碼器層數
+NUM_ATTENTION_HEADS=2                               # 注意力頭數
+EPOCHS=9                                           # 訓練的 epoch 數量
 LEARNING_RATE=1e-3                                  # 優化器的學習率
 
 # 創建以時間命名的子資料夾（例如：checkpoints/20250107_101530）

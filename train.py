@@ -4,40 +4,60 @@ from torch.utils.data import DataLoader, Dataset
 import pandas as pd
 from torch.nn.utils.rnn import pad_sequence
 from conformer.conformer.encoder import ConformerEncoder
+from collections import defaultdict
 import torch.optim as optim
 from criterion.GE2E_loss import GE2ELoss
 import torch.nn as nn
 import numpy as np
 import librosa
 import argparse
-from sklearn.metrics import roc_curve, auc
+from datetime import datetime
 import random
+from torch.cuda.amp import autocast, GradScaler  # 引入混合精度訓練工具
 
- # 設定設備
+# 設定設備
 print(f"PyTorch 版本: {torch.__version__}")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
 # 特徵提取函數
-def extract_features(wav_path, fs=16000, input_dim=80):
+def extract_features(wav_path, fs=16000, input_dim=40):
     """
     提取梅爾頻譜特徵並進行標準化
     """
     try:
         data, _ = librosa.load(wav_path, sr=fs)
+
+        # 去除靜音部分
+        data, _ = librosa.effects.trim(data, top_db=20)
+
+        # 如果音頻不足 1 秒，進行零填充
         if len(data) < fs:
             data = np.pad(data, (0, fs - len(data)), mode='constant')
         else:
             data = data[:fs]
 
-        mel_spec = librosa.feature.melspectrogram(y=data, sr=fs, n_mels=input_dim, fmax=8000)
+        # 提取梅爾頻譜特徵
+        mel_spec = librosa.feature.melspectrogram(
+            y=data,
+            sr=fs,
+            n_fft=1024,
+            hop_length=256,
+            n_mels=input_dim,
+            fmax=fs // 2
+        )
+
+        # 轉換為對數梅爾頻譜
         mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
-        mel_spec_db_normalized = (mel_spec_db - np.mean(mel_spec_db)) / (np.std(mel_spec_db) + 1e-9)
+
+        # 使用 Min-Max 標準化
+        mel_spec_db_normalized = (mel_spec_db - mel_spec_db.min()) / (mel_spec_db.max() - mel_spec_db.min() + 1e-9)
 
         return mel_spec_db_normalized.T  # [time, n_mels]
     except Exception as e:
         print(f"Error processing {wav_path}: {e}")
         return None
+
 
 # Dataset 定義
 class DynamicTrainDataset(Dataset):
@@ -106,39 +126,45 @@ def collate_fn(batch):
     labels = torch.cat(labels, dim=0)  # [total_samples]
     return features, labels
 
-from torch.cuda.amp import autocast, GradScaler
-
+# 訓練函數
 def train_model(model, train_dataloader, optimizer, loss_fn, device, epochs, save_checkpoint_dir):
+    scaler = GradScaler()  # 初始化 GradScaler
     for epoch in range(epochs):
         print(f"\nEpoch {epoch + 1}/{epochs}")
         model.train()
         total_loss = 0.0
-        loss_fn.true_labels = []  # 重置 true_labels
-        loss_fn.pred_scores = []  # 重置 pred_scores
+        all_auc = []
 
         for step, (inputs, labels) in enumerate(train_dataloader):
             inputs = inputs.to(device)
             labels = labels.to(device)
             input_lengths = torch.tensor([inputs.shape[1]] * inputs.shape[0], dtype=torch.long, device=device)
 
+            # 混合精度前向傳播
+            with autocast():
+                emb, _ = model(inputs, input_lengths)
+                loss, auc = loss_fn(emb, labels)  # 返回 Loss 和 AUC
+
+            # 混合精度反向傳播
             optimizer.zero_grad()
-            emb, _ = model(inputs, input_lengths)
-            loss, det_auc = loss_fn(emb, labels)
-            loss.backward()
-            optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
 
             total_loss += loss.item()
+            all_auc.append(auc)  # 收集每個 batch 的 AUC
+
             if step % 10 == 0:
-                print(f"Step {step}, Loss: {loss.item():.4f}, AUC: {det_auc:.4f}")
+                print(f"Step {step}, Loss: {loss.item():.4f}, AUC: {auc:.4f}")
 
         avg_loss = total_loss / len(train_dataloader)
-        auc = loss_fn.compute_auc()  # 計算 AUC
-        print(f"Epoch {epoch + 1}, Average Loss: {avg_loss:.4f}, AUC: {auc:.4f}")
+        avg_auc = sum(all_auc) / len(all_auc)  # 計算平均 AUC
+        print(f"Epoch {epoch + 1}, Average Loss: {avg_loss:.4f}, Average AUC: {avg_auc:.4f}")
 
-        # 保存檢查點
         checkpoint_path = os.path.join(save_checkpoint_dir, f"epoch_{epoch + 1}.pt")
         torch.save(model.state_dict(), checkpoint_path)
-        print(f"[Info] 模型檢查點已保存至 {checkpoint_path}") 
+        print(f"[Info] 模型檢查點已保存至 {checkpoint_path}")
+
 
 def main(args):
 
@@ -176,8 +202,11 @@ def main(args):
         torch.save(model.state_dict(), checkpoint_path)
         print(f"[Info] 初始模型權重已保存至 {checkpoint_path}")
         
+    if args.use_alpha_beta:
+        print("[Info] 使用 alpha 和 beta 參數。")
+        
     # 設置損失函數和優化器
-    loss_fn = GE2ELoss(device=device, use_alpha_beta=args.use_alpha_beta)  
+    loss_fn = GE2ELoss(device=device, use_alpha_beta=args.use_alpha_beta)
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
     # 創建檢查點保存目錄
@@ -185,6 +214,86 @@ def main(args):
 
     # 訓練模型
     train_model(model, dataloader, optimizer, loss_fn, device, args.epochs, args.save_dir)
+    
+def test(args):
+
+    # 加載數據集
+    dataset = DynamicTrainDataset(
+        pkl_path=args.pkl_path,
+        batch_size=args.batch_size,
+        samples_per_label=args.samples_per_label,
+        input_dim=args.input_dim,
+        virtual_length=args.virtual_length
+    )
+    dataloader = DataLoader(dataset, batch_size=1, collate_fn=collate_fn)
+
+    # 初始化模型
+    model = ConformerEncoder(
+        input_dim=args.input_dim,
+        encoder_dim=args.encoder_dim,
+        num_layers=args.num_encoder_layers,
+        num_attention_heads=args.num_attention_heads
+    ).to(device)
+
+    # 打印模型結構以確認最終線性層名稱
+    print(model)
+
+    # 加載檢查點
+    checkpoint_dir = args.checkpoint_dir
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    checkpoint_path = os.path.join(checkpoint_dir, args.checkpoint_name)
+
+    if os.path.exists(checkpoint_path):
+        state_dict = torch.load(checkpoint_path)
+        model.load_state_dict(state_dict, strict=False)
+        print(f"[Info] 初始模型權重已從 {checkpoint_path} 加載。")
+    else:
+        torch.save(model.state_dict(), checkpoint_path)
+        print(f"[Info] 初始模型權重已保存至 {checkpoint_path}")
+        
+    # 設置損失函數和優化器
+    loss_fn = GE2ELoss(device=device, use_alpha_beta=args.use_alpha_beta)
+    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+
+    # **測試一個 batch**
+    print("\n[Testing a single batch]")
+    for step, (inputs, labels) in enumerate(dataloader):
+        inputs = inputs.to(device)  # [batch_size * samples_per_label, time, input_dim]
+        labels = labels.to(device)
+
+        # 計算每個序列的有效長度
+        input_lengths = torch.tensor([inputs.shape[1]] * inputs.shape[0], dtype=torch.long, device=device)
+        
+        # 逐條打印每個 input
+        print(f"Inputs content:")
+        for i, ii in enumerate(inputs):
+            print(f"Input {i + 1}: {ii.cpu().detach().numpy()}")
+
+        # forward 傳遞，獲取輸出和有效長度
+        outputs, output_lengths = model(inputs, input_lengths)
+
+        # 打印中間結果
+        print(f"Inputs shape: {inputs.shape}")
+        print(f"Input lengths: {input_lengths}")
+        print(f"Outputs shape: {outputs.shape}")
+        print(f"Output lengths: {output_lengths}")
+
+        # **進一步計算 embedding**
+        embeddings = outputs.mean(dim=1)  # 平均池化作為示例
+        print(f"Embeddings shape: {embeddings.shape}")
+
+        # 逐條打印每個 embedding
+        print(f"Embeddings content:")
+        for i, embedding in enumerate(embeddings):
+            print(f"Embedding {i + 1}: {embedding.cpu().detach().numpy()}")
+
+        # # 如果需要計算損失
+        loss = loss_fn(embeddings, labels)
+        print(f"Loss: {loss.item()}")
+
+        # 只測試一個 batch，停止迴圈
+        break
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train model with dynamic feature extraction")
@@ -205,4 +314,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(args)
+    # test(args)
+
+
 
