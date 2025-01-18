@@ -109,13 +109,12 @@ def collate_fn(batch):
 from torch.cuda.amp import autocast, GradScaler
 
 def train_model(model, train_dataloader, optimizer, loss_fn, device, epochs, save_checkpoint_dir):
-    scaler = GradScaler()  # 用於混合精度訓練的梯度縮放器
-
     for epoch in range(epochs):
         print(f"\nEpoch {epoch + 1}/{epochs}")
         model.train()
         total_loss = 0.0
-        total_auc = 0.0
+        loss_fn.true_labels = []  # 重置 true_labels
+        loss_fn.pred_scores = []  # 重置 pred_scores
 
         for step, (inputs, labels) in enumerate(train_dataloader):
             inputs = inputs.to(device)
@@ -123,40 +122,23 @@ def train_model(model, train_dataloader, optimizer, loss_fn, device, epochs, sav
             input_lengths = torch.tensor([inputs.shape[1]] * inputs.shape[0], dtype=torch.long, device=device)
 
             optimizer.zero_grad()
-
-            # 使用 autocast 進行混合精度訓練
-            with autocast():
-                emb, _ = model(inputs, input_lengths)
-
-                # 重置 Loss 函數內的 true_labels 和 pred_scores
-                loss_fn.true_labels = []
-                loss_fn.pred_scores = []
-
-                # 同時計算 Loss 和 AUC
-                loss, step_auc = loss_fn(emb, labels)
-
-            # 梯度縮放以防止數值不穩定
-            scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
+            emb, _ = model(inputs, input_lengths)
+            loss, det_auc = loss_fn(emb, labels)
+            loss.backward()
+            optimizer.step()
 
             total_loss += loss.item()
-            total_auc += step_auc
+            if step % 10 == 0:
+                print(f"Step {step}, Loss: {loss.item():.4f}, AUC: {det_auc:.4f}")
 
-            if step % 10 == 0:  # 每 10 個 step 打印一次
-                print(f"Step {step}, Loss: {loss.item():.4f}, AUC: {step_auc:.4f}")
-
-        # 計算 epoch 平均 Loss 和 AUC
         avg_loss = total_loss / len(train_dataloader)
-        avg_auc = total_auc / len(train_dataloader)
-
-        print(f"Epoch {epoch + 1}, Average Loss: {avg_loss:.4f}, Average AUC: {avg_auc:.4f}")
+        auc = loss_fn.compute_auc()  # 計算 AUC
+        print(f"Epoch {epoch + 1}, Average Loss: {avg_loss:.4f}, AUC: {auc:.4f}")
 
         # 保存檢查點
         checkpoint_path = os.path.join(save_checkpoint_dir, f"epoch_{epoch + 1}.pt")
         torch.save(model.state_dict(), checkpoint_path)
-        print(f"[Info] 模型檢查點已保存至 {checkpoint_path}")
-
+        print(f"[Info] 模型檢查點已保存至 {checkpoint_path}") 
 
 def main(args):
 

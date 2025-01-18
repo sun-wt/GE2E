@@ -1,0 +1,16 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+Using Conformer model.
+[Info] 模型權重已從 ./checkpoints/40_256_2_2.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.3923
+
+Evaluating keyword: house
+Positive samples: 2103, Negative samples: 103376
+AUC for house: 0.4018
+
+Evaluating keyword: wow
