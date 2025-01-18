@@ -3,7 +3,7 @@
 # 設置參數
 PKL_PATH="./MSWC_MIN_10.pkl"                        # 原始數據的路徑
 CHECKPOINT_DIR="./checkpoints"                      # 檢查點的主資料夾
-CHECKPOINT_NAME="40_512_6_4.pt"        # 初始檢查點的名稱
+CHECKPOINT_NAME="40_512_6_4.pt"                     # 初始檢查點的名稱
 BATCH_SIZE=8                                        # DataLoader 的批次大小
 INPUT_DIM=40                                        # 輸入特徵維度
 VIRTUAL_BATCH_SIZE=1000                             # 虛擬批次大小

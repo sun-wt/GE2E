@@ -1,0 +1,12 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+Using Conformer model.
+[Info] 模型權重已從 ./checkpoints/20250117_222718/epoch_1.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.3285
+
+Evaluating keyword: house

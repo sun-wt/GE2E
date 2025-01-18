@@ -77,7 +77,7 @@ class GE2ELoss(nn.Module):
                 negative_similarity_sum = torch.tensor(1e-6, device=self.device)  # 避免 log(0)
 
             positive_similarity_sum = positive_similarities.exp().sum() * positive_weight
-            loss = torch.log(negative_similarity_sum) - torch.log(positive_similarity_sum)
+            loss = torch.log(negative_similarity_sum + 1e-6) - torch.log(positive_similarity_sum + 1e-6)
 
             total_loss += loss
 
