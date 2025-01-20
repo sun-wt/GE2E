@@ -1,17 +1,20 @@
 #!/bin/bash
 
 # 設置參數
+MODEL_TYPE="tiny"                                   # 模型類型（tiny 或 small）
 PKL_PATH="./MSWC_MIN_10.pkl"                        # 原始數據的路徑
 CHECKPOINT_DIR="./checkpoints"                      # 檢查點的主資料夾
-CHECKPOINT_NAME="20250118_161303/epoch_1.pt"                      # 初始檢查點的名稱
+CHECKPOINT_NAME="tiny_40_256_2_2.pt"                # 初始檢查點的名稱
 BATCH_SIZE=8                                        # DataLoader 的批次大小
 INPUT_DIM=40                                        # 輸入特徵維度
 VIRTUAL_BATCH_SIZE=1000                             # 虛擬批次大小
 ENCODER_DIM=256                                     # 編碼器維度
 NUM_ENCODER_LAYERS=2                                # 編碼器層數
 NUM_ATTENTION_HEADS=2                               # 注意力頭數
-EPOCHS=9                                           # 訓練的 epoch 數量
+EPOCHS=10                                           # 訓練的 epoch 數量
 LEARNING_RATE=1e-3                                  # 優化器的學習率
+ALPHA=10
+BETA=-5
 
 # 創建以時間命名的子資料夾（例如：checkpoints/20250107_101530）
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -23,6 +26,7 @@ LOG_FILE="${SAVE_DIR}/training.log"
 
 # 運行訓練腳本並保存日誌
 python train.py \
+    --model_type "$MODEL_TYPE" \
     --pkl_path "$PKL_PATH" \
     --checkpoint_dir "$CHECKPOINT_DIR" \
     --checkpoint_name "$CHECKPOINT_NAME" \
@@ -35,7 +39,7 @@ python train.py \
     --num_attention_heads $NUM_ATTENTION_HEADS \
     --epochs $EPOCHS \
     --learning_rate $LEARNING_RATE \
-    --use_alpha_beta \
+    --alpha_beta $ALPHA $BETA \
     | tee "$LOG_FILE"
 
 echo "訓練完成！檢查點和日誌已保存至 $SAVE_DIR"

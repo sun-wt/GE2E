@@ -14,6 +14,8 @@ from pathlib import Path
 
 sys.path.append('/datas/store162/syt/GE2E/conformer')
 from conformer.conformer.model import ConformerEncoder
+from tiny_conformer.conformer.encoder import ConformerEncoder as TinyConformerEncoder
+
 # from lstm import ThreeLayerLSTM  # 若需要使用 LSTM 可取消註解
 
 # 設置隨機種子
@@ -223,16 +225,22 @@ def main(args):
         print("No specific keywords provided; evaluating all keywords.")
 
     # 初始化模型
-    if args.model_type == 'conformer':
-        print("Using Conformer model.")
-        model = ConformerEncoder(
+    if args.model_type == "tiny":
+        print("[Info] 使用 Tiny Conformer 模型")
+        model = TinyConformerEncoder(
             input_dim=args.input_dim,
             encoder_dim=args.encoder_dim,
             num_layers=args.num_encoder_layers,
             num_attention_heads=args.num_attention_heads
         ).to(device)
     else:
-        raise ValueError(f"Unknown model type: {args.model_type}")
+        print("[Info] 使用普通 Conformer 模型")
+        model = ConformerEncoder(
+            input_dim=args.input_dim,
+            encoder_dim=args.encoder_dim,
+            num_layers=args.num_encoder_layers,
+            num_attention_heads=args.num_attention_heads
+        ).to(device)
 
     # 加載檢查點
     if args.checkpoint_path and os.path.isfile(args.checkpoint_path):
@@ -268,7 +276,7 @@ if __name__ == "__main__":
     parser.add_argument('--enroll_path', type=str, default='DB/enroll.pkl', help='Path to the enrollment data pickle file')    
     parser.add_argument('--test_path', type=str, default='DB/test.pkl', help='Path to the enrollment data pickle file')    
     parser.add_argument('--keywords', type=str, required=False, help='Comma-separated list of keywords to evaluate')
-    parser.add_argument('--model_type', type=str, required=True, choices=['conformer'], help='Model type to use')
+    parser.add_argument('--model_type', type=str, required=True, choices=['normal', 'tiny'], help='Model type to use (conformer or tiny_conformer)')
     parser.add_argument('--input_dim', type=int, default=40, help='Input feature dimension')
     parser.add_argument('--encoder_dim', type=int, default=64, help='Encoder dimension')
     parser.add_argument('--num_encoder_layers', type=int, default=5, help='Number of encoder layers')
@@ -276,4 +284,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(args)
+    
     

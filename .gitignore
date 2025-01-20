@@ -1,5 +1,6 @@
 *.pkl
 *.pt
 *.h5
+tiny_conformer/
 conformer/
 DB/

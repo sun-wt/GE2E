@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader, Dataset
 import pandas as pd
 from torch.nn.utils.rnn import pad_sequence
 from conformer.conformer.encoder import ConformerEncoder
+from tiny_conformer.conformer.encoder import ConformerEncoder as TinyConformerEncoder
 from collections import defaultdict
 import torch.optim as optim
 from criterion.GE2E_loss import GE2ELoss
@@ -167,7 +168,6 @@ def train_model(model, train_dataloader, optimizer, loss_fn, device, epochs, sav
 
 
 def main(args):
-
     # 加載數據集
     dataset = DynamicTrainDataset(
         pkl_path=args.pkl_path,
@@ -179,14 +179,24 @@ def main(args):
     dataloader = DataLoader(dataset, batch_size=1, collate_fn=collate_fn)
 
     # 初始化模型
-    model = ConformerEncoder(
-        input_dim=args.input_dim,
-        encoder_dim=args.encoder_dim,
-        num_layers=args.num_encoder_layers,
-        num_attention_heads=args.num_attention_heads
-    ).to(device)
+    if args.model_type == "tiny":
+        print("[Info] 使用 Tiny Conformer 模型")
+        model = TinyConformerEncoder(
+            input_dim=args.input_dim,
+            encoder_dim=args.encoder_dim,
+            num_layers=args.num_encoder_layers,
+            num_attention_heads=args.num_attention_heads
+        ).to(device)
+    else:
+        print("[Info] 使用普通 Conformer 模型")
+        model = ConformerEncoder(
+            input_dim=args.input_dim,
+            encoder_dim=args.encoder_dim,
+            num_layers=args.num_encoder_layers,
+            num_attention_heads=args.num_attention_heads
+        ).to(device)
 
-    # 打印模型結構以確認最終線性層名稱
+    # 打印模型結構
     print(model)
 
     # 加載檢查點
@@ -201,12 +211,13 @@ def main(args):
     else:
         torch.save(model.state_dict(), checkpoint_path)
         print(f"[Info] 初始模型權重已保存至 {checkpoint_path}")
-        
-    if args.use_alpha_beta:
-        print("[Info] 使用 alpha 和 beta 參數。")
+
+    alpha, beta = args.alpha_beta
+    use_alpha_beta = not (alpha == 0.0 and beta == 0.0)
+    print(f"[Info] use_alpha_beta: {use_alpha_beta}, alpha: {alpha}, beta: {beta}")
         
     # 設置損失函數和優化器
-    loss_fn = GE2ELoss(device=device, use_alpha_beta=args.use_alpha_beta)
+    loss_fn = GE2ELoss(device=device, use_alpha_beta=use_alpha_beta, init_alpha=alpha, init_beta=beta)
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
     # 創建檢查點保存目錄
@@ -214,85 +225,6 @@ def main(args):
 
     # 訓練模型
     train_model(model, dataloader, optimizer, loss_fn, device, args.epochs, args.save_dir)
-    
-def test(args):
-
-    # 加載數據集
-    dataset = DynamicTrainDataset(
-        pkl_path=args.pkl_path,
-        batch_size=args.batch_size,
-        samples_per_label=args.samples_per_label,
-        input_dim=args.input_dim,
-        virtual_length=args.virtual_length
-    )
-    dataloader = DataLoader(dataset, batch_size=1, collate_fn=collate_fn)
-
-    # 初始化模型
-    model = ConformerEncoder(
-        input_dim=args.input_dim,
-        encoder_dim=args.encoder_dim,
-        num_layers=args.num_encoder_layers,
-        num_attention_heads=args.num_attention_heads
-    ).to(device)
-
-    # 打印模型結構以確認最終線性層名稱
-    print(model)
-
-    # 加載檢查點
-    checkpoint_dir = args.checkpoint_dir
-    os.makedirs(checkpoint_dir, exist_ok=True)
-    checkpoint_path = os.path.join(checkpoint_dir, args.checkpoint_name)
-
-    if os.path.exists(checkpoint_path):
-        state_dict = torch.load(checkpoint_path)
-        model.load_state_dict(state_dict, strict=False)
-        print(f"[Info] 初始模型權重已從 {checkpoint_path} 加載。")
-    else:
-        torch.save(model.state_dict(), checkpoint_path)
-        print(f"[Info] 初始模型權重已保存至 {checkpoint_path}")
-        
-    # 設置損失函數和優化器
-    loss_fn = GE2ELoss(device=device, use_alpha_beta=args.use_alpha_beta)
-    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-
-    # **測試一個 batch**
-    print("\n[Testing a single batch]")
-    for step, (inputs, labels) in enumerate(dataloader):
-        inputs = inputs.to(device)  # [batch_size * samples_per_label, time, input_dim]
-        labels = labels.to(device)
-
-        # 計算每個序列的有效長度
-        input_lengths = torch.tensor([inputs.shape[1]] * inputs.shape[0], dtype=torch.long, device=device)
-        
-        # 逐條打印每個 input
-        print(f"Inputs content:")
-        for i, ii in enumerate(inputs):
-            print(f"Input {i + 1}: {ii.cpu().detach().numpy()}")
-
-        # forward 傳遞，獲取輸出和有效長度
-        outputs, output_lengths = model(inputs, input_lengths)
-
-        # 打印中間結果
-        print(f"Inputs shape: {inputs.shape}")
-        print(f"Input lengths: {input_lengths}")
-        print(f"Outputs shape: {outputs.shape}")
-        print(f"Output lengths: {output_lengths}")
-
-        # **進一步計算 embedding**
-        embeddings = outputs.mean(dim=1)  # 平均池化作為示例
-        print(f"Embeddings shape: {embeddings.shape}")
-
-        # 逐條打印每個 embedding
-        print(f"Embeddings content:")
-        for i, embedding in enumerate(embeddings):
-            print(f"Embedding {i + 1}: {embedding.cpu().detach().numpy()}")
-
-        # # 如果需要計算損失
-        loss = loss_fn(embeddings, labels)
-        print(f"Loss: {loss.item()}")
-
-        # 只測試一個 batch，停止迴圈
-        break
 
 
 if __name__ == "__main__":
@@ -310,11 +242,12 @@ if __name__ == "__main__":
     parser.add_argument('--num_attention_heads', type=int, default=4, help='Number of attention heads')
     parser.add_argument('--epochs', type=int, default=10, help='Number of training epochs')
     parser.add_argument('--learning_rate', type=float, default=1e-3, help='Learning rate for optimizer')
-    parser.add_argument('--use_alpha_beta', action='store_true', help='Use alpha and beta in GE2E loss')
-
+    parser.add_argument('--model_type', type=str, default="normal", choices=["normal", "tiny"], help="Specify the model type (normal or tiny)")
+    parser.add_argument('--alpha_beta', type=float, nargs=2, metavar=('ALPHA', 'BETA'),
+                        default=[0.0, 0.0],
+                        help='Set alpha and beta values for GE2E loss. Use "0 0" to disable alpha-beta scaling.')
+    
+    
     args = parser.parse_args()
+    
     main(args)
-    # test(args)
-
-
-

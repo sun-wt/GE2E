@@ -1,0 +1,15 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+Evaluating specified keywords: ['right']
+Using Conformer model.
+[Info] 模型權重已從 ./checkpoints/20250118_181302/epoch_2.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.1159
+
+AUC Scores:
+right: 0.1159
+DET 曲線已保存至 results/det_curves/right_det_curve.png
+綜合 DET 曲線已保存至 results/overall_det_curve.png
