@@ -1,0 +1,219 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+[Info] 使用 Tiny Conformer 模型
+[Info] 模型權重已從 ./checkpoints/20250120_095227/epoch_10.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.0776
+
+Evaluating keyword: house
+Positive samples: 2103, Negative samples: 103376
+AUC for house: 0.0640
+
+Evaluating keyword: wow
+Positive samples: 2113, Negative samples: 103366
+AUC for wow: 0.0950
+
+Evaluating keyword: dog
+Positive samples: 2118, Negative samples: 103361
+AUC for dog: 0.1891
+
+Evaluating keyword: no
+Positive samples: 3931, Negative samples: 101548
+AUC for no: 0.1033
+
+Evaluating keyword: up
+Positive samples: 3713, Negative samples: 101766
+AUC for up: 0.0991
+
+Evaluating keyword: marvin
+Positive samples: 2090, Negative samples: 103389
+AUC for marvin: 0.0478
+
+Evaluating keyword: follow
+Positive samples: 1569, Negative samples: 103910
+AUC for follow: 0.0849
+
+Evaluating keyword: five
+Positive samples: 4042, Negative samples: 101437
+AUC for five: 0.0965
+
+Evaluating keyword: go
+Positive samples: 3870, Negative samples: 101609
+AUC for go: 0.1561
+
+Evaluating keyword: on
+Positive samples: 3835, Negative samples: 101644
+AUC for on: 0.0862
+
+Evaluating keyword: forward
+Positive samples: 1547, Negative samples: 103932
+AUC for forward: 0.0540
+
+Evaluating keyword: visual
+Positive samples: 1582, Negative samples: 103897
+AUC for visual: 0.0781
+
+Evaluating keyword: yes
+Positive samples: 4034, Negative samples: 101445
+AUC for yes: 0.0329
+
+Evaluating keyword: happy
+Positive samples: 2044, Negative samples: 103435
+AUC for happy: 0.0591
+
+Evaluating keyword: backward
+Positive samples: 1654, Negative samples: 103825
+AUC for backward: 0.0404
+
+Evaluating keyword: nine
+Positive samples: 3924, Negative samples: 101555
+AUC for nine: 0.0652
+
+Evaluating keyword: off
+Positive samples: 3735, Negative samples: 101744
+AUC for off: 0.0928
+
+Evaluating keyword: one
+Positive samples: 3880, Negative samples: 101599
+AUC for one: 0.0873
+
+Evaluating keyword: seven
+Positive samples: 3988, Negative samples: 101491
+AUC for seven: 0.0542
+
+Evaluating keyword: bed
+Positive samples: 2004, Negative samples: 103475
+AUC for bed: 0.1848
+
+Evaluating keyword: learn
+Positive samples: 1565, Negative samples: 103914
+AUC for learn: 0.1447
+
+Evaluating keyword: sheila
+Positive samples: 2012, Negative samples: 103467
+AUC for sheila: 0.0626
+
+Evaluating keyword: down
+Positive samples: 3907, Negative samples: 101572
+AUC for down: 0.1248
+
+Evaluating keyword: two
+Positive samples: 3870, Negative samples: 101609
+AUC for two: 0.0870
+
+Evaluating keyword: left
+Positive samples: 3791, Negative samples: 101688
+AUC for left: 0.0760
+
+Evaluating keyword: zero
+Positive samples: 4042, Negative samples: 101437
+AUC for zero: 0.0373
+
+Evaluating keyword: six
+Positive samples: 3850, Negative samples: 101629
+AUC for six: 0.0371
+
+Evaluating keyword: cat
+Positive samples: 2021, Negative samples: 103458
+AUC for cat: 0.0835
+
+Evaluating keyword: eight
+Positive samples: 3777, Negative samples: 101702
+AUC for eight: 0.0469
+
+Evaluating keyword: four
+Positive samples: 3718, Negative samples: 101761
+AUC for four: 0.0566
+
+Evaluating keyword: three
+Positive samples: 3717, Negative samples: 101762
+AUC for three: 0.0652
+
+Evaluating keyword: stop
+Positive samples: 3862, Negative samples: 101617
+AUC for stop: 0.0787
+
+Evaluating keyword: tree
+Positive samples: 1749, Negative samples: 103730
+AUC for tree: 0.0794
+
+Evaluating keyword: bird
+Positive samples: 2054, Negative samples: 103425
+AUC for bird: 0.2025
+
+AUC Scores:
+right: 0.0776
+house: 0.0640
+wow: 0.0950
+dog: 0.1891
+no: 0.1033
+up: 0.0991
+marvin: 0.0478
+follow: 0.0849
+five: 0.0965
+go: 0.1561
+on: 0.0862
+forward: 0.0540
+visual: 0.0781
+yes: 0.0329
+happy: 0.0591
+backward: 0.0404
+nine: 0.0652
+off: 0.0928
+one: 0.0873
+seven: 0.0542
+bed: 0.1848
+learn: 0.1447
+sheila: 0.0626
+down: 0.1248
+two: 0.0870
+left: 0.0760
+zero: 0.0373
+six: 0.0371
+cat: 0.0835
+eight: 0.0469
+four: 0.0566
+three: 0.0652
+stop: 0.0787
+tree: 0.0794
+bird: 0.2025
+DET 曲線已保存至 results/det_curves/right_det_curve.png
+DET 曲線已保存至 results/det_curves/house_det_curve.png
+DET 曲線已保存至 results/det_curves/wow_det_curve.png
+DET 曲線已保存至 results/det_curves/dog_det_curve.png
+DET 曲線已保存至 results/det_curves/no_det_curve.png
+DET 曲線已保存至 results/det_curves/up_det_curve.png
+DET 曲線已保存至 results/det_curves/marvin_det_curve.png
+DET 曲線已保存至 results/det_curves/follow_det_curve.png
+DET 曲線已保存至 results/det_curves/five_det_curve.png
+DET 曲線已保存至 results/det_curves/go_det_curve.png
+DET 曲線已保存至 results/det_curves/on_det_curve.png
+DET 曲線已保存至 results/det_curves/forward_det_curve.png
+DET 曲線已保存至 results/det_curves/visual_det_curve.png
+DET 曲線已保存至 results/det_curves/yes_det_curve.png
+DET 曲線已保存至 results/det_curves/happy_det_curve.png
+DET 曲線已保存至 results/det_curves/backward_det_curve.png
+DET 曲線已保存至 results/det_curves/nine_det_curve.png
+DET 曲線已保存至 results/det_curves/off_det_curve.png
+DET 曲線已保存至 results/det_curves/one_det_curve.png
+DET 曲線已保存至 results/det_curves/seven_det_curve.png
+DET 曲線已保存至 results/det_curves/bed_det_curve.png
+DET 曲線已保存至 results/det_curves/learn_det_curve.png
+DET 曲線已保存至 results/det_curves/sheila_det_curve.png
+DET 曲線已保存至 results/det_curves/down_det_curve.png
+DET 曲線已保存至 results/det_curves/two_det_curve.png
+DET 曲線已保存至 results/det_curves/left_det_curve.png
+DET 曲線已保存至 results/det_curves/zero_det_curve.png
+DET 曲線已保存至 results/det_curves/six_det_curve.png
+DET 曲線已保存至 results/det_curves/cat_det_curve.png
+DET 曲線已保存至 results/det_curves/eight_det_curve.png
+DET 曲線已保存至 results/det_curves/four_det_curve.png
+DET 曲線已保存至 results/det_curves/three_det_curve.png
+DET 曲線已保存至 results/det_curves/stop_det_curve.png
+DET 曲線已保存至 results/det_curves/tree_det_curve.png
+DET 曲線已保存至 results/det_curves/bird_det_curve.png
+綜合 DET 曲線已保存至 results/overall_det_curve.png
