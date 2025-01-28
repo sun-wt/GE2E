@@ -15,6 +15,11 @@ import argparse
 from datetime import datetime
 import random
 from torch.cuda.amp import autocast, GradScaler  # 引入混合精度訓練工具
+import glob
+
+# 你自己的噪音資料夾路徑 (sound-bible)
+NOISE_DIR = "/datas/store162/syt/PhonMatchNet/DB/sound-bible"
+NOISE_PROBABILITY = 0.0  # 例如 40% 機率加噪音
 
 # 設定設備
 print(f"PyTorch 版本: {torch.__version__}")
@@ -37,6 +42,41 @@ def extract_features(wav_path, fs=16000, input_dim=40):
             data = np.pad(data, (0, fs - len(data)), mode='constant')
         else:
             data = data[:fs]
+            
+        # ========== 使用機率判斷是否加噪音 ==========
+        if random.random() < NOISE_PROBABILITY:
+            # 1) 計算語音訊號 RMS
+            rms_signal = np.sqrt(np.mean(data**2)) + 1e-9
+
+            # 2) 隨機產生一個 SNR 值 (3~15 dB)
+            snr_dB = random.uniform(3, 15)
+
+            # 3) 由 SNR 計算所需 noise 的 RMS
+            #    snr_dB = 20 * log10(rms_signal / rms_noise)
+            #    => rms_noise = rms_signal / 10^(snr_dB/20)
+            rms_noise = rms_signal / (10 ** (snr_dB / 20))
+
+            # 4) 從資料夾隨機挑選一個噪音檔
+            noise_files = glob.glob(os.path.join(NOISE_DIR, "*.wav"))
+            if noise_files:
+                noise_file = random.choice(noise_files)
+                noise_data, _ = librosa.load(noise_file, sr=fs)
+
+                # 若噪音檔比 1 秒長，就隨機裁切一段 1 秒；否則 zero-padding
+                if len(noise_data) < fs:
+                    noise_data = np.pad(noise_data, (0, fs - len(noise_data)), mode='constant')
+                else:
+                    start_idx = random.randint(0, len(noise_data) - fs)
+                    noise_data = noise_data[start_idx : start_idx + fs]
+
+                # 計算 noise_data RMS，並調整到目標值
+                current_noise_rms = np.sqrt(np.mean(noise_data**2)) + 1e-9
+                noise_data = noise_data * (rms_noise / current_noise_rms)
+
+                # 混合
+                data = data + noise_data
+
+        # ==================================
 
         # 提取梅爾頻譜特徵
         mel_spec = librosa.feature.melspectrogram(
@@ -157,6 +197,7 @@ def train_model(model, train_dataloader, optimizer, loss_fn, device, epochs, sav
 
             if step % 10 == 0:
                 print(f"Step {step}, Loss: {loss.item():.4f}, AUC: {auc:.4f}")
+                print(f"  -> alpha={loss_fn.alpha.item():.4f}, beta={loss_fn.beta.item():.4f}")
 
         avg_loss = total_loss / len(train_dataloader)
         avg_auc = sum(all_auc) / len(all_auc)  # 計算平均 AUC
@@ -219,6 +260,11 @@ def main(args):
     # 設置損失函數和優化器
     loss_fn = GE2ELoss(device=device, use_alpha_beta=use_alpha_beta, init_alpha=alpha, init_beta=beta)
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+    # optimizer = torch.optim.Adam([
+    #     {'params': model.parameters(), 'lr': 1e-3},
+    #     {'params': loss_fn.parameters(), 'lr': 5e-3},  # 對 GE2ELoss 的 alpha, beta 設置更大的 lr
+    # ])
+
 
     # 創建檢查點保存目錄
     os.makedirs(args.save_dir, exist_ok=True)

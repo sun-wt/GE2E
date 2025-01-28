@@ -52,6 +52,69 @@ def extract_features(wav_path, fs=16000, input_dim=40):
         print(f"Error processing {wav_path}: {e}")
         return None
 
+def load_enroll_and_test_q(data_root, keywords, input_dim=80, enroll_samples=10):
+    """
+    加載 enrollment 和 test 數據，適配高通資料夾結構：
+    Qualcomm/
+    ├── keyword1/
+    │   ├── speaker1/
+    │   │   ├── audio1.wav
+    │   │   ├── audio2.wav
+    │   ├── speaker2/
+    │       ├── audio3.wav
+    │       ├── audio4.wav
+    ├── keyword2/
+    │   ├── speaker3/
+    │   ├── speaker4/
+    """
+    enroll_data = {}
+    test_data = {}
+
+    for keyword in keywords:
+        keyword_dir = Path(data_root) / keyword
+        if not keyword_dir.is_dir():
+            print(f"Warning: Directory for keyword '{keyword}' does not exist.")
+            continue
+
+        # 遍歷 speaker 資料夾並收集所有音檔
+        all_files = []
+        for speaker_dir in keyword_dir.iterdir():
+            if speaker_dir.is_dir():
+                speaker_files = list(speaker_dir.glob("*.wav"))
+                all_files.extend(speaker_files)
+
+        if len(all_files) < enroll_samples:
+            print(f"Warning: Not enough samples for keyword '{keyword}'. Found {len(all_files)} samples.")
+            continue
+
+        # 隨機打亂並分配 enrollment 和 test 數據
+        # random.shuffle(all_files)
+        enroll_files = all_files[:enroll_samples]
+        test_files = all_files[enroll_samples:]
+        print(f"Keyword: {keyword}, Enrollment: {len(enroll_files)}, Test: {len(test_files)}")
+
+        # 提取特徵
+        enroll_features = []
+        for wav_path in enroll_files:
+            feat = extract_features(str(wav_path), input_dim=input_dim)
+            if feat is not None:
+                enroll_features.append(feat)
+
+        test_features = []
+        for wav_path in test_files:
+            feat = extract_features(str(wav_path), input_dim=input_dim)
+            if feat is not None:
+                test_features.append(feat)
+
+        # 保存特徵到結果字典
+        enroll_data[keyword] = enroll_features
+        test_data[keyword] = test_features
+
+        if enroll_features:
+            print(f"Enrollment feature shape for {keyword}: {enroll_features[0].shape}")
+
+    return enroll_data, test_data
+
 def load_enroll_and_test(data_root, keywords, input_dim=80, enroll_samples=10):
     enroll_data = {}
     test_data = {}

@@ -4,7 +4,7 @@
 MODEL_TYPE="tiny"                                   # 模型類型（tiny 或 small）
 PKL_PATH="./MSWC_MIN_10.pkl"                        # 原始數據的路徑
 CHECKPOINT_DIR="./checkpoints"                      # 檢查點的主資料夾
-CHECKPOINT_NAME="tiny_40_256_2_2.pt"                # 初始檢查點的名稱
+CHECKPOINT_NAME="20250122_103037/epoch_5.pt"        # 初始檢查點的名稱
 BATCH_SIZE=8                                        # DataLoader 的批次大小
 INPUT_DIM=40                                        # 輸入特徵維度
 VIRTUAL_BATCH_SIZE=1000                             # 虛擬批次大小

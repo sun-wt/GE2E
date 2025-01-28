@@ -1,0 +1,144 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+[Info] 使用 Tiny Conformer 模型
+[Info] 模型權重已從 ./checkpoints/20250127_220631/epoch_5.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.0314
+
+Evaluating keyword: house
+Positive samples: 2103, Negative samples: 103376
+AUC for house: 0.0596
+
+Evaluating keyword: wow
+Positive samples: 2113, Negative samples: 103366
+AUC for wow: 0.0920
+
+Evaluating keyword: dog
+Positive samples: 2118, Negative samples: 103361
+AUC for dog: 0.1399
+
+Evaluating keyword: no
+Positive samples: 3931, Negative samples: 101548
+AUC for no: 0.0722
+
+Evaluating keyword: up
+Positive samples: 3713, Negative samples: 101766
+AUC for up: 0.0799
+
+Evaluating keyword: marvin
+Positive samples: 2090, Negative samples: 103389
+AUC for marvin: 0.0488
+
+Evaluating keyword: follow
+Positive samples: 1569, Negative samples: 103910
+AUC for follow: 0.0732
+
+Evaluating keyword: five
+Positive samples: 4042, Negative samples: 101437
+AUC for five: 0.0597
+
+Evaluating keyword: go
+Positive samples: 3870, Negative samples: 101609
+AUC for go: 0.0877
+
+Evaluating keyword: on
+Positive samples: 3835, Negative samples: 101644
+AUC for on: 0.0677
+
+Evaluating keyword: forward
+Positive samples: 1547, Negative samples: 103932
+AUC for forward: 0.0594
+
+Evaluating keyword: visual
+Positive samples: 1582, Negative samples: 103897
+AUC for visual: 0.0388
+
+Evaluating keyword: yes
+Positive samples: 4034, Negative samples: 101445
+AUC for yes: 0.0248
+
+Evaluating keyword: happy
+Positive samples: 2044, Negative samples: 103435
+AUC for happy: 0.0342
+
+Evaluating keyword: backward
+Positive samples: 1654, Negative samples: 103825
+AUC for backward: 0.0331
+
+Evaluating keyword: nine
+Positive samples: 3924, Negative samples: 101555
+AUC for nine: 0.0527
+
+Evaluating keyword: off
+Positive samples: 3735, Negative samples: 101744
+AUC for off: 0.0733
+
+Evaluating keyword: one
+Positive samples: 3880, Negative samples: 101599
+AUC for one: 0.0614
+
+Evaluating keyword: seven
+Positive samples: 3988, Negative samples: 101491
+AUC for seven: 0.0150
+
+Evaluating keyword: bed
+Positive samples: 2004, Negative samples: 103475
+AUC for bed: 0.0959
+
+Evaluating keyword: learn
+Positive samples: 1565, Negative samples: 103914
+AUC for learn: 0.1046
+
+Evaluating keyword: sheila
+Positive samples: 2012, Negative samples: 103467
+AUC for sheila: 0.0335
+
+Evaluating keyword: down
+Positive samples: 3907, Negative samples: 101572
+AUC for down: 0.0655
+
+Evaluating keyword: two
+Positive samples: 3870, Negative samples: 101609
+AUC for two: 0.0677
+
+Evaluating keyword: left
+Positive samples: 3791, Negative samples: 101688
+AUC for left: 0.0388
+
+Evaluating keyword: zero
+Positive samples: 4042, Negative samples: 101437
+AUC for zero: 0.0243
+
+Evaluating keyword: six
+Positive samples: 3850, Negative samples: 101629
+AUC for six: 0.0323
+
+Evaluating keyword: cat
+Positive samples: 2021, Negative samples: 103458
+AUC for cat: 0.0711
+
+Evaluating keyword: eight
+Positive samples: 3777, Negative samples: 101702
+AUC for eight: 0.0330
+
+Evaluating keyword: four
+Positive samples: 3718, Negative samples: 101761
+AUC for four: 0.0560
+
+Evaluating keyword: three
+Positive samples: 3717, Negative samples: 101762
+AUC for three: 0.0378
+
+Evaluating keyword: stop
+Positive samples: 3862, Negative samples: 101617
+AUC for stop: 0.0557
+
+Evaluating keyword: tree
+Positive samples: 1749, Negative samples: 103730
+AUC for tree: 0.0416
+
+Evaluating keyword: bird

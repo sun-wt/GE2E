@@ -12,11 +12,11 @@ python test.py \
   --enroll_path "./DB/enroll.pkl" \
   --test_path "./DB/test.pkl" \
   --model_type "tiny" \
-  --checkpoint_path "./checkpoints/20250118_181302/epoch_9.pt" \
+  --checkpoint_path "./checkpoints/20250126_144154/epoch_5.pt" \
   --input_dim 40 \
-  --encoder_dim 512 \
-  --num_encoder_layers 12 \
-  --num_attention_heads 8 \
+  --encoder_dim 256 \
+  --num_encoder_layers 2 \
+  --num_attention_heads 2 \
   | tee "$results_dir/evaluation.log"
 
 det_curves_path=$(find . -type d -name "det_curves" | head -n 1)
