@@ -3,184 +3,184 @@ Loading data from pickle files...
 Data loaded from pickle files.
 No specific keywords provided; evaluating all keywords.
 [Info] 使用 Tiny Conformer 模型
-[Info] 模型權重已從 ./checkpoints/20250127_220631/epoch_5.pt 加載。
+[Info] 模型權重已從 ./checkpoints/tiny_40_512_6_4.pt 加載。
 
 Evaluating keyword: right
 Positive samples: 3768, Negative samples: 101711
-AUC for right: 0.0314
+AUC for right: 0.3887
 
 Evaluating keyword: house
 Positive samples: 2103, Negative samples: 103376
-AUC for house: 0.0596
+AUC for house: 0.4058
 
 Evaluating keyword: wow
 Positive samples: 2113, Negative samples: 103366
-AUC for wow: 0.0920
+AUC for wow: 0.3136
 
 Evaluating keyword: dog
 Positive samples: 2118, Negative samples: 103361
-AUC for dog: 0.1399
+AUC for dog: 0.3939
 
 Evaluating keyword: no
 Positive samples: 3931, Negative samples: 101548
-AUC for no: 0.0722
+AUC for no: 0.3801
 
 Evaluating keyword: up
 Positive samples: 3713, Negative samples: 101766
-AUC for up: 0.0799
+AUC for up: 0.2766
 
 Evaluating keyword: marvin
 Positive samples: 2090, Negative samples: 103389
-AUC for marvin: 0.0488
+AUC for marvin: 0.1846
 
 Evaluating keyword: follow
 Positive samples: 1569, Negative samples: 103910
-AUC for follow: 0.0732
+AUC for follow: 0.3183
 
 Evaluating keyword: five
 Positive samples: 4042, Negative samples: 101437
-AUC for five: 0.0597
+AUC for five: 0.3431
 
 Evaluating keyword: go
 Positive samples: 3870, Negative samples: 101609
-AUC for go: 0.0877
+AUC for go: 0.3147
 
 Evaluating keyword: on
 Positive samples: 3835, Negative samples: 101644
-AUC for on: 0.0677
+AUC for on: 0.3555
 
 Evaluating keyword: forward
 Positive samples: 1547, Negative samples: 103932
-AUC for forward: 0.0594
+AUC for forward: 0.2607
 
 Evaluating keyword: visual
 Positive samples: 1582, Negative samples: 103897
-AUC for visual: 0.0388
+AUC for visual: 0.2904
 
 Evaluating keyword: yes
 Positive samples: 4034, Negative samples: 101445
-AUC for yes: 0.0248
+AUC for yes: 0.4123
 
 Evaluating keyword: happy
 Positive samples: 2044, Negative samples: 103435
-AUC for happy: 0.0342
+AUC for happy: 0.3639
 
 Evaluating keyword: backward
 Positive samples: 1654, Negative samples: 103825
-AUC for backward: 0.0331
+AUC for backward: 0.2385
 
 Evaluating keyword: nine
 Positive samples: 3924, Negative samples: 101555
-AUC for nine: 0.0527
+AUC for nine: 0.3360
 
 Evaluating keyword: off
 Positive samples: 3735, Negative samples: 101744
-AUC for off: 0.0733
+AUC for off: 0.3879
 
 Evaluating keyword: one
 Positive samples: 3880, Negative samples: 101599
-AUC for one: 0.0614
+AUC for one: 0.3717
 
 Evaluating keyword: seven
 Positive samples: 3988, Negative samples: 101491
-AUC for seven: 0.0150
+AUC for seven: 0.3483
 
 Evaluating keyword: bed
 Positive samples: 2004, Negative samples: 103475
-AUC for bed: 0.0959
+AUC for bed: 0.3991
 
 Evaluating keyword: learn
 Positive samples: 1565, Negative samples: 103914
-AUC for learn: 0.1046
+AUC for learn: 0.3027
 
 Evaluating keyword: sheila
 Positive samples: 2012, Negative samples: 103467
-AUC for sheila: 0.0335
+AUC for sheila: 0.3258
 
 Evaluating keyword: down
 Positive samples: 3907, Negative samples: 101572
-AUC for down: 0.0655
+AUC for down: 0.3287
 
 Evaluating keyword: two
 Positive samples: 3870, Negative samples: 101609
-AUC for two: 0.0677
+AUC for two: 0.3278
 
 Evaluating keyword: left
 Positive samples: 3791, Negative samples: 101688
-AUC for left: 0.0388
+AUC for left: 0.5285
 
 Evaluating keyword: zero
 Positive samples: 4042, Negative samples: 101437
-AUC for zero: 0.0243
+AUC for zero: 0.3873
 
 Evaluating keyword: six
 Positive samples: 3850, Negative samples: 101629
-AUC for six: 0.0323
+AUC for six: 0.4461
 
 Evaluating keyword: cat
 Positive samples: 2021, Negative samples: 103458
-AUC for cat: 0.0711
+AUC for cat: 0.5116
 
 Evaluating keyword: eight
 Positive samples: 3777, Negative samples: 101702
-AUC for eight: 0.0330
+AUC for eight: 0.3729
 
 Evaluating keyword: four
 Positive samples: 3718, Negative samples: 101761
-AUC for four: 0.0560
+AUC for four: 0.3083
 
 Evaluating keyword: three
 Positive samples: 3717, Negative samples: 101762
-AUC for three: 0.0378
+AUC for three: 0.3629
 
 Evaluating keyword: stop
 Positive samples: 3862, Negative samples: 101617
-AUC for stop: 0.0557
+AUC for stop: 0.4388
 
 Evaluating keyword: tree
 Positive samples: 1749, Negative samples: 103730
-AUC for tree: 0.0416
+AUC for tree: 0.4278
 
 Evaluating keyword: bird
 Positive samples: 2054, Negative samples: 103425
-AUC for bird: 0.1426
+AUC for bird: 0.3884
 
 AUC Scores:
-right: 0.0314
-house: 0.0596
-wow: 0.0920
-dog: 0.1399
-no: 0.0722
-up: 0.0799
-marvin: 0.0488
-follow: 0.0732
-five: 0.0597
-go: 0.0877
-on: 0.0677
-forward: 0.0594
-visual: 0.0388
-yes: 0.0248
-happy: 0.0342
-backward: 0.0331
-nine: 0.0527
-off: 0.0733
-one: 0.0614
-seven: 0.0150
-bed: 0.0959
-learn: 0.1046
-sheila: 0.0335
-down: 0.0655
-two: 0.0677
-left: 0.0388
-zero: 0.0243
-six: 0.0323
-cat: 0.0711
-eight: 0.0330
-four: 0.0560
-three: 0.0378
-stop: 0.0557
-tree: 0.0416
-bird: 0.1426
+right: 0.3887
+house: 0.4058
+wow: 0.3136
+dog: 0.3939
+no: 0.3801
+up: 0.2766
+marvin: 0.1846
+follow: 0.3183
+five: 0.3431
+go: 0.3147
+on: 0.3555
+forward: 0.2607
+visual: 0.2904
+yes: 0.4123
+happy: 0.3639
+backward: 0.2385
+nine: 0.3360
+off: 0.3879
+one: 0.3717
+seven: 0.3483
+bed: 0.3991
+learn: 0.3027
+sheila: 0.3258
+down: 0.3287
+two: 0.3278
+left: 0.5285
+zero: 0.3873
+six: 0.4461
+cat: 0.5116
+eight: 0.3729
+four: 0.3083
+three: 0.3629
+stop: 0.4388
+tree: 0.4278
+bird: 0.3884
 DET 曲線已保存至 results/det_curves/right_det_curve.png
 DET 曲線已保存至 results/det_curves/house_det_curve.png
 DET 曲線已保存至 results/det_curves/wow_det_curve.png

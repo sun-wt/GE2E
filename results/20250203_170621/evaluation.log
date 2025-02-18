@@ -1,0 +1,33 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+[Info] 使用 Tiny Conformer 模型
+[Info] 模型權重已從 ./checkpoints/20250202_234248/epoch_5.pt 加載。
+
+Evaluating keyword: hey_android
+Positive samples: 1102, Negative samples: 3128
+AUC for hey_android: 0.0554
+
+Evaluating keyword: hi_galaxy
+Positive samples: 924, Negative samples: 3306
+AUC for hi_galaxy: 0.0847
+
+Evaluating keyword: hey_snapdragon
+Positive samples: 1102, Negative samples: 3128
+AUC for hey_snapdragon: 0.0107
+
+Evaluating keyword: hi_lumina
+Positive samples: 1102, Negative samples: 3128
+AUC for hi_lumina: 0.0216
+
+AUC Scores:
+hey_android: 0.0554
+hi_galaxy: 0.0847
+hey_snapdragon: 0.0107
+hi_lumina: 0.0216
+DET 曲線已保存至 results/det_curves/hey_android_det_curve.png
+DET 曲線已保存至 results/det_curves/hi_galaxy_det_curve.png
+DET 曲線已保存至 results/det_curves/hey_snapdragon_det_curve.png
+DET 曲線已保存至 results/det_curves/hi_lumina_det_curve.png
+綜合 DET 曲線已保存至 results/overall_det_curve.png

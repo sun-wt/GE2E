@@ -11,6 +11,7 @@ import argparse
 import librosa
 from tqdm import tqdm
 from pathlib import Path
+import random
 
 sys.path.append('/datas/store162/syt/GE2E/conformer')
 from conformer.conformer.model import ConformerEncoder
@@ -47,6 +48,11 @@ def extract_features(wav_path, fs=16000, input_dim=40):
         )
         mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
         mel_spec_db_normalized = (mel_spec_db - mel_spec_db.min()) / (mel_spec_db.max() - mel_spec_db.min() + 1e-9)
+        
+        # 執行 CMVN 標準化 (均值方差正規化)
+        # mean = mel_spec_db.mean()
+        # std = mel_spec_db.std()
+        # mel_spec_db_normalized = (mel_spec_db - mean) / (std + 1e-9)
         return mel_spec_db_normalized.T  # [time, n_mels]
     except Exception as e:
         print(f"Error processing {wav_path}: {e}")
@@ -128,6 +134,7 @@ def load_enroll_and_test(data_root, keywords, input_dim=80, enroll_samples=10):
             print(f"Warning: Not enough samples for keyword '{keyword}'.")
             continue
 
+        random.shuffle(all_files)
         enroll_files = all_files[:enroll_samples]
         test_files = all_files[enroll_samples:]
         print(f"Keyword: {keyword}, Enrollment: {len(enroll_files)}, Test: {len(test_files)}")

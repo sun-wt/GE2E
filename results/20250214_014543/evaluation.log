@@ -1,0 +1,80 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+[Info] 使用 Tiny Conformer 模型
+[Info] 模型權重已從 ./checkpoints/20250213_144904/epoch_5.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.0526
+
+Evaluating keyword: house
+Positive samples: 2103, Negative samples: 103376
+AUC for house: 0.0909
+
+Evaluating keyword: wow
+Positive samples: 2113, Negative samples: 103366
+AUC for wow: 0.0809
+
+Evaluating keyword: dog
+Positive samples: 2118, Negative samples: 103361
+AUC for dog: 0.1527
+
+Evaluating keyword: no
+Positive samples: 3931, Negative samples: 101548
+AUC for no: 0.0710
+
+Evaluating keyword: up
+Positive samples: 3713, Negative samples: 101766
+AUC for up: 0.1109
+
+Evaluating keyword: marvin
+Positive samples: 2090, Negative samples: 103389
+AUC for marvin: 0.0411
+
+Evaluating keyword: follow
+Positive samples: 1569, Negative samples: 103910
+AUC for follow: 0.0710
+
+Evaluating keyword: five
+Positive samples: 4042, Negative samples: 101437
+AUC for five: 0.0664
+
+Evaluating keyword: go
+Positive samples: 3870, Negative samples: 101609
+AUC for go: 0.1126
+
+Evaluating keyword: on
+Positive samples: 3835, Negative samples: 101644
+AUC for on: 0.0751
+
+Evaluating keyword: forward
+Positive samples: 1547, Negative samples: 103932
+AUC for forward: 0.0541
+
+Evaluating keyword: visual
+Positive samples: 1582, Negative samples: 103897
+AUC for visual: 0.0471
+
+Evaluating keyword: yes
+Positive samples: 4034, Negative samples: 101445
+AUC for yes: 0.0472
+
+Evaluating keyword: happy
+Positive samples: 2044, Negative samples: 103435
+AUC for happy: 0.0454
+
+Evaluating keyword: backward
+Positive samples: 1654, Negative samples: 103825
+AUC for backward: 0.0297
+
+Evaluating keyword: nine
+Positive samples: 3924, Negative samples: 101555
+AUC for nine: 0.0510
+
+Evaluating keyword: off
+Positive samples: 3735, Negative samples: 101744
+AUC for off: 0.1057
+
+Evaluating keyword: one

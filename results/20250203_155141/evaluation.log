@@ -1,0 +1,28 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+No specific keywords provided; evaluating all keywords.
+[Info] 使用 Tiny Conformer 模型
+[Info] 模型權重已從 ./checkpoints/20250202_234248/epoch_10.pt 加載。
+
+Evaluating keyword: right
+Positive samples: 3768, Negative samples: 101711
+AUC for right: 0.0278
+
+Evaluating keyword: house
+Positive samples: 2103, Negative samples: 103376
+AUC for house: 0.0426
+
+Evaluating keyword: wow
+Positive samples: 2113, Negative samples: 103366
+AUC for wow: 0.0481
+
+Evaluating keyword: dog
+Positive samples: 2118, Negative samples: 103361
+AUC for dog: 0.0821
+
+Evaluating keyword: no
+Positive samples: 3931, Negative samples: 101548
+AUC for no: 0.0572
+
+Evaluating keyword: up

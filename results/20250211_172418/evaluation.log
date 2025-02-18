@@ -1,0 +1,24 @@
+Using device: cuda
+Loading data from pickle files...
+Data loaded from pickle files.
+Evaluating specified keywords: ['dog', 'go', 'on', 'bed', 'learn', 'bird']
+[Info] 使用 Tiny Conformer 模型
+[Info] 模型權重已從 ./checkpoints/20250211_104053/epoch_4.pt 加載。
+
+Evaluating keyword: dog
+Positive samples: 2118, Negative samples: 103361
+AUC for dog: 0.1389
+
+Evaluating keyword: go
+Positive samples: 3870, Negative samples: 101609
+AUC for go: 0.1208
+
+Evaluating keyword: on
+Positive samples: 3835, Negative samples: 101644
+AUC for on: 0.0953
+
+Evaluating keyword: bed
+Positive samples: 2004, Negative samples: 103475
+AUC for bed: 0.1065
+
+Evaluating keyword: learn

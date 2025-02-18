@@ -1,0 +1,546 @@
+PyTorch 版本: 1.13.1+cu117
+Using device: cuda
+Grouping data by WORD...
+[Info] 使用 Tiny Conformer 模型
+ConformerEncoder(
+  (conv_subsample): Conv2dSubampling(
+    (sequential): Sequential(
+      (0): Conv2d(1, 256, kernel_size=(3, 3), stride=(2, 2))
+      (1): ReLU()
+      (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2))
+      (3): ReLU()
+    )
+  )
+  (input_projection): Sequential(
+    (0): Linear(
+      (linear): Linear(in_features=2304, out_features=256, bias=True)
+    )
+    (1): Dropout(p=0.1, inplace=False)
+  )
+  (layers): ModuleList(
+    (0): ConformerBlock(
+      (sequential): Sequential(
+        (0): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1): ResidualConnectionModule(
+          (module): MultiHeadedSelfAttentionModule(
+            (positional_encoding): PositionalEncoding()
+            (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (attention): RelativeMultiHeadAttention(
+              (query_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (key_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (value_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (pos_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=False)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (out_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+            )
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (2): ResidualConnectionModule(
+          (module): ConformerConvModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Transpose()
+              (2): PointwiseConv1d(
+                (conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+              )
+              (3): GLU()
+              (4): DepthwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(31,), stride=(1,), padding=(15,), groups=256, bias=False)
+              )
+              (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (6): Swish()
+              (7): PointwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+              )
+              (8): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (3): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (4): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (1): ConformerBlock(
+      (sequential): Sequential(
+        (0): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1): ResidualConnectionModule(
+          (module): MultiHeadedSelfAttentionModule(
+            (positional_encoding): PositionalEncoding()
+            (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (attention): RelativeMultiHeadAttention(
+              (query_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (key_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (value_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+              (pos_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=False)
+              )
+              (dropout): Dropout(p=0.1, inplace=False)
+              (out_proj): Linear(
+                (linear): Linear(in_features=256, out_features=256, bias=True)
+              )
+            )
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (2): ResidualConnectionModule(
+          (module): ConformerConvModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Transpose()
+              (2): PointwiseConv1d(
+                (conv): Conv1d(256, 512, kernel_size=(1,), stride=(1,))
+              )
+              (3): GLU()
+              (4): DepthwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(31,), stride=(1,), padding=(15,), groups=256, bias=False)
+              )
+              (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (6): Swish()
+              (7): PointwiseConv1d(
+                (conv): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+              )
+              (8): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (3): ResidualConnectionModule(
+          (module): FeedForwardModule(
+            (sequential): Sequential(
+              (0): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+              (1): Linear(
+                (linear): Linear(in_features=256, out_features=1024, bias=True)
+              )
+              (2): Swish()
+              (3): Dropout(p=0.1, inplace=False)
+              (4): Linear(
+                (linear): Linear(in_features=1024, out_features=256, bias=True)
+              )
+              (5): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (4): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+)
+[Info] 初始模型權重已從 ./checkpoints/20250205_163443/epoch_10.pt 加載。
+[Info] use_alpha_beta: True, alpha: 10.0, beta: -4.0
+
+Epoch 1/20
+選擇關鍵詞: ['fang', 'patriot', 'pollution', 'sloane', 'macedonian', 'weighing', 'fronts', 'succeed']
+Step 0, Loss: -2.2266, AUC: 0.1615
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['printer', 'vietnamese', 'conveyed', 'allison', 'between', 'isotope', 'directing', 'wicket']
+選擇關鍵詞: ['making', 'abdomen', 'nottingham', 'hotels', 'jello', 'emergence', 'emery', 'marker']
+選擇關鍵詞: ['champion', 'award', 'dissent', 'playboy', 'currency', 'program', 'overcame', 'lag']
+選擇關鍵詞: ['macros', 'obliterated', 'smuggling', 'divorced', 'endorsement', 'paced', 'midwifes', 'impacted']
+選擇關鍵詞: ['judgment', 'selma', 'justin', 'home', 'magnificent', 'portal', 'barrels', 'forums']
+選擇關鍵詞: ['carr', 'horseman', 'stubborn', 'picked', 'collaborated', 'choke', 'breakup', 'felix']
+選擇關鍵詞: ['embarked', 'delightful', 'inherited', 'defend', 'hobson', 'irritation', 'gideon', 'rhythms']
+選擇關鍵詞: ['declaring', 'scoring', 'ground', 'mortimer', 'stare', 'casually', 'constable', 'governing']
+選擇關鍵詞: ['removable', 'beautiful', 'wicket', 'what’s', 'explain', 'strobe', 'numbering', 'exterior']
+選擇關鍵詞: ['elementary', 'carrots', 'firm', 'illustrates', 'honey', 'bluetooth', 'hookah', 'massacre']
+Step 10, Loss: -3.6343, AUC: 0.1642
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['lagos', 'ball', 'merchants', 'strongly', 'servicing', 'frigates', 'confederate', 'bears']
+選擇關鍵詞: ['impairment', 'laboratories', 'trailing', 'helmets', 'otherwise', 'prank', 'triple', 'flexibility']
+選擇關鍵詞: ['greenwood', 'breastplate', 'habit', 'tumbled', 'spiral', 'muslim', 'sac', 'hinged']
+選擇關鍵詞: ['recently', 'graphics', 'leak', 'varied', 'trickier', 'unaware', 'crosses', 'staircase']
+選擇關鍵詞: ['fabrics', 'cowboys', 'explored', 'sinai', 'friend', 'export', 'over', 'cursed']
+選擇關鍵詞: ['evenings', 'feud', 'whisper', 'duran', 'fairness', 'renamed', 'activist', 'superstitious']
+選擇關鍵詞: ['dodges', 'mortal', 'unsuccessfully', 'sarawak', 'fingernail', 'sweat', 'faded', 'hamburgers']
+選擇關鍵詞: ['accommodated', 'stomach', 'hinduism', 'hill', 'vehicular', 'audiences', 'bertram', 'guides']
+選擇關鍵詞: ['powers', 'staffordshire', 'reproduced', 'blends', 'neanderthals', 'pinto', 'ogden', 'twine']
+選擇關鍵詞: ['meth', 'did', 'hierarchies', 'administrators', 'pickering', 'pressing', 'warfare', 'commodity']
+Step 20, Loss: -3.6812, AUC: 0.1738
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['communities', 'hush', 'inflammatory', 'ineligible', 'pseudonyms', 'provisions', 'sums', 'serious']
+選擇關鍵詞: ['landowner', 'sanctuary', 'cancelled', 'shot', 'glossy', 'nicole', 'detach', 'sharpened']
+選擇關鍵詞: ['landings', 'experts', 'godwin', 'slogans', 'thrive', 'remarried', 'breathed', 'handsome']
+選擇關鍵詞: ['appended', 'products', 'shelf', 'backdoor', 'upward', 'remembered', 'showed', 'synod']
+選擇關鍵詞: ['allegation', 'simpsons', 'ellie', 'coconut', 'seventeen', 'sipped', 'slid', 'randolph']
+選擇關鍵詞: ['gets', 'defeatist', 'sycamore', 'closure', 'cracked', 'impacted', 'grin', 'clubs']
+選擇關鍵詞: ['barlow', 'pulaski', 'limp', 'brandished', 'oyster', 'hatter', 'hardly', 'doris']
+選擇關鍵詞: ['habits', 'slap', 'seal', 'recipient', 'aegis', 'factor', 'mornings', 'sneaking']
+選擇關鍵詞: ['aim', 'derek', 'prioritizing', 'must', 'rest', 'enough', 'bulgarian', 'goat']
+選擇關鍵詞: ['mono', 'aching', 'wards', 'lyle', 'empties', 'fag', 'freshen', 'melbourne']
+Step 30, Loss: -2.7826, AUC: 0.1263
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['institutional', 'generous', 'abbey', 'demonstration', 'present', 'hazards', 'dragging', 'packed']
+選擇關鍵詞: ['incomes', 'trade', 'exoskeleton', 'undertake', 'smack', 'florescent', 'misdemeanor', 'brant']
+選擇關鍵詞: ['adjustment', 'sourced', 'debatable', 'notation', 'killing', 'skater', 'pumping', 'developing']
+選擇關鍵詞: ['costs', 'sperm', 'closest', 'wished', 'cushing', 'sunday', 'alchemy', 'nap']
+選擇關鍵詞: ['jacksonville', 'galileo', 'jazz', 'best', 'racking', 'stemmed', 'played', 'center']
+選擇關鍵詞: ['cylindrical', 'cryptic', 'drawers', 'mermaids', 'aura', 'soluble', 'yuan', 'searching']
+選擇關鍵詞: ['solder', 'ransom', 'surrendered', 'barrington', 'cheshire', 'feature', 'infants', 'ever']
+選擇關鍵詞: ['shepherd', 'miller', 'poetic', 'fathered', 'monroe', 'global', 'formulas', 'colleges']
+選擇關鍵詞: ['attractions', 'foreigners', 'denver', 'fulfill', 'baker', 'clark', 'struggling', 'chaplin']
+選擇關鍵詞: ['eugene', 'eaters', 'gypsy', 'gaming', 'lunkheads', 'acted', 'carries', 'binds']
+Step 40, Loss: -3.3946, AUC: 0.2142
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['whatsoever', 'day', 'kathleen', 'flounder', 'unhasting', 'quadrangle', 'protagonist', 'procedures']
+選擇關鍵詞: ['similarly', 'scoundrels', 'dominate', 'strangers', 'graduating', 'reproduce', 'coaches', 'pickled']
+選擇關鍵詞: ['think', 'dedicating', 'control', 'conserve', 'intensified', 'supersonic', 'vivian', 'jamestown']
+選擇關鍵詞: ['gaza', 'republic', 'software', 'damp', 'morley', 'reformation', 'incision', 'hurry']
+選擇關鍵詞: ['unopposed', 'insignia', 'hess', 'apartments', 'forcing', 'grain', 'sacramento', 'promoted']
+選擇關鍵詞: ['young', 'earliest', 'crush', 'secretly', 'doctoral', 'wonder', 'celtics', 'partly']
+選擇關鍵詞: ['singer', 'fireman', 'arts', 'seaweed', 'ruin', 'structurally', 'allegation', 'obtained']
+選擇關鍵詞: ['patiently', 'kelsey', 'regret', 'workplace', 'rite', 'sid', 'biographer', 'pigs']
+選擇關鍵詞: ['ruined', 'barangay', 'leaking', 'defences', 'dispatched', 'charming', 'devout', 'microscope']
+選擇關鍵詞: ['wear', 'russell', 'elk', 'somerset', 'horseplay', 'packages', 'seeing', 'alcohols']
+Step 50, Loss: -2.4228, AUC: 0.2004
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['ramen', 'camp', 'hallmark', 'upscale', 'seller', 'remake', 'eucalyptus', 'voted']
+選擇關鍵詞: ['latencies', 'buddha', 'lilly', 'rooms', 'jain', 'nominated', 'published', 'tackling']
+選擇關鍵詞: ['frightening', 'contestants', 'stampede', 'tomorrow', 'commission', 'stanley', 'tiled', 'adulthood']
+選擇關鍵詞: ['mathematicians', 'drones', 'testify', 'canvas', 'podcast', 'anybody', 'patron', 'word']
+選擇關鍵詞: ['battalions', 'sprint', 'applauded', 'thousands', 'telescope', 'sketch', 'sally', 'keller']
+選擇關鍵詞: ['gifts', 'winston', 'mortar', 'appreciated', 'fourth', 'canopy', 'ministers', 'empires']
+選擇關鍵詞: ['divide', 'baba', 'leinster', 'constitute', 'fitz', 'gay', 'counsel', 'manoeuvre']
+選擇關鍵詞: ['niger', 'dolphin', 'named', 'altered', 'featureless', 'presence', 'strictest', 'foundry']
+選擇關鍵詞: ['dreadfully', 'beneath', 'hitch', 'jeremy', 'discs', 'shorter', 'flour', 'drafted']
+選擇關鍵詞: ['dispersal', 'sanity', 'locker', 'secondary', 'wines', 'simplifying', 'tripoli', 'wollongong']
+Step 60, Loss: -2.9621, AUC: 0.1321
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['recognise', 'dirk', 'augmented', 'foundry', 'dip', 'account', 'complaint', 'phones']
+選擇關鍵詞: ['sprints', 'optimal', 'disclosed', 'caldera', 'outbursts', 'mink', 'rainforests', 'traitor']
+選擇關鍵詞: ['slaughter', 'depths', 'taran', 'picket', 'gauge', 'nonsense', 'piercing', 'extant']
+選擇關鍵詞: ['basic', 'dunlap', 'threatens', 'practically', 'mongolia', 'humanity', 'dioxide', 'accordingly']
+選擇關鍵詞: ['thousand', 'everyone', 'bridges', 'parentage', 'achilles', 'ending', 'assistance', 'micropolitan']
+選擇關鍵詞: ['mater', 'attire', 'pastures', 'eliminates', 'confluence', 'catherine', 'pulling', 'edo']
+選擇關鍵詞: ['rug', 'historically', 'winged', 'occupied', 'reno', 'butt', 'socks', 'deepened']
+選擇關鍵詞: ['bloody', 'running', 'gulls', 'texture', 'assortment', 'bosnia', 'graffiti', 'constituent']
+選擇關鍵詞: ['lengthy', 'overlays', 'raining', 'smashup', 'caught', 'batcave', 'mothers', 'hindi']
+選擇關鍵詞: ['carbonate', 'its', 'tropic', 'factors', 'bacterial', 'sinking', 'whilst', 'parishes']
+Step 70, Loss: -3.2292, AUC: 0.0858
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['farmer', 'cheeks', 'virginia', 'newspapers', 'sahara', 'baron', 'theirs', 'cometh']
+選擇關鍵詞: ['neutrality', 'approximately', 'eternity', 'taran', 'pockets', 'geese', 'afternoon', 'viscosity']
+選擇關鍵詞: ['holes', 'christensen', 'scientists', 'desperate', 'professors', 'distressed', 'aftermath', 'shi']
+選擇關鍵詞: ['being', 'york', 'reigning', 'enraged', 'accelerated', 'tomb', 'hurst', 'communism']
+選擇關鍵詞: ['illusion', 'oops', 'intentionally', 'acetate', 'america', 'biggest', 'outed', 'adherents']
+選擇關鍵詞: ['fled', 'icelandic', 'magma', 'wither', 'modernism', 'opportunity', 'manufacturers', 'sand']
+選擇關鍵詞: ['considerable', 'toulouse', 'invertebrates', 'recovery', 'prove', 'jamming', 'simulated', 'naturalist']
+選擇關鍵詞: ['illustrator', 'balked', 'coma', 'cleaned', 'taxation', 'offended', 'alter', 'reused']
+選擇關鍵詞: ['contributes', 'surviving', 'christians', 'overpopulation', 'dismounted', 'crayons', 'madison', 'riches']
+選擇關鍵詞: ['repellent', 'embraced', 'owens', 'derbyshire', 'licensing', 'steed', 'searches', 'bel']
+Step 80, Loss: -3.9305, AUC: 0.0885
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['jurisdiction', 'pray', 'interim', 'veto', 'pathology', 'rebuilding', 'swallow', 'granada']
+選擇關鍵詞: ['alias', 'charleston', 'rhetorical', 'evaluation', 'slated', 'talks', 'pesticides', 'walden']
+選擇關鍵詞: ['sparkled', 'nightmare', 'improves', 'pears', 'dub', 'spaniards', 'separates', 'ease']
+選擇關鍵詞: ['advances', 'attractions', 'weekends', 'kansas', 'uncertain', 'multiedit', 'ravens', 'devoid']
+選擇關鍵詞: ['separate', 'gather', 'rusty', 'shortstop', 'germanic', 'honors', 'praise', 'equations']
+選擇關鍵詞: ['futsal', 'awed', 'pounced', 'carrington', 'shiela', 'finale', 'bryant', 'debated']
+選擇關鍵詞: ['wearing', 'charleston', 'axe', 'tray', 'environment', 'diligent', 'sedative', 'fall']
+選擇關鍵詞: ['charting', 'evidently', 'presbyterian', 'refined', 'consists', 'faltered', 'mcdowell', 'moist']
+選擇關鍵詞: ['inspected', 'programmers', 'standards', 'instincts', 'engineered', 'iceberg', 'onions', 'confined']
+選擇關鍵詞: ['indirectly', 'relaxing', 'imagining', 'reviews', 'greenwich', 'presiding', 'fasten', 'translators']
+Step 90, Loss: -1.7791, AUC: 0.1687
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['nominal', 'waters', 'adherents', 'authors', 'rests', 'bryant', 'lateral', 'landscaped']
+選擇關鍵詞: ['decades', 'empathy', 'telecom', 'extending', 'san', 'subfamily', 'zinc', 'dodgers']
+選擇關鍵詞: ['more', 'oversees', 'counters', 'stayed', 'adair', 'alec', 'carl', 'macon']
+選擇關鍵詞: ['gum', 'mets', 'substantially', 'shepherds', 'quake', 'checked', 'pervasive', 'smells']
+選擇關鍵詞: ['dunk', 'depots', 'pretend', 'heracles', 'fences', 'injuries', 'augustus', 'motel']
+選擇關鍵詞: ['pursuit', 'awaits', 'vow', 'repercussions', 'preceding', 'wintering', 'lyman', 'yarn']
+選擇關鍵詞: ['benefits', 'fellowship', 'explores', 'aspects', 'wanderers', 'laundry', 'enemy', 'removed']
+選擇關鍵詞: ['ringing', 'inevitable', 'complex', 'finding', 'appropriately', 'top', 'fashion', 'levels']
+選擇關鍵詞: ['excitement', 'eventual', 'nazis', 'leigh', 'huntingdon', 'leafed', 'coats', 'linkage']
+選擇關鍵詞: ['weekday', 'nirvana', 'regis', 'resources', 'down', 'adaptation', 'vegetarian', 'orleans']
+Step 100, Loss: -2.4114, AUC: 0.1422
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['waitress', 'rebel', 'frames', 'jennings', 'caledonia', 'flashlight', 'lotus', 'macbeth']
+選擇關鍵詞: ['vassal', 'intercepted', 'peaked', 'excess', 'satellite', 'bankruptcy', 'rings', 'radical']
+選擇關鍵詞: ['calf', 'prostate', 'buying', 'dedication', 'fuck', 'confiscating', 'ongoing', 'amazon']
+選擇關鍵詞: ['bluffs', 'peak', 'rolling', 'peas', 'sparta', 'asexual', 'complexities', 'rhythms']
+選擇關鍵詞: ['criticised', 'clad', 'geologic', 'drew', 'undercover', 'make', 'differently', 'assortment']
+選擇關鍵詞: ['widening', 'headdress', 'victoria', 'hiroshima', 'breakdown', 'forgets', 'eleanor', 'immaculate']
+選擇關鍵詞: ['fore', 'reformation', 'tempo', 'stole', 'saddle', 'masterson', 'esther', 'digging']
+選擇關鍵詞: ['camden', 'relays', 'foraging', 'israel', 'crossbow', 'brigade', 'fervor', 'instant']
+選擇關鍵詞: ['subjected', 'inquisition', 'didn’t', 'conclusions', 'interacting', 'retrieved', 'water', 'preserving']
+選擇關鍵詞: ['castles', 'fixation', 'europe', 'closures', 'duets', 'critique', 'lund', 'leads']
+Step 110, Loss: -2.9883, AUC: 0.0936
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['affected', 'paper', 'indicating', 'delta', 'version', 'toronto', 'ethnically', 'moaning']
+選擇關鍵詞: ['sleep', 'personality', 'logical', 'survival', 'controversies', 'porter', 'spoils', 'drunken']
+選擇關鍵詞: ['pressings', 'abelian', 'necklace', 'quietly', 'checkers', 'campers', 'fraud', 'glossy']
+選擇關鍵詞: ['dangles', 'company', 'standout', 'fragrant', 'puerto', 'airline', 'dll', 'functioned']
+選擇關鍵詞: ['descend', 'damon', 'gym', 'presumed', 'benito', 'assert', 'discuss', 'unofficial']
+選擇關鍵詞: ['amendments', 'navigator', 'parasites', 'bradley', 'affluent', 'naples', 'consultation', 'assyrian']
+選擇關鍵詞: ['depressed', 'practiced', 'decree', 'cheer', 'milky', 'engineering', 'breast', 'perverse']
+選擇關鍵詞: ['pun', 'sourced', 'botswana', 'communicated', 'abbreviation', 'shades', 'sells', 'enfield']
+選擇關鍵詞: ['promote', 'petroleum', 'drenching', 'between', 'solos', 'oberlin', 'villain', 'cotton']
+選擇關鍵詞: ['cosy', 'pale', 'averting', 'hookahs', 'unnatural', 'porous', 'vibrating', 'outfit']
+Step 120, Loss: -2.4889, AUC: 0.2468
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['expensive', 'markets', 'currencies', 'unclear', 'martyrdom', 'spawned', 'sticky', 'systematic']
+選擇關鍵詞: ['equity', 'dataset', 'lovers', 'mathis', 'performance', 'pectoral', 'myanmar', 'vowels']
+選擇關鍵詞: ['reassure', 'rahul', 'inertia', 'recommends', 'ouch', 'eternity', 'grubbing', 'misuse']
+選擇關鍵詞: ['clearer', 'inequality', 'occurring', 'filipino', 'voyager', 'adult', 'hat', 'archdiocese']
+選擇關鍵詞: ['demonic', 'ann', 'docile', 'lucky', 'based', 'unclear', 'thunderstorm', 'barrett']
+選擇關鍵詞: ['edith', 'stacked', 'aberdeen', 'screws', 'sewed', 'democrat', 'charley', 'reflections']
+選擇關鍵詞: ['navigation', 'err', 'donating', 'aloof', 'appointment', 'disgrace', 'scalable', 'odessa']
+選擇關鍵詞: ['support', 'pizza', 'waddled', 'heaven', 'hinted', 'tipsy', 'districts', 'search']
+選擇關鍵詞: ['grate', 'address', 'wines', 'childless', 'sock', 'arson', 'grasp', 'background']
+選擇關鍵詞: ['attain', 'bologna', 'beatty', 'spices', 'dodgers', 'mysteriously', 'buddhism', 'reopen']
+Step 130, Loss: -2.7990, AUC: 0.1173
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['persians', 'realization', 'sway', 'hamlet', 'ministry', 'pollock', 'slabs', 'sacks']
+選擇關鍵詞: ['particularly', 'mediated', 'pepper', 'wildest', 'decor', 'owed', 'occasionally', 'chalk']
+選擇關鍵詞: ['fighting', 'truth', 'mates', 'mascots', 'medalist', 'perception', 'repulsed', 'contiguous']
+選擇關鍵詞: ['offering', 'uttereth', 'delegates', 'incredibly', 'warbler', 'decontaminate', 'needed', 'shutting']
+選擇關鍵詞: ['architecture', 'sections', 'fay', 'snoopy', 'consecutive', 'regis', 'minority', 'performers']
+選擇關鍵詞: ['kitten', 'rotor', 'hewn', 'multinational', 'bible', 'weak', 'daydream', 'processors']
+選擇關鍵詞: ['millionaire', 'flanks', 'pipelines', 'meade', 'technique', 'switching', 'classmates', 'irregular']
+選擇關鍵詞: ['buddhism', 'bertrand', 'woolly', 'geoffrey', 'dart', 'rooted', 'gil', 'beth']
+選擇關鍵詞: ['backs', 'icon', 'practices', 'motorcycle', 'battery', 'rode', 'satisfying', 'localities']
+選擇關鍵詞: ['seville', 'sawmill', 'employment', 'sleeps', 'furness', 'confidence', 'kneel', 'scandals']
+Step 140, Loss: -3.7363, AUC: 0.1029
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['roland', 'jeans', 'sculptors', 'houston', 'nylon', 'superstars', 'groundwater', 'vocabulary']
+選擇關鍵詞: ['councillors', 'fearless', 'ambrose', 'putty', 'hernandez', 'possessed', 'nicole', 'shouted']
+選擇關鍵詞: ['noone', 'programmer', 'heelot', 'referee', 'shorty', 'comedic', 'contemporary', 'surprisingly']
+選擇關鍵詞: ['travelled', 'manuscript', 'biking', 'male', 'bench', 'upright', 'kathleen', 'allowed']
+選擇關鍵詞: ['yelling', 'brilliantly', 'logistical', 'compounds', 'urged', 'stamp', 'clair', 'raspberry']
+選擇關鍵詞: ['apprenticeship', 'embankment', 'moments', 'weakling', 'seperated', 'pruning', 'elders', 'noise']
+選擇關鍵詞: ['parkour', 'accompanies', 'farther', 'angels', 'disgust', 'insist', 'reid', 'behold']
+選擇關鍵詞: ['meredith', 'additional', 'replacement', 'regretting', 'shetland', 'passive', 'ronald', 'stone']
+選擇關鍵詞: ['aimed', 'strongly', 'seeking', 'damon', 'crickets', 'concepts', 'fuzzy', 'food']
+選擇關鍵詞: ['forum', 'roadway', 'thor', 'decoration', 'grading', 'karma', 'prince', 'transparency']
+Step 150, Loss: -3.2151, AUC: 0.1181
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['scoring', 'keeper', 'cures', 'dragon', 'hodge', 'hanks', 'topical', 'aberdeen']
+選擇關鍵詞: ['skiers', 'slater', 'proto', 'mailed', 'pit', 'firefox', 'jenny', 'capered']
+選擇關鍵詞: ['stuttgart', 'confounding', 'satisfactory', 'theoretically', 'beans', 'hijack', 'puberty', 'kilometre']
+選擇關鍵詞: ['orioles', 'fiddle', 'hadley', 'assyrian', 'sikh', 'refurbished', 'basis', 'babies']
+選擇關鍵詞: ['pastures', 'coriander', 'unbearable', 'weymouth', 'timidly', 'easton', 'wickets', 'darby']
+選擇關鍵詞: ['medley', 'leanne', 'tree', 'tattoos', 'gilbert', 'wyatt', 'jumpers', 'games']
+選擇關鍵詞: ['cherish', 'monthly', 'increases', 'mongols', 'invariant', 'fixture', 'lori', 'climb']
+選擇關鍵詞: ['palaces', 'expeditions', 'outlined', 'disappear', 'stretching', 'healer', 'disciplines', 'carolina']
+選擇關鍵詞: ['deane', 'chester', 'pause', 'reports', 'silent', 'bends', 'sail', 'awed']
+選擇關鍵詞: ['ramirez', 'sorrow', 'alaska', 'royalty', 'aged', 'proto', 'emerge', 'funded']
+Step 160, Loss: -2.4314, AUC: 0.1284
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['fewer', 'bosnia', 'phenomena', 'behave', 'planting', 'gel', 'acres', 'contributing']
+選擇關鍵詞: ['loosely', 'lime', 'ozark', 'gilbert', 'tracts', 'iconography', 'big', 'graveyard']
+選擇關鍵詞: ['prestigious', 'weaken', 'maximize', 'mattered', 'generalization', 'matthews', 'penguins', 'tibet']
+選擇關鍵詞: ['sneaking', 'cap', 'penguins', 'round', 'braces', 'melancholy', 'worshipped', 'jan']
+選擇關鍵詞: ['best', 'rainforests', 'hicks', 'needed', 'repertoire', 'hardest', 'divorce', 'webster']
+選擇關鍵詞: ['ronaldo', 'job', 'treasures', 'soluble', 'beatrice', 'speeches', 'ethical', 'journeyman']
+選擇關鍵詞: ['frequency', 'watford', 'tasmanian', 'bob', 'cook', 'banners', 'assembled', 'confusing']
+選擇關鍵詞: ['dryer', 'democrat', 'wreck', 'fires', 'remembers', 'newt', 'defendants', 'info']
+選擇關鍵詞: ['norwegia', 'fortress', 'fashioned', 'uncomfortable', 'fuzzy', 'puts', 'phobia', 'trenton']
+選擇關鍵詞: ['speak', 'resided', 'dangerous', 'stylized', 'asylum', 'vibrant', 'summit', 'seekers']
+Step 170, Loss: -2.2182, AUC: 0.1676
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['anaheim', 'decca', 'assisting', 'nora', 'borough', 'miami', 'tending', 'attacker']
+選擇關鍵詞: ['blouse', 'least', 'disgust', 'witch', 'southampton', 'hostilities', 'confined', 'antrim']
+選擇關鍵詞: ['ending', 'ineffective', 'detonation', 'adulthood', 'exceeded', 'alteration', 'dave', 'chatting']
+選擇關鍵詞: ['his', 'rare', 'igor', 'surrounds', 'mixed', 'baldwin', 'slim', 'deserves']
+選擇關鍵詞: ['smile', 'instruction', 'prevented', 'knox', 'upton', 'delete', 'backbone', 'perform']
+選擇關鍵詞: ['response', 'tama', 'starch', 'friendship', 'duran', 'lungs', 'bust', 'giles']
+選擇關鍵詞: ['husky', 'nichols', 'ambiguity', 'casually', 'lattice', 'lawsuit', 'granada', 'braggers']
+選擇關鍵詞: ['ray', 'gideon', 'inherently', 'gravitational', 'monthly', 'ismail', 'coloring', 'refreshed']
+選擇關鍵詞: ['morrow', 'lifelike', 'researched', 'anatomy', 'johannes', 'absolutely', 'infant', 'struggled']
+選擇關鍵詞: ['patio', 'liv', 'title', 'ticked', 'tricking', 'adolf', 'building', 'romani']
+Step 180, Loss: -0.7516, AUC: 0.1383
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['robots', 'kingship', 'disappearing', 'parishes', 'alphabetically', 'exhausted', 'beaver', 'capture']
+選擇關鍵詞: ['accelerating', 'steamroller', 'triangles', 'calling', 'displayed', 'anticipated', 'await', 'colder']
+選擇關鍵詞: ['compliment', 'jockey', 'gigs', 'waistline', 'exists', 'headcloth', 'starr', 'renaming']
+選擇關鍵詞: ['vine', 'agony', 'jonathan', 'affiliation', 'ballot', 'silently', 'worries', 'opera']
+選擇關鍵詞: ['masks', 'kindness', 'promising', 'pegasus', 'gaius', 'conjecture', 'neoclassical', 'textbook']
+選擇關鍵詞: ['speculate', 'colourful', 'refused', 'centennial', 'francophone', 'freshly', 'layer', 'tunnels']
+選擇關鍵詞: ['designer', 'wells', 'latex', 'guarantee', 'describe', 'waldorf', 'vitamins', 'hines']
+選擇關鍵詞: ['hatching', 'blessing', 'fetal', 'cryptography', 'glossy', 'communities', 'organizer', 'ernest']
+選擇關鍵詞: ['turbulent', 'flea', 'organise', 'buy', 'participated', 'downfall', 'magnus', 'receipt']
+選擇關鍵詞: ['establishment', 'fermi', 'beacon', 'confidence', 'forearmed', 'renew', 'associated', 'reeves']
+Step 190, Loss: -3.3636, AUC: 0.1013
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['taunted', 'dwellings', 'scout', 'berkshire', 'haile', 'wrestling', 'woodlands', 'diffuse']
+選擇關鍵詞: ['augustine', 'cromwell', 'ralph', 'calcutta', 'locke', 'battery', 'pasha', 'disappeared']
+選擇關鍵詞: ['wheeled', 'striking', 'register', 'bordeaux', 'mechanics', 'garb', 'compassion', 'lit']
+選擇關鍵詞: ['nicknamed', 'assure', 'fraudulent', 'fuck', 'restarted', 'announcer', 'grimly', 'uncommon']
+選擇關鍵詞: ['selfie', 'undertow', 'faintly', 'regency', 'quantified', 'baird', 'respectively', 'colder']
+選擇關鍵詞: ['secretariat', 'wickets', 'freeware', 'skaters', 'aldo', 'attachment', 'acceptance', 'official']
+選擇關鍵詞: ['alien', 'sorting', 'changed', 'mid', 'brewer', 'tomorrows', 'stalks', 'sewing']
+選擇關鍵詞: ['updated', 'footprint', 'saving', 'pleasing', 'outlying', 'professional', 'let', 'daphne']
+選擇關鍵詞: ['registration', 'butt', 'balancing', 'joke', 'lords', 'vending', 'sketching', 'waived']
+選擇關鍵詞: ['nutrition', 'laredo', 'hostage', 'ruler', 'derelict', 'sheltered', 'nadia', 'owens']
+Step 200, Loss: -3.0448, AUC: 0.1174
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['entrepreneurs', 'impatient', 'initiative', 'mozzarella', 'major', 'luzon', 'sims', 'facilities']
+選擇關鍵詞: ['farm', 'tommy', 'nassau', 'sliced', 'shady', 'lobster', 'chevrolet', 'sorts']
+選擇關鍵詞: ['dinosaurs', 'abide', 'largely', 'heidelberg', 'waltz', 'chesapeake', 'cairn', 'open']
+選擇關鍵詞: ['recognise', 'valid', 'faltered', 'cups', 'youth', 'hillside', 'grassland', 'roulette']
+選擇關鍵詞: ['violent', 'possibly', 'jagged', 'detritus', 'medici', 'lori', 'reformation', 'catalysts']
+選擇關鍵詞: ['perceptual', 'unravel', 'viruses', 'tribal', 'sheets', 'monterey', 'vaccine', 'distinguished']
+選擇關鍵詞: ['draft', 'lily', 'tuberculosis', 'bankers', 'bicyclist', 'elation', 'uttered', 'pack']
+選擇關鍵詞: ['valuable', 'martyrdom', 'hastily', 'scary', 'scouts', 'victims', 'knocks', 'audit']
+選擇關鍵詞: ['romanticism', 'modifying', 'obedience', 'covering', 'gardeners', 'refugees', 'westward', 'moderate']
+選擇關鍵詞: ['annexation', 'lemonade', 'authorised', 'ornament', 'mania', 'monarchy', 'selenium', 'citadel']
+Step 210, Loss: -2.1987, AUC: 0.2310
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['wildcat', 'noone', 'perfection', 'rebellious', 'sidney', 'block', 'harbour', 'maria']
+選擇關鍵詞: ['paced', 'proof', 'equator', 'mend', 'prey', 'printing', 'karl', 'loyal']
+選擇關鍵詞: ['scientists', 'analog', 'boom', 'mccarthy', 'convict', 'lao', 'could', 'reconciled']
+選擇關鍵詞: ['jack', 'conducting', 'overthrow', 'emergence', 'climber', 'educational', 'disturbingly', 'transmitted']
+選擇關鍵詞: ['plug', 'ozark', 'accounted', 'policy', 'otters', 'nighttime', 'bulk', 'report']
+選擇關鍵詞: ['walled', 'recommended', 'bother', 'timber', 'waistcoat', 'spectacles', 'casual', 'sophie']
+選擇關鍵詞: ['noel', 'outrage', 'particles', 'ludicrous', 'marrow', 'risky', 'somewhat', 'gomez']
+選擇關鍵詞: ['gibbons', 'manuel', 'blend', 'actor', 'slope', 'eager', 'sedimentary', 'adding']
+選擇關鍵詞: ['slogan', 'effects', 'skateboarding', 'andersen', 'facility', 'tinsel', 'sparse', 'wanderers']
+選擇關鍵詞: ['gules', 'sprouted', 'neoclassical', 'degrees', 'meiji', 'flashlight', 'played', 'ballads']
+Step 220, Loss: -2.6976, AUC: 0.1626
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['howell', 'hardwood', 'lincoln', 'syracuse', 'emperors', 'hourly', 'rahman', 'playstation']
+選擇關鍵詞: ['assertion', 'wonderfulness', 'sorcerer', 'computationally', 'orchid', 'sediments', 'cellphone', 'otago']
+選擇關鍵詞: ['algebras', 'exquisite', 'polls', 'monday', 'nighttime', 'configured', 'honors', 'planetary']
+選擇關鍵詞: ['destined', 'dell', 'spreading', 'josh', 'askew', 'pajamas', 'capture', 'circle']
+選擇關鍵詞: ['criticised', 'trick', 'nobel', 'gourmet', 'survival', 'landmark', 'cabbage', 'compensated']
+選擇關鍵詞: ['floor', 'controllers', 'oswego', 'predictions', 'dick', 'cloth', 'permanent', 'milkshake']
+選擇關鍵詞: ['mistakenly', 'progressively', 'stub', 'easton', 'continuity', 'marseille', 'saul', 'snatched']
+選擇關鍵詞: ['madras', 'decrease', 'appeared', 'contemporaries', 'uncanny', 'czechoslovakia', 'phosphorus', 'sustained']
+選擇關鍵詞: ['modular', 'amiable', 'vertical', 'suitcases', 'following', 'ourselves', 'eastward', 'takes']
+選擇關鍵詞: ['harrisburg', 'stephanie', 'lemonade', 'fair', 'deco', 'pottery', 'induce', 'disposes']
+Step 230, Loss: -4.4299, AUC: 0.0743
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['serviced', 'murmured', 'you’re', 'haynes', 'apprehended', 'obliged', 'climbs', 'romantic']
+選擇關鍵詞: ['hogan', 'phd', 'reluctantly', 'immensely', 'chipotle', 'testing', 'explanations', 'griffith']
+選擇關鍵詞: ['github', 'researching', 'corner', 'ada', 'elects', 'rockville', 'carpets', 'juggling']
+選擇關鍵詞: ['hydraulic', 'james', 'austere', 'beach', 'textiles', 'pickup', 'emma', 'acronym']
+選擇關鍵詞: ['permission', 'gull', 'complaints', 'amtrak', 'viewers', 'mons', 'latitude', 'zoological']
+選擇關鍵詞: ['hoped', 'fascination', 'courtroom', 'subsections', 'implement', 'sightings', 'sumatra', 'mankind']
+選擇關鍵詞: ['ballerina', 'steven', 'brunswick', 'proclamation', 'tally', 'bulls', 'uranium', 'drained']
+選擇關鍵詞: ['refund', 'sometimes', 'melrose', 'becker', 'ferries', 'solids', 'stems', 'freight']
+選擇關鍵詞: ['taken', 'eliminates', 'traversed', 'muff', 'athletic', 'antarctica', 'death', 'soldering']
+選擇關鍵詞: ['climbers', 'effort', 'coinage', 'unusually', 'allen', 'sporadic', 'dreaming', 'renaissance']
+Step 240, Loss: -3.6555, AUC: 0.1362
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['dolly', 'vital', 'beatrice', 'fame', 'bells', 'civilians', 'blaine', 'widened']
+選擇關鍵詞: ['consistently', 'rings', 'decor', 'headlights', 'timor', 'helmets', 'outfit', 'barefoot']
+選擇關鍵詞: ['computer', 'skate', 'hannelore', 'cyril', 'shafts', 'north', 'quick', 'voted']
+選擇關鍵詞: ['cabaret', 'coleman', 'decatur', 'splinter', 'dog', 'utrecht', 'obelisk', 'impounded']
+選擇關鍵詞: ['ebb', 'protesters', 'pants', 'prioritizing', 'subjected', 'pulp', 'giuseppe', 'ivy']
+選擇關鍵詞: ['specifies', 'gloucestershire', 'nazis', 'carvings', 'squadron', 'cobs', 'reused', 'surfaced']
+選擇關鍵詞: ['horn', 'honorable', 'amused', 'longer', 'yankees', 'siemens', 'erickson', 'stimulation']
+選擇關鍵詞: ['jody', 'convicts', 'maitland', 'considered', 'plaque', 'obviously', 'cut', 'caves']
+選擇關鍵詞: ['mafia', 'petunias', 'syndicated', 'devon', 'cain', 'marker', 'snowboarding', 'sloan']
+選擇關鍵詞: ['keyword', 'oasis', 'covering', 'belonged', 'underworld', 'intentionally', 'retreats', 'planetary']
+Step 250, Loss: -1.0350, AUC: 0.1601
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['marred', 'cooler', 'term', 'cinema', 'anatomy', 'border', 'mysteries', 'punish']
+選擇關鍵詞: ['processors', 'aquatic', 'centennial', 'energetic', 'fernandez', 'academies', 'doctor', 'deserted']
+選擇關鍵詞: ['vertex', 'collegiate', 'satisfied', 'return', 'unofficial', 'sandstorm', 'urim', 'cultural']
+選擇關鍵詞: ['soak', 'parishioners', 'gussie', 'lillian', 'welding', 'calvin', 'redmond', 'pulsate']
+選擇關鍵詞: ['offscreen', 'sonora', 'cornelia', 'kannada', 'hogan', 'whitish', 'badminton', 'excavations']
+選擇關鍵詞: ['back', 'elevator', 'specialize', 'institute', 'leyland', 'sleeper', 'squirrel', 'descendant']
+選擇關鍵詞: ['cynical', 'product', 'wanted', 'moisture', 'spectacular', 'unpublished', 'postpone', 'gulf']
+選擇關鍵詞: ['australia', 'honda', 'lower', 'definition', 'physics', 'curved', 'early', 'planning']
+選擇關鍵詞: ['closes', 'marriage', 'lennox', 'land', 'skins', 'twentieth', 'uncontrolled', 'announcers']
+選擇關鍵詞: ['bradley', 'recent', 'expressway', 'korean', 'cantonese', 'attracts', 'pivot', 'dwarfs']
+Step 260, Loss: -2.3326, AUC: 0.1168
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['heights', 'purpose', 'bye', 'deafened', 'above', 'surfaces', 'pulled', 'sends']
+選擇關鍵詞: ['called', 'race', 'horror', 'sharing', 'murphy', 'daydream', 'hindered', 'chumps']
+選擇關鍵詞: ['faker', 'basement', 'regiments', 'interference', 'steep', 'bluff', 'eponymous', 'dietrich']
+選擇關鍵詞: ['filmmakers', 'biology', 'charmed', 'obsessed', 'continuum', 'roper', 'northwest', 'delivering']
+選擇關鍵詞: ['slang', 'approaches', 'departments', 'overlays', 'carriages', 'garibaldi', 'jaka', 'densely']
+選擇關鍵詞: ['skis', 'fur', 'peak', 'parted', 'economic', 'communities', 'automated', 'mum']
+選擇關鍵詞: ['sensed', 'chefs', 'freshen', 'stockings', 'telegram', 'kits', 'juliet', 'bounced']
+選擇關鍵詞: ['decks', 'concrete', 'protesters', 'dakota', 'grippers', 'chased', 'kann', 'taking']
+選擇關鍵詞: ['cannon', 'tomorrows', 'effort', 'riders', 'tees', 'triumph', 'severity', 'astoria']
+選擇關鍵詞: ['deployment', 'deborah', 'peppered', 'cures', 'play', 'confederates', 'gum', 'abby']
+Step 270, Loss: -1.7920, AUC: 0.1376
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['climber', 'keyboardist', 'priorities', 'cowan', 'organizational', 'bliss', 'cruise', 'whatsoever']
+選擇關鍵詞: ['chop', 'kemp', 'liking', 'counterparts', 'mao', 'inaugural', 'scattered', 'none']
+選擇關鍵詞: ['language', 'reel', 'het', 'clovers', 'clayton', 'abolished', 'frescoes', 'years']
+選擇關鍵詞: ['libel', 'tricking', 'abundance', 'fronts', 'shipping', 'circular', 'fairfax', 'fries']
+選擇關鍵詞: ['tribe', 'seems', 'flooding', 'karachi', 'groundwater', 'colorless', 'peace', 'baseman']
+選擇關鍵詞: ['galilei', 'parentage', 'plywood', 'woodward', 'moscow', 'afford', 'municipal', 'sumner']
+選擇關鍵詞: ['offs', 'relics', 'remarried', 'parishes', 'causeway', 'protest', 'mediocre', 'budapest']
+選擇關鍵詞: ['reproduce', 'injunction', 'reluctantly', 'fonder', 'replay', 'randomization', 'reunited', 'woke']
+選擇關鍵詞: ['andreas', 'exclusive', 'calculating', 'mcgill', 'patents', 'stresses', 'laura', 'flourishing']
+選擇關鍵詞: ['interrogated', 'paula', 'arches', 'grades', 'mccoy', 'oysters', 'leaping', 'manfred']
+Step 280, Loss: -3.0912, AUC: 0.1648
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['degrees', 'campground', 'fathers', 'tremendously', 'parliamentary', 'battled', 'mann', 'illustrations']
+選擇關鍵詞: ['colorado', 'danced', 'temporal', 'externalities', 'accountants', 'longfellow', 'sleeve', 'fringe']
+選擇關鍵詞: ['society', 'spectacle', 'assign', 'diocese', 'joel', 'bucks', 'patriots', 'graduate']
+選擇關鍵詞: ['taskbar', 'rentals', 'vicinity', 'whittemore', 'swell', 'ferris', 'delayed', 'teacher']
+選擇關鍵詞: ['multitude', 'shillings', 'hasty', 'pads', 'alton', 'wilkes', 'holden', 'finish']
+選擇關鍵詞: ['operate', 'frightened', 'density', 'yarn', 'detained', 'pope', 'comrades', 'trial']
+選擇關鍵詞: ['snowballs', 'pang', 'knowing', 'grip', 'orlando', 'asteroid', 'claudius', 'persuasion']
+選擇關鍵詞: ['knight', 'theoretically', 'plasma', 'waxed', 'intensified', 'workflow', 'horace', 'turing']
+選擇關鍵詞: ['inspiring', 'tool', 'materials', 'composers', 'bedtime', 'japanese', 'irresponsible', 'hodge']
+選擇關鍵詞: ['advert', 'pullman', 'farthing', 'bennington', 'preached', 'chambers', 'harrisburg', 'premium']
+Step 290, Loss: -2.2863, AUC: 0.1281
+  -> alpha=10.0000, beta=-4.0000
+選擇關鍵詞: ['fumes', 'copied', 'turnbull', 'grating', 'veils', 'row', 'vehicular', 'obscene']
+選擇關鍵詞: ['brightening', 'arizona', 'intensely', 'stormed', 'maintenance', 'collaborators', 'taped', 'teamed']
+選擇關鍵詞: ['absorb', 'mozzarella', 'pecan', 'tricking', 'gilbert', 'advertisement', 'prod', 'carrington']

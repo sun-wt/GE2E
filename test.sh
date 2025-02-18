@@ -9,14 +9,14 @@ mkdir -p $results_dir
 python test.py \
   --data_dir "/datas/store162/syt/GE2E/DB/google_speech_commands" \
   --results_dir $results_dir \
-  --enroll_path "./DB/enroll.pkl" \
-  --test_path "./DB/test.pkl" \
+  --enroll_path "./DB/shuffle_enroll.pkl" \
+  --test_path "./DB/shuffle_test.pkl" \
   --model_type "tiny" \
-  --checkpoint_path "./checkpoints/20250126_144154/epoch_5.pt" \
+  --checkpoint_path "./checkpoints/20250217_161556/epoch_10.pt" \
   --input_dim 40 \
   --encoder_dim 256 \
-  --num_encoder_layers 2 \
-  --num_attention_heads 2 \
+  --num_encoder_layers 4 \
+  --num_attention_heads 4 \
   | tee "$results_dir/evaluation.log"
 
 det_curves_path=$(find . -type d -name "det_curves" | head -n 1)
